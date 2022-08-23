@@ -1,0 +1,41 @@
+.Cards{
+    &__container{
+        width: 90vw;
+        height: 27vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        &__card{
+            height: 60%;
+            width: 22%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #EDF2F4;
+            border-radius: 10px;
+
+            &__number{
+                font-size: 35px;
+                margin: 0;
+                height: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                letter-spacing: 1.12px;
+            }
+            &__label{
+                font-size: 18px;
+                letter-spacing: 1.12px;
+                margin: 0;
+                height: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-transform: capitalize;
+
+            }
+        }
+    }
+}
