@@ -65,17 +65,24 @@ const Cards = () => {
 
   return (
     <div className="Cards__container">
-      <div className="Cards__container__card">
-        <p className="Cards__container__card__number">{competitions}</p>
-        <p className="Cards__container__card__label">Competizioni</p>
+      <p className="Cards__container__label">Sommario</p>
+      <div className="Cards__container__cardsContainer">
+      <div className="Cards__container__cardsContainer__card">
+        <p className="Cards__container__cardsContainer__card__number">{competitions}</p>
+        <p className="Cards__container__cardsContainer__card__label">Competizioni</p>
       </div>
-      <div className="Cards__container__card">
-        <p className="Cards__container__card__number">{teams}</p>
-        <p className="Cards__container__card__label">squadre</p>
+      <div className="Cards__container__cardsContainer__card">
+        <p className="Cards__container__cardsContainer__card__number">{teams}</p>
+        <p className="Cards__container__cardsContainer__card__label">squadre</p>
       </div>
-      <div className="Cards__container__card">
-        <p className="Cards__container__card__number">{players}</p>
-        <p className="Cards__container__card__label">giocatori</p>
+      <div className="Cards__container__cardsContainer__card">
+        <p className="Cards__container__cardsContainer__card__number">{players}</p>
+        <p className="Cards__container__cardsContainer__card__label">giocatori</p>
+      </div>
+      <div className="Cards__container__cardsContainer__card">
+        <p className="Cards__container__cardsContainer__card__number">{competitions}</p>
+        <p className="Cards__container__cardsContainer__card__label">Competizioni</p>
+      </div>
       </div>
     </div>
   );

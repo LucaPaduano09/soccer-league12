@@ -10,13 +10,14 @@ import Sidebar from './components/admin/sidebar/Sidebar';
 import HomeAdmin from './components/admin/home/HomeAdmin';
 import CompetitionSummary from './components/admin/competitionSummary/CompetitionSummary.tsx';
 import Competition from './components/admin/competition/Competition.tsx';
+import TopBar from './components/admin/TopBar/TopBar';
 
 function App() {
   return (
     <Router>
       <div className="app">
       <Switch>
-      <Route path="/admin/tournaments">
+      <Route exact path="/admin/tournaments">
         <Sidebar />
         <CompetitionSummary />
       </Route>
@@ -24,8 +25,9 @@ function App() {
         <Sidebar />
         <Competition />
       </Route>
-      <Route path="/admin">
+      <Route exact path="/admin">
         <Sidebar />
+        <TopBar />
         <HomeAdmin />
       </Route>
         <Route path="/">

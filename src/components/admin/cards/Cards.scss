@@ -1,41 +1,55 @@
-.Cards{
-    &__container{
-        width: 90vw;
-        height: 27vh;
+.Cards {
+  &__container {
+    width: 90vw;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    &__label{
+        width: 100%;
+        text-align: left;
+    }
+    &__cardsContainer{
+        width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-
-        &__card{
-            height: 60%;
-            width: 22%;
+        &__card {
+          height: 60%;
+          width: 22%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+          transition: 0.3s;
+            &:hover{
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+          &__number {
+            font-size: 35px;
+            margin: 0;
+            height: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            background-color: #EDF2F4;
-            border-radius: 10px;
-
-            &__number{
-                font-size: 35px;
-                margin: 0;
-                height: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                letter-spacing: 1.12px;
-            }
-            &__label{
-                font-size: 18px;
-                letter-spacing: 1.12px;
-                margin: 0;
-                height: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-transform: capitalize;
-
-            }
+            letter-spacing: 1.12px;
+          }
+          &__label {
+            font-size: 18px;
+            letter-spacing: 1.12px;
+            margin: 0;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: capitalize;
+          }
         }
     }
+  }
 }

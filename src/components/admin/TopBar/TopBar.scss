@@ -1,0 +1,51 @@
+.TopBar{
+    &__container{
+        height: 70px;
+        width: 90vw;
+        margin-left: 10vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        &__searchContainer{
+            height: 30px;
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 50px;
+            background-color: #e3eff5;
+            border-radius: 5px;
+            &__search{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                &__input{
+                    width: 80%;
+                    background-color: transparent;
+                    border: none;
+                    text-align: center;
+                    &:focus{
+                        outline: none;
+                    }
+                }
+            }
+        }
+        &__profileContainer{
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            
+            &__icon{
+                pointer-events: none;
+                &::after{
+                    content: "V";
+                    margin-left: 10px;
+                    font-size: 10px;
+                    color: #069dbb;
+                }
+            }
+        }
+    }
+}

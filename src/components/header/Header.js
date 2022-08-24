@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Header.scss";
-
+import { Link } from "react-router-dom"
 const Header = () => {
   return (
     <div className="Header__container">
@@ -18,6 +18,9 @@ const Header = () => {
             <img src="./images/instagram.png" alt="social-logo"className="Header__container__social__icon" />
             <img src="./images/twitter.png" alt="social-logo"className="Header__container__social__icon" />
         </div>
+        <Link to="/admin">
+        <div>Admin</div>
+        </Link>
     </div>
   )
 }
