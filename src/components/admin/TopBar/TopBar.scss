@@ -1,51 +1,132 @@
-.TopBar{
-    &__container{
-        height: 70px;
-        width: 90vw;
-        margin-left: 10vw;
+.TopBar {
+  &__container {
+    height: 70px;
+    width: 90vw;
+    margin-left: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__alertsContainer{
+      &__success{
+        border: 1px solid rgb(1, 80, 1);
+        background-color: rgb(113, 190, 106);
+        color: rgb(4, 121, 4);
+        padding: 10px;
+      }
+    }
+
+    &__searchContainer {
+      height: 30px;
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 50px;
+      background-color: #e3eff5;
+      border-radius: 5px;
+      &__search {
+        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        
-        &__searchContainer{
-            height: 30px;
-            width: 30%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 50px;
-            background-color: #e3eff5;
-            border-radius: 5px;
-            &__search{
-                width: 100%;
-                display: flex;
-                align-items: center;
-                &__input{
-                    width: 80%;
-                    background-color: transparent;
-                    border: none;
-                    text-align: center;
-                    &:focus{
-                        outline: none;
-                    }
-                }
-            }
+        &__input {
+          width: 80%;
+          background-color: transparent;
+          border: none;
+          text-align: center;
+          &:focus {
+            outline: none;
+          }
         }
-        &__profileContainer{
-            width: 20%;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            
-            &__icon{
-                pointer-events: none;
-                &::after{
-                    content: "V";
-                    margin-left: 10px;
-                    font-size: 10px;
-                    color: #069dbb;
-                }
-            }
-        }
+      }
     }
+    &__profileContainer {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      &__icon {
+        height: 60px;
+        width: 60px;
+        clip-path: circle();
+      }
+      &__label {
+        &__dropMenu {
+          position: absolute;
+          top: 80px;
+          z-index: 120;
+          height: 50px;
+          width: 300px;
+          background-color: white;
+          box-shadow: 2px 2px 2px 2px solid rgb(255, 255, 255);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+.AddImage {
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.438);
+  }
+  &__container {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    z-index: 1200;
+    border-radius: 10px;
+    box-shadow: 10px 8px 10px 8px rgba(0, 0, 0, 0.144);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    & p {
+      font-size: 30px;
+      text-transform: capitalize;
+    }
+
+    &__close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    &__form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      & input[type=submit]{
+        margin: 60px 0px 30px 0px;
+        background-color: #14213D;
+        color: white;
+        width: 80%;
+        height: 30px;
+        border-radius: 10px;
+      }
+      &__preview {
+        height: 250px;
+        width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &__image {
+          height: 200px;
+          width: 200px;
+          clip-path: circle();
+        }
+      }
+    }
+  }
 }

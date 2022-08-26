@@ -19,6 +19,7 @@ function App() {
       <Switch>
       <Route exact path="/admin/tournaments">
         <Sidebar />
+        <TopBar />
         <CompetitionSummary />
       </Route>
       <Route path="/admin/leghe/:id">

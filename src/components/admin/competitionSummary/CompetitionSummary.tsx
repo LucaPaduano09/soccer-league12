@@ -10,6 +10,9 @@ const CompetitionSummary = () => {
   var teamsNumber = [];
   var firstInRank = [];
   var pointsToBeat = 0
+  const handleToggleModal = () => {
+    toggleModal === false ? setToggleModal(true) : setToggleModal(false);
+  }
   useEffect(() => {
     const getCompetitions = async () => {
       const response = await fetch(
@@ -60,7 +63,7 @@ const CompetitionSummary = () => {
         <p className="CompetitionSummary__container__menu__label">
           Elenco Competizioni
         </p>
-        <div className="CompetitionSummary__container__menu__add">Add</div>
+        <div className="CompetitionSummary__container__menu__add" onClick={()=> handleToggleModal()}>Add</div>
       </div>
       <table className="CompetitionSummary__container__table">
         <thead>
@@ -68,6 +71,7 @@ const CompetitionSummary = () => {
             <td>Competizione</td>
             <td>Squadre</td>
             <td>Capolista</td>
+            <td>Id Torneo</td>
           </th>
         </thead>
         <tbody>
@@ -95,6 +99,7 @@ const CompetitionSummary = () => {
                   })
                   }
                   </td>
+                  <td>{comp.tournamentId}</td>
               </tr>
             );
           })}
