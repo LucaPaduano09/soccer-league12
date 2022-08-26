@@ -52,7 +52,7 @@ const TopBar = () => {
 
   const uploadImage = async (base64EncondedImage, name) => {
     try {
-      await fetch("/api/uploads", {
+      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
         method: "POST",
         body: JSON.stringify({ data: base64EncondedImage, name: name }),
         // mode: "cors",
