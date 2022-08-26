@@ -10,7 +10,7 @@ const Cards = () => {
     const getCompetitions = async () => {
       const response = await fetch("https://soccer-league12.herokuapp.com/competizione", {
         method: "GET",
-        mode: "cors",
+        mode: "no-cors",
         cache: "no-cache",
         credentials: "same-origin",
         headers: {
@@ -27,7 +27,7 @@ const Cards = () => {
     const getTeams = async () => {
         const response = await fetch("https://soccer-league12.herokuapp.com/teams", {
           method: "GET",
-          mode: "cors",
+          mode: "no-cors",
           cache: "no-cache",
           credentials: "same-origin",
           headers: {
@@ -44,7 +44,7 @@ const Cards = () => {
     const getPlayers = async () => {
         const response = await fetch("https://soccer-league12.herokuapp.com/players", {
           method: "GET",
-          mode: "cors",
+          mode: "no-cors",
           cache: "no-cache",
           credentials: "same-origin",
           headers: {
