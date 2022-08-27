@@ -3,98 +3,128 @@ import "./AddModal.scss";
 import axios from "axios";
 
 const AddModal = () => {
-  const [name, setName] = useState("")
-  const [id, setId] = useState("")
-  const [fileInputState, setFileInputState] = useState()
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [fileInputState, setFileInputState] = useState();
   const [previewSource, setPreviewSource] = useState();
 
-  const handleToggleModal = () => {
-  }
+  const handleToggleModal = () => {};
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     previewFile(file);
-  }
+  };
   const previewFile = (file: any) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () =>{
-      setPreviewSource(reader.result)
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+      setFileName(file.name);
+    };
+  };
+  const handleSubmit = (e,fileName) => {
+    e.preventDefault();
+    console.log("submitting...");
+    if (!previewSource) {
+      return;
     }
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault() 
-    console.log('submitting...')
-    if(!previewSource){
-      return
-    } 
-    uploadImage(previewSource);
-  }
-
-  const uploadImage = async (base64EncondedImage) => {
+    uploadImage(previewSource,fileName);
+  };
+  
+  const uploadImage = async (base64EncondedImage,filename) => {
     // console.log(base64EncondedImage)
     try {
-      await fetch('/api/uploads',{
+      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
         method: "POST",
-        body: JSON.stringify({data: base64EncondedImage}),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        body: JSON.stringify({ data: base64EncondedImage, name: name }),
         headers: {
-          'Content-type': 'application/json'
-        }
+          "Content-type": "application/json",
+        },
       })
+      // .then(createLeague(filename,id,filename))
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+  
+  const createLeague = async (name, id, logo) => {
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/competizione/add",
+      {
+        method: "POST",
+        body: JSON.stringify({name:name, logo:logo, tournamentId:id}),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if(!response.ok){
+      window.alert("Something went wrong creating league...")
+    }
+    const result = await response.json()
+    console.log(result);
+  };
 
   return (
     <div className="AddModal__overlay">
       <div className="AddModal__container">
         <div className="AddModal__container__left">
-        <div className="AddModal__container__left__topBanner">
-          <h1 className="AddModal__container__left__topBanner__title">
-            {" "}
-            Aggiungi un Torneo{" "}
-          </h1>
-          <button onClick={()=>handleToggleModal()}>X</button>
-        </div>
-        <div className="AddModal__container__left__formContainer">
-          <form
-          onSubmit={(e)=>handleSubmit(e)}
-          >
-          <input
-            type="text"
-            className="AddModal__container__left__formContainer__input"
-            placeholder="inserisci il nome del torneo"
-            onChange={(e)=> setName(e.target.value)}
-          />
-          <input
-            type="text"
-            className="AddModal__container__left__formContainer__input"
-            placeholder="inserisci id del torneo"
-            onChange={(e)=> setId(e.target.value)}
-          />
-          <input
-            type="file"
-            className="AddModal__container__left__formContainer__input"
-            placeholder="inserisci il logo del torneo"
-            onChange={(e)=> handleFileInputChange(e)}
-            value={fileInputState}
-          />
-          
-          <button
-            type="submit"
-            className="AddModal__container__left__formContainer__input"
-          >
-          </button>
-          </form>
-        </div>
-        </div>
-        <div className="AddModal__container__right">
-          {
-            previewSource && (
-              <img src={previewSource} alt="chosen" style={{height:'300px'}} />
-            )
-          }
+          <div className="AddModal__container__left__topBanner">
+            <h1 className="AddModal__container__left__topBanner__title">
+              {" "}
+              Aggiungi un Torneo{" "}
+            </h1>
+            <button onClick={() => handleToggleModal()}>X</button>
+          </div>
+          <div className="AddModal__container__right">
+            {previewSource && (
+              <img
+                src={previewSource}
+                alt="chosen"
+                className="AddModal__container__right__image"
+              />
+            )}
+            {!previewSource && (
+              <div className="AddModal__container__right__placeholder">
+                <p>Inserire un immagine per visualizzare l'anteprima</p>
+              </div>
+            )}
+          </div>
+          <div className="AddModal__container__left__formContainer">
+            <form onSubmit={(e) => handleSubmit(e,fileName)}>
+              <input
+                type="text"
+                className="AddModal__container__left__formContainer__input"
+                placeholder="inserisci il nome del torneo"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="text"
+                className="AddModal__container__left__formContainer__input"
+                placeholder="inserisci id del torneo"
+                onChange={(e) => setId(e.target.value)}
+              />
+              <input
+                type="file"
+                className="AddModal__container__left__formContainer__input"
+                placeholder="inserisci il logo del torneo"
+                onChange={(e) => handleFileInputChange(e)}
+                value={fileInputState}
+              />
+
+              <input
+                type="submit"
+                className="AddModal__container__left__formContainer__input"
+              ></input>
+            </form>
+          </div>
         </div>
       </div>
     </div>

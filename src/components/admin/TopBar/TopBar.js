@@ -44,6 +44,7 @@ const TopBar = () => {
     e.preventDefault();
     console.log("submitting...");
     if (!previewSource) {
+      console.log("no preview source")
       return;
     }
     uploadImage(previewSource, name);
@@ -55,9 +56,9 @@ const TopBar = () => {
       await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
         method: "POST",
         body: JSON.stringify({ data: base64EncondedImage, name: name }),
-        // mode: "cors",
-        // cache: "no-cache",
-        // credentials: "same-origin",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
         },
