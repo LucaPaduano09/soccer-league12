@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import "./AddModal.scss";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { closeLeagueModal } from "../../../redux/modals"
 
 const AddModal = () => {
-  const [name, setName] = useState("");
+  const [nameLeague, setNameLeague] = useState("");
   const [id, setId] = useState("");
   const [fileName, setFileName] = useState("");
   const [fileInputState, setFileInputState] = useState();
   const [previewSource, setPreviewSource] = useState();
+  const dispatch = useDispatch()
 
-  const handleToggleModal = () => {};
+  const handleCloseModal = () => {
+    dispatch(closeLeagueModal());
+  };
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
+    console.log(file)
     previewFile(file);
   };
   const previewFile = (file: any) => {
@@ -40,12 +46,12 @@ const AddModal = () => {
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
-        body: JSON.stringify({ data: base64EncondedImage, name: name }),
+        body: JSON.stringify({ data: base64EncondedImage, name: nameLeague }),
         headers: {
           "Content-type": "application/json",
         },
       })
-      // .then(createLeague(filename,id,filename))
+      .then(createLeague(nameLeague,id,nameLeague))
     } catch (error) {
       console.log(error);
     }
@@ -67,9 +73,9 @@ const AddModal = () => {
     );
     if(!response.ok){
       window.alert("Something went wrong creating league...")
+    } else {
+
     }
-    const result = await response.json()
-    console.log(result);
   };
 
   return (
@@ -81,7 +87,7 @@ const AddModal = () => {
               {" "}
               Aggiungi un Torneo{" "}
             </h1>
-            <button onClick={() => handleToggleModal()}>X</button>
+            <button className="AddModal__container__closeButton"onClick={() => handleCloseModal()}>X</button>
           </div>
           <div className="AddModal__container__right">
             {previewSource && (
@@ -103,7 +109,7 @@ const AddModal = () => {
                 type="text"
                 className="AddModal__container__left__formContainer__input"
                 placeholder="inserisci il nome del torneo"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setNameLeague(e.target.value)}
               />
               <input
                 type="text"

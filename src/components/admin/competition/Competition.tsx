@@ -6,15 +6,11 @@ const Competition = () => {
   const [teams, setTeams] = useState([]);
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/admin/leghe/", "");
-  const correctTeams = teams.filter((elem: any) => {
-    if (elem.tournamentId === competition.tournamentId) {
-      return elem;
-    }
-  });
+  const correctTeams = teams.filter((elem => elem.tournamentId.toString() === competition.tournamentId))
+  console.log(correctTeams)
   correctTeams
     .sort((a, b) => (a.points > b.points ? 1 : b.points > a.points ? -1 : 0))
     .reverse();
-  console.log(correctTeams);
   useEffect(() => {
     const getCorrectComp = async () => {
       let response = await fetch(
@@ -56,15 +52,15 @@ const Competition = () => {
     };
     getCorrectComp();
     getTeams();
-  }, []);
-  console.log(competition);
+  }, [competition]);
+
   return (
     <div className="Competition__container">
       <div className="Competition__container__topBanner">
         <div className="Competition__container__topBanner__icon">
           {
             //@ts-ignore
-            <img src={competition && competition.logo} alt="comp-icon" />
+            <img src={"https://res.cloudinary.com/dhadbk8ko/image/upload/v1661626970/soccerManage12/" + competition.logo} alt="comp-icon" />
           }
         </div>
         <div className="Competition__container__topBanner__desc">
@@ -99,7 +95,7 @@ const Competition = () => {
               {correctTeams.map((ct: any, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td><img src={ct.logo} alt="logo" style={{marginRight:"10px"}}/>{ct.name}</td>
+                  <td><img className="Competition__container__middleBanner__chartContainer__chart__teamImage" src={ct.logo} alt="logo"/>{ct.name}</td>
                   <td>{ct.points}</td>
                 </tr>
               ))}

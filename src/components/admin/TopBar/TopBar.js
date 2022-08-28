@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { enableMenu, disableMenu } from "../../../redux/menu";
+import { closeAdminFotoModal, openAdminFotoModal } from "../../../redux/modals";
+
 import "./TopBar.scss";
 
 const TopBar = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const showModal = useSelector(state => state.addModal.adminFotoModal)
+  const showMenu = useSelector(state => state.showMenu);
   const [adminProfileImage, setAdminProfileImage] = useState("");
   const [fileName, setFileName] = useState();
   const [previewSource, setPreviewSource] = useState();
@@ -12,19 +16,18 @@ const TopBar = () => {
     state: false,
     status: "failed",
   });
+  const dispatch = useDispatch();
 
-  const handleShowModal = (handleMenuAlso) => {
-    if (handleMenuAlso === true) {
-      handleShowMenu();
-      showModal === true ? setShowModal(false) : setShowModal(true);
-    } else {
-      showModal === true ? setShowModal(false) : setShowModal(true);
-    }
+  const handleShowModal = () => {
+    console.log(showModal);
+      dispatch(disableMenu())
+      dispatch(openAdminFotoModal());
+      console.log(showModal);
   };
+  
   const handleShowMenu = () => {
-    console.log("faccio vedere il menu");
-    showMenu === true ? setShowMenu(false) : setShowMenu(true);
-  };
+    dispatch(enableMenu());
+  }
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -145,8 +148,8 @@ const TopBar = () => {
         </div>
       )}
       <div className="TopBar__container__profileContainer">
-        <p className="TopBar__container__profileContainer__label">Hi, Admin</p>
-        {showMenu && (
+        <p className="TopBar__container__profileContainer__label">Ciao, Admin</p>
+        {showMenu.showMenu === true && (
           <div className="TopBar__container__profileContainer__label__dropMenu">
             <p onClick={() => handleShowModal(true)}>
               Aggiungi una foto profilo
@@ -166,13 +169,13 @@ const TopBar = () => {
           onClick={() => handleShowMenu()}
         />
       </div>
-      {showModal && (
+      {showModal === true && (
         <>
           <div className="AddImage__overlay"></div>
           <div className="AddImage__container">
             <div
               className="AddImage__container__close"
-              onClick={() => handleShowModal(false)}
+              onClick={() => dispatch(closeAdminFotoModal())}
             >
               x
             </div>

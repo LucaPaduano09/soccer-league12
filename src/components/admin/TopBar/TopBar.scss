@@ -7,8 +7,8 @@
     align-items: center;
     justify-content: space-between;
 
-    &__alertsContainer{
-      &__success{
+    &__alertsContainer {
+      &__success {
         border: 1px solid rgb(1, 80, 1);
         background-color: rgb(113, 190, 106);
         color: rgb(4, 121, 4);
@@ -50,6 +50,12 @@
         height: 60px;
         width: 60px;
         clip-path: circle();
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          border: none;
+          transform: scale(1.1);
+        }
       }
       &__label {
         &__dropMenu {
@@ -63,6 +69,9 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          &::before {
+            content: "";
+          }
         }
       }
     }
@@ -96,10 +105,24 @@
       text-transform: capitalize;
     }
 
-    &__close{
-        position: absolute;
-        top: 10px;
-        right: 10px;
+    &__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 25px;
+      height: 25px;
+      background-color: #14213d;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background-color: white;
+        color: #14213d;
+        border: 1px solid #14213d;
+        border-radius: 10px;
+      }
     }
 
     &__form {
@@ -107,13 +130,20 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      & input[type=submit]{
+      & input[type="submit"] {
         margin: 60px 0px 30px 0px;
-        background-color: #14213D;
+        background-color: #14213d;
         color: white;
         width: 80%;
         height: 30px;
         border-radius: 10px;
+        &:hover {
+          cursor: pointer;
+          background-color: white;
+          color: #14213d;
+          border: 1px solid #14213d;
+          border-radius: 10px;
+        }
       }
       &__preview {
         height: 250px;

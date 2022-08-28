@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./CompetitionSummary.scss";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch} from "react-redux";
+import { openLeagueModal } from "../../../redux/modals"
+
 //@ts-ignore
 import AddModal from "../AddModal/AddModal.tsx";
 const CompetitionSummary = () => {
   const [competitions, setCompetitions] = useState([]);
   const [teams, setTeams] = useState([]);
   const [toggleModal, setToggleModal] = useState(false);
+  const showCreateModal = useSelector(state => state.addModal.leagueModal)
+  const dispatch = useDispatch()
   var teamsNumber = [];
   var firstInRank = [];
   var pointsToBeat = 0
-  const handleToggleModal = () => {
-    toggleModal === false ? setToggleModal(true) : setToggleModal(false);
+  console.log(teams)
+  const handleOpenModal = () => {
+    dispatch(openLeagueModal());
   }
   useEffect(() => {
     const getCompetitions = async () => {
@@ -58,29 +64,25 @@ const CompetitionSummary = () => {
 
   return (
     <div className="CompetitionSummary__container">
-      {toggleModal && <AddModal />}
+      {showCreateModal === true && <AddModal />}
       <div className="CompetitionSummary__container__menu">
         <p className="CompetitionSummary__container__menu__label">
           Elenco Competizioni
         </p>
-        <div className="CompetitionSummary__container__menu__add" onClick={()=> handleToggleModal()}>Add</div>
+        <div className="CompetitionSummary__container__menu__add" onClick={()=> dispatch(openLeagueModal())}>Add</div>
       </div>
       <table className="CompetitionSummary__container__table">
         <thead>
           <th>
             <td>Competizione</td>
             <td>Squadre</td>
-            <td>Capolista</td>
             <td>Id Torneo</td>
           </th>
         </thead>
         <tbody>
           {competitions.map((comp: any) => {
             //@ts-ignore
-            teamsNumber = teams.filter((elem: any) => {
-              return elem.tournamentId === comp.tournamentId;
-            });
-            console.log(teamsNumber)
+            teamsNumber = teams.filter(team => team.tournamentId.toString() === comp.tournamentId)
             return (
               <tr>
                 <td>
@@ -89,17 +91,7 @@ const CompetitionSummary = () => {
                   </Link>
                 </td>
                 <td>{teamsNumber.length}</td>
-                <td>
-                  {
-                  teamsNumber.map((tn:any) =>{
-                    if( tn.points > pointsToBeat ){
-                      pointsToBeat = tn.points;
-                      return tn.name
-                    }
-                  })
-                  }
-                  </td>
-                  <td>{comp.tournamentId}</td>
+                <td>{comp.tournamentId}</td>
               </tr>
             );
           })}

@@ -24,6 +24,7 @@ function App() {
       </Route>
       <Route path="/admin/leghe/:id">
         <Sidebar />
+        <TopBar />
         <Competition />
       </Route>
       <Route exact path="/admin">
