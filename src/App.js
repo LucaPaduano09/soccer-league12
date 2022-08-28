@@ -11,6 +11,7 @@ import HomeAdmin from './components/admin/home/HomeAdmin';
 import CompetitionSummary from './components/admin/competitionSummary/CompetitionSummary.tsx';
 import Competition from './components/admin/competition/Competition.tsx';
 import TopBar from './components/admin/TopBar/TopBar';
+import AdminLogin from './components/admin/Login/AdminLogin.tsx';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         <Sidebar />
         <TopBar />
         <CompetitionSummary />
+      </Route>
+      <Route path="/admin/login">
+        <AdminLogin />
       </Route>
       <Route path="/admin/leghe/:id">
         <Sidebar />

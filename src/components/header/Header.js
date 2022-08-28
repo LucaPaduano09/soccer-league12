@@ -18,7 +18,7 @@ const Header = () => {
             <img src="./images/instagram.png" alt="social-logo"className="Header__container__social__icon" />
             <img src="./images/twitter.png" alt="social-logo"className="Header__container__social__icon" />
         </div>
-        <Link to="/admin">
+        <Link to="/admin/login">
         <div>Admin</div>
         </Link>
     </div>

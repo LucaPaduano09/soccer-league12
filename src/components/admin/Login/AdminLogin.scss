@@ -1,0 +1,56 @@
+.AdminLogin{
+    &__container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: url("../../../../public/images/admin-login-background.jpg");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        & h1{
+            color: #14213D;
+            text-transform: capitalize;
+        }
+        &__wrapper{
+            height: 35%;
+            width: 35%;
+            
+            &__form{
+                height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                flex-direction: column;
+                background-color: rgba(255, 255, 255, 0.081);
+                box-shadow: 2px 2px 2px 2px #14213da2;
+                border-radius: 10px;
+
+                &__input{
+                    width: 80%;
+                    height: 15%;
+                    border-radius: 10px;
+                    border: 1px solid #14213D;;
+                    text-align: center;
+                    color: #14213D;
+                }
+                &__inputSubmit{
+                    width: 80%;
+                    height: 15%;
+                    border-radius: 10px;
+                    border: 1px solid #14213D;
+                    background-color: #14213D;
+                    color: white;
+                    &:hover{
+                        cursor: pointer;
+                        background-color: white;
+                        color: #14213D;
+                    }
+                }
+            }
+        }
+    }
+}
