@@ -10,15 +10,15 @@ const HomeAdmin = () => {
   const logged = useSelector(state => state.adminLogged.logged);
   let history = useHistory();
 
-  // useEffect(()=>{
-  //   const checkLogged = () => {
-  //     console.log(read_cookie("adminLogged"));
-  //     if(read_cookie("adminLogged").length === 0){
-  //       history.push('/admin/login')
-  //     }
-  //   }
-  //   checkLogged()
-  // },[])
+  useEffect(()=>{
+    const checkLogged = () => {
+      console.log(read_cookie("adminLogged"));
+      if(read_cookie("adminLogged").length === 0){
+        history.push('/admin/login')
+      }
+    }
+    checkLogged()
+  },[])
 
   return (
     <div className="Home__container">
