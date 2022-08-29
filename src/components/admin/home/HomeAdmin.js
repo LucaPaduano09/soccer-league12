@@ -18,7 +18,7 @@ const HomeAdmin = () => {
       }
     }
     checkLogged()
-  })
+  },[])
   return (
     <div className="Home__container">
         <Cards />
