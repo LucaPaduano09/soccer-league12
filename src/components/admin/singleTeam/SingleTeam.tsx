@@ -52,8 +52,7 @@ const SingleTeam = () => {
       console.log("no preview source")
       return;
     }
-    uploadImage(previewSource, name);
-    uploadTeam(newName, fileName, newPoints);
+    uploadImage(previewSource, fileName.replace(" ", "%20"));
     window.location.reload()
   };
 
@@ -68,16 +67,17 @@ const SingleTeam = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      })
+      }).then(uploadTeam(newName, fileName, newPoints));
     } catch (error) {
       console.log(error);
     }
   };
 
   const uploadTeam = async (newName, newLogo, newPoints) => {
+    console.log(JSON.stringify({name: newName, logo: newLogo, points: newPoints}))
     const response = await fetch('https://soccer-league12.herokuapp.com/teams/'+ id,{
         method:"POST",
-        body: JSON.stringify({name:newName, logo: newLogo, points: newPoints}),
+        body: JSON.stringify({name:newName, logo: "https://res.cloudinary.com/dhadbk8ko/image/upload/v1661761515/soccerManage12/" + newLogo.replace(" ", "%20"), points: newPoints}),
         mode:"cors",
         cache:"no-cache",
         headers:{
@@ -158,7 +158,7 @@ const SingleTeam = () => {
     <div className="SingleTeam__container">
       <div className="SingleTeam__container__topBanner">
         <div className="SingleTeam__container__topBanner__image">
-          <img src={team.logo} />
+          <img src={team.logo + ".png"} />
           <div className="SingleTeam__container__topBanner_menu">
             <button onClick={() => dispatch(openModifyTeamModal())}>Modifica</button>
             <button onClick={() => dispatch(openDeleteTeamModal())}>
