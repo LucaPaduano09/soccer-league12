@@ -34,7 +34,7 @@ const AdminLogin = () => {
         if(read_cookie("adminLogged")){
             history.push("/admin")
         }
-    })
+    },[])
 
   return (
     <div className="AdminLogin__container">
