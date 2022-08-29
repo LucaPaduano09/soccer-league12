@@ -53,7 +53,7 @@ const SingleTeam = () => {
       return;
     }
     uploadImage(previewSource, fileName.replace(" ", "%20"));
-    window.location.reload()
+    // window.location.reload()
   };
 
   const uploadImage = async (base64EncondedImage, name) => {
