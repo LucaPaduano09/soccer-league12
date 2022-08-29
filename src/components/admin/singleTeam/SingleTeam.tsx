@@ -53,6 +53,7 @@ const SingleTeam = () => {
       return;
     }
     uploadImage(previewSource, name);
+    uploadTeam(newName, fileName, newPoints);
     window.location.reload()
   };
 

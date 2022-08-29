@@ -55,7 +55,7 @@ const TopBar = () => {
     uploadImage(previewSource, name);
     handleShowModal(false);
     dispatch(closeAdminFotoModal());
-    // window.location.reload()
+    window.location.reload()
   };
 
   const uploadImage = async (base64EncondedImage, name) => {
