@@ -1,14 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import "./AdminLogin.scss"
 import { useSelector, useDispatch} from "react-redux";
 import { login } from '../../../redux/adminLogged';
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
 const AdminLogin = () => {
     const [adminUser, setAdminUser] = useState("");
     const [adminPwd, setAdminPwd] = useState("");
     const history = useHistory()
     const dispatch = useDispatch();
+    const cookie_key = 'adminLogged';
 
     const checkForLogin = (e,name:string,pwd:string) => {
         e.preventDefault();
@@ -17,6 +19,7 @@ const AdminLogin = () => {
             if(pwd === process.env.REACT_APP_ADMIN_PWD){
                 console.log("password valida: " + process.env.REACT_APP_ADMIN_PWD)
                 dispatch(login());
+                bake_cookie(cookie_key, true);
                 history.push("/admin")
             } else {
                 window.alert("la password inserita non e' corretta")
@@ -25,6 +28,13 @@ const AdminLogin = () => {
             window.alert('username inserito non corretto')
         }
     }
+
+    useEffect(()=>{
+        console.log(read_cookie("adminLogged"));
+        if(read_cookie("adminLogged")){
+            history.push("/admin")
+        }
+    })
 
   return (
     <div className="AdminLogin__container">

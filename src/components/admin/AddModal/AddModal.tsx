@@ -8,8 +8,8 @@ const AddModal = () => {
   const [nameLeague, setNameLeague] = useState("");
   const [id, setId] = useState("");
   const [fileName, setFileName] = useState("");
-  const [fileInputState, setFileInputState] = useState();
   const [previewSource, setPreviewSource] = useState();
+  const [fileInputState, setFileInputState] = useState();
   const dispatch = useDispatch()
 
   const handleCloseModal = () => {

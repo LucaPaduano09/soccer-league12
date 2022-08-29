@@ -25,7 +25,7 @@ const Sidebar = () => {
         </div>
         <div className={"Sidebar__container__menu__option" + (isActiveTeams ? "__withActive" : "")}>
           <img src="/images/team.png" alt="" />
-          <Link to="/">
+          <Link to="/admin/teams">
             <p>Squadre</p>
           </Link>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Competition.scss";
+import { Link } from "react-router-dom"
 
 const Competition = () => {
   const [competition, setCompetition] = useState({});
@@ -57,6 +58,12 @@ const Competition = () => {
   return (
     <div className="Competition__container">
       <div className="Competition__container__topBanner">
+        <div className="Competition__container__topBanner__back">
+        <Link to="/admin/tournaments">
+          <p>Torna alle leghe</p>
+        </Link>
+        </div>
+        
         <div className="Competition__container__topBanner__icon">
           {
             //@ts-ignore

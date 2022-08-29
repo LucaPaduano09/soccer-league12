@@ -12,12 +12,26 @@ import CompetitionSummary from './components/admin/competitionSummary/Competitio
 import Competition from './components/admin/competition/Competition.tsx';
 import TopBar from './components/admin/TopBar/TopBar';
 import AdminLogin from './components/admin/Login/AdminLogin.tsx';
+import Teams from './components/admin/Teams/Teams.tsx';
+import SingleTeam from './components/admin/singleTeam/SingleTeam.tsx';
 
 function App() {
   return (
     <Router>
       <div className="app">
       <Switch>
+      <Route path="/admin/teams">
+        <Sidebar />
+        <TopBar />
+        <Teams />
+      </Route>
+
+      <Route path="/admin/team/:id">
+        <Sidebar /> 
+        <TopBar />
+        <SingleTeam />
+      </Route>
+
       <Route exact path="/admin/tournaments">
         <Sidebar />
         <TopBar />

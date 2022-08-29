@@ -1,0 +1,153 @@
+.SingleTeam {
+  &__container {
+    width: 90vw;
+    min-height: calc(100vh - 70px);
+    margin-left: 10vw;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='40' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0,0%,100%,1)'/><path d='M15 5h10v30H15zM35-5V5H5V-5zM35 35v10H5V35zM35-15h10v30H35zM55 15v10H25V15zM15 15v10h-30V15zM35 25h10v30H35zM-5 25H5v30H-5zM-5-15H5v30H-5z'  stroke-width='1' stroke='hsla(0, 0%, 90%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
+    background-color: #e5e5e5;
+    &__topBanner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      &__image {
+        width: 590px;
+        height: 590px;
+        & img {
+          // clip-path: circle();
+          border-radius: 10px;
+          width: 590px;
+          height: 590px;
+        }
+      }
+      &_menu {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        & button {
+          margin-right: 10px;
+          border-radius: 10px;
+          background-color: #14213d;
+          color: white;
+          &:hover {
+            cursor: pointer;
+            background-color: white;
+            color: #14213d;
+            border: 1px solid #14213d;
+            border-radius: 10px;
+          }
+        }
+      }
+      &__desc {
+        color: #14213d;
+        & table {
+          background-color: white;
+          width: 500px;
+        }
+        & th {
+          width: 100%;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          background-color: white;
+          color: #14213d;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // border-bottom: 1px solid black;
+          & td {
+            height: 100%;
+            width: 25vw;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        & tr {
+          height: 97px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          border-bottom: 1px solid #14213d;
+          border-radius: 10px;
+
+          & td {
+            height: 100%;
+            width: 25vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+    &__modal {
+      &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: #14213d8a;
+        z-index: 101;
+      }
+      &__container {
+        position: absolute;
+        z-index: 102;
+        top: 25%;
+        left: 30%;
+        min-height: 38vh;
+        width: 40vw;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.39);
+        & form {
+          display: flex;
+          padding: 20px 0px;
+          align-items: center;
+          justify-content: space-evenly;
+          flex-direction: column;
+          min-height: 35vh;
+          & h1,
+          p {
+            margin: 0;
+          }
+          & p {
+            width: 300px;
+          }
+          & input {
+            width: 300px;
+            border-radius: 10px;
+            border: 1px solid black;
+            text-align: center;
+            height: 30px;
+            &:focus {
+              outline: none;
+            }
+          }
+          & input[type="submit"] {
+            border-radius: 10px;
+            background-color: #14213d;
+            color: white;
+            height: 30px;
+            transition: all 0.2s ease-in-out;
+
+            &:hover {
+              cursor: pointer;
+              background-color: white;
+              color: #14213d;
+              border: 1px solid #14213d;
+              border-radius: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,12 +9,10 @@ import AddModal from "../AddModal/AddModal.tsx";
 const CompetitionSummary = () => {
   const [competitions, setCompetitions] = useState([]);
   const [teams, setTeams] = useState([]);
-  const [toggleModal, setToggleModal] = useState(false);
   const showCreateModal = useSelector(state => state.addModal.leagueModal)
   const dispatch = useDispatch()
   var teamsNumber = [];
-  var firstInRank = [];
-  var pointsToBeat = 0
+
   console.log(teams)
   const handleOpenModal = () => {
     dispatch(openLeagueModal());

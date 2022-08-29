@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { enableMenu, disableMenu } from "../../../redux/menu";
 import { closeAdminFotoModal, openAdminFotoModal } from "../../../redux/modals";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import "./TopBar.scss";
 
@@ -17,6 +18,7 @@ const TopBar = () => {
     status: "failed",
   });
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleShowModal = () => {
     console.log(showModal);
@@ -52,6 +54,8 @@ const TopBar = () => {
     }
     uploadImage(previewSource, name);
     handleShowModal(false);
+    dispatch(closeAdminFotoModal());
+    // window.location.reload()
   };
 
   const uploadImage = async (base64EncondedImage, name) => {
@@ -67,7 +71,7 @@ const TopBar = () => {
         },
       })
         .then(updateProfileImage(name))
-        .then(setShowAlert({ state: true, status: "success" }));
+        .then(setShowAlert({ state: true, status: "success" }))
     } catch (error) {
       console.log(error);
     }
