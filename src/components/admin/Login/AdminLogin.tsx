@@ -31,7 +31,7 @@ const AdminLogin = () => {
 
     useEffect(()=>{
         console.log(read_cookie("adminLogged"));
-        if(read_cookie("adminLogged")){
+        if(read_cookie("adminLogged")?.length > 0){
             history.push("/admin")
         }
     },[])
