@@ -22,18 +22,39 @@
           color: #14213D;
         }
       }
-      &__icon {
-        width: 500px;
-        height: 400px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: white;
-        clip-path: circle();
-        padding: 15px;
-        & img {
-          width: 400px;
-          height: 100%;
+      &__left{
+        &__icon {
+          width: 500px;
+          height: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: white;
+          clip-path: circle();
+          padding: 15px;
+          & img {
+            width: 400px;
+            height: 100%;
+          }
+        }
+        &__actions{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 25px;
+          & button{
+            background-color: #14213D;
+            border-radius: 10px;
+            color: white;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #14213D;
+            margin-left: 15px;
+            &:hover{
+                cursor: pointer;
+                background-color: white;
+                color: #14213D;
+            }
+          }
         }
       }
       &__desc {
@@ -100,6 +121,18 @@
               display: flex;
               align-items: center;
               justify-content: center;
+              & div{
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                width: 200px;
+                & img{
+                  width: 50px;
+                  height: 50px;
+                  clip-path: circle();
+                  margin-right: 20px;
+                }
+              }
             }
           }
           &__teamImage{

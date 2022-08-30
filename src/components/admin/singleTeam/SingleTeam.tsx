@@ -5,9 +5,10 @@ import {
   openDeleteTeamModal,
   closeDeleteTeamModal,
   openModifyTeamModal,
-  closeModifyTeamModal
+  closeModifyTeamModal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
+import  { Image }  from "cloudinary-react";
 
 const SingleTeam = () => {
   const [team, setTeam] = useState([{}]);
@@ -18,6 +19,8 @@ const SingleTeam = () => {
   const [fileName, setFileName] = useState("");
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState();
+  const [publicIds, setPublicIds] = useState([])
+  const [specificPublicId, setSpecificPublicId] = useState("c");
 
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/admin/team/", "");
@@ -45,15 +48,15 @@ const SingleTeam = () => {
       };
     }
   };
-  const handleSubmit = (e, name) => {
+  const handleSubmit = (e, newName) => {
     e.preventDefault();
     console.log("submitting...");
     if (!previewSource) {
-      console.log("no preview source")
+      console.log("no preview source");
       return;
     }
     uploadImage(previewSource, fileName.replace(" ", "%20"));
-    // window.location.reload()
+    window.location.reload()
   };
 
   const uploadImage = async (base64EncondedImage, name) => {
@@ -74,25 +77,34 @@ const SingleTeam = () => {
   };
 
   const uploadTeam = async (newName, newLogo, newPoints) => {
-    console.log(JSON.stringify({name: newName, logo: newLogo, points: newPoints}))
-    const response = await fetch('https://soccer-league12.herokuapp.com/teams/'+ id,{
-        method:"POST",
-        body: JSON.stringify({name:newName, logo: "https://res.cloudinary.com/dhadbk8ko/image/upload/v1661761515/soccerManage12/" + newLogo.replace(" ", "%20"), points: newPoints}),
-        mode:"cors",
-        cache:"no-cache",
-        headers:{
-            "Content-Type":"application/json"
-        }
-    })
-    if(!response.ok){
-        window.alert("Something went wrong updating team...")
+    console.log(
+      JSON.stringify({ name: newName, logo: newLogo, points: newPoints })
+    );
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams/" + id,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name: newName,
+          logo: "soccerManage12/" + newLogo.replace(" ", "%20"),
+          points: newPoints,
+        }),
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong updating team...");
     }
-  }
+  };
 
   const handleDeleteTeam = async (e, insertTeamId) => {
     e.preventDefault();
     console.log("entro in handleDeleteTeam");
-    if (insertTeamId === team.teamId) {
+    if (insertTeamId === team.teamId.toString()) {
       try {
         console.log("id uguali");
         await fetch("https://soccer-league12.herokuapp.com/teams/" + team._id, {
@@ -108,6 +120,7 @@ const SingleTeam = () => {
       } catch (error) {}
     }
   };
+
 
   useEffect(() => {
     const getCorrectTeam = async () => {
@@ -154,13 +167,44 @@ const SingleTeam = () => {
     getCorrectTeam().then(() => getTournamentName());
   }, [team.length]);
 
+  useEffect(()=>{
+    const getPublicIds = async () => {
+      const response = await fetch('https://soccer-league12.herokuapp.com/api/images',{
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        headers:{
+          "Content-Type" : "application/json"
+        }
+      })
+      if(!response.ok){
+        window.alert('Something went wrong fetching all public_ids')
+      }
+      const result = await response.json();
+      setPublicIds(result)
+    }
+    const getSpecificPublicId = async (publicIds) => {
+      let filtered = publicIds.filter(public_id => public_id === team.logo);
+      setSpecificPublicId(filtered)
+    }
+    getSpecificPublicId(publicIds);
+    getPublicIds()
+    console.log(publicIds, "specificId: " + specificPublicId, "team logo:" + team.logo);
+  },[publicIds.length])
+
   return (
     <div className="SingleTeam__container">
       <div className="SingleTeam__container__topBanner">
         <div className="SingleTeam__container__topBanner__image">
-          <img src={team.logo + ".png"} />
+          {
+            specificPublicId.length > 0 && (
+              <Image publicId={specificPublicId[0]+".png"} cloudName="dhadbk8ko"></Image>
+            )
+          }
           <div className="SingleTeam__container__topBanner_menu">
-            <button onClick={() => dispatch(openModifyTeamModal())}>Modifica</button>
+            <button onClick={() => dispatch(openModifyTeamModal())}>
+              Modifica
+            </button>
             <button onClick={() => dispatch(openDeleteTeamModal())}>
               Elimina
             </button>
@@ -199,6 +243,9 @@ const SingleTeam = () => {
         <>
           <div className="SingleTeam__container__modal__overlay"></div>
           <div className="SingleTeam__container__modal__container">
+            <div className="SingleTeam__container__modal__container__close">
+              <button onClick={() => dispatch(closeDeleteTeamModal())}> X </button>
+            </div>
             <form onSubmit={(e) => handleDeleteTeam(e, insertTeamId)}>
               <h1>Cancella la Squadra</h1>
               <p>Sei sicuro di voler cancellare la squadra ? </p>
@@ -217,6 +264,9 @@ const SingleTeam = () => {
         <>
           <div className="SingleTeam__container__modal__overlay"></div>
           <div className="SingleTeam__container__modal__container">
+          <div className="SingleTeam__container__modal__container__close">
+              <button onClick={() => dispatch(closeModifyTeamModal())}> X </button>
+            </div>
             <form onSubmit={(e) => handleSubmit(e, newName)}>
               <h1>Modifica La squadra</h1>
               <p>Se non vuoi cambiare tutti i parametri</p>
@@ -235,17 +285,20 @@ const SingleTeam = () => {
                 style={{height:"200px", width:"200px"}}
               />
             )} */}
-            <input
+              <input
                 type="text"
                 placeholder="punti squadra"
                 onChange={(e) => setNewPoints(e.target.value)}
               />
+              <div className="SingleTeam__container__modal__container__fileInput">
               <input
                 type="file"
                 placeholder="logo squadra"
                 onChange={(e) => handleFileInputChange(e)}
                 value={fileInputState}
               />
+              <div className="SingleTeam__container__modal__container__fileInput__tooltip"><img src="/images/tooltip.png"/></div>
+              </div>
               <input type="submit" />
             </form>
           </div>

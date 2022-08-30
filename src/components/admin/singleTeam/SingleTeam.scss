@@ -102,18 +102,68 @@
         z-index: 102;
         top: 25%;
         left: 30%;
-        min-height: 38vh;
+        min-height: 50vh;
         width: 40vw;
         background-color: white;
         border-radius: 10px;
         box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.39);
+
+        &__close {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          & button{
+            border-radius: 10px;
+            background-color: #14213d;
+            border: none;
+            color: white;
+            height: 30px;
+            width: 50px;
+            transition: all 0.2s ease-in-out;
+            &:hover {
+              cursor: pointer;
+              background-color: white;
+              color: #14213d;
+              border: 1px solid #14213d;
+              border-radius: 10px;
+            }
+          }
+        }
+        &__fileInput {
+          width: 300px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          &__tooltip {
+            &:hover {
+              &::after {
+                position: absolute;
+                right: 25px;
+                z-index: 102;
+                background-color: white;
+                padding: 5px;
+                font-size: 12px;
+                width: 200px;
+                border: 1px solid #14213d;
+                content: "Il nome dell'immagine non deve contenere spazi o caratteri speciali";
+                display: block;
+              }
+            }
+            & img {
+              width: 15px;
+              height: 15px;
+            }
+          }
+        }
+
         & form {
           display: flex;
           padding: 20px 0px;
           align-items: center;
           justify-content: space-evenly;
           flex-direction: column;
-          min-height: 35vh;
+          min-height: 50vh;
           & h1,
           p {
             margin: 0;
@@ -126,6 +176,16 @@
             border-radius: 10px;
             border: 1px solid black;
             text-align: center;
+            height: 30px;
+            &:focus {
+              outline: none;
+            }
+          }
+          & input[type="file"] {
+            width: 200px;
+            text-align: center;
+            border: none;
+            border-radius: unset;
             height: 30px;
             &:focus {
               outline: none;

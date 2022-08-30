@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import "./AddModal.scss";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { closeLeagueModal } from "../../../redux/modals"
+import { closeLeagueModal } from "../../../redux/modals";
+import {
+  toggleCompetitions,
+  toggleDashboard,
+  togglePlayers,
+  toggleTeams,
+} from "../../../redux/sidebar";
 
 const AddModal = () => {
   const [nameLeague, setNameLeague] = useState("");
@@ -10,7 +16,7 @@ const AddModal = () => {
   const [fileName, setFileName] = useState("");
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     dispatch(closeLeagueModal());
@@ -18,7 +24,7 @@ const AddModal = () => {
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
-    console.log(file)
+    console.log(file);
     previewFile(file);
   };
   const previewFile = (file: any) => {
@@ -29,16 +35,20 @@ const AddModal = () => {
       setFileName(file.name);
     };
   };
-  const handleSubmit = (e,fileName) => {
+  const handleSubmit = (e, fileName) => {
     e.preventDefault();
     console.log("submitting...");
     if (!previewSource) {
       return;
     }
-    uploadImage(previewSource,fileName);
+    uploadImage(previewSource, fileName);
+    createLeague(nameLeague, id, fileName);
+    dispatch(closeLeagueModal());
+   
+    window.location.reload();
   };
-  
-  const uploadImage = async (base64EncondedImage,filename) => {
+
+  const uploadImage = async (base64EncondedImage, filename) => {
     // console.log(base64EncondedImage)
     try {
       await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
@@ -46,23 +56,26 @@ const AddModal = () => {
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
-        body: JSON.stringify({ data: base64EncondedImage, name: nameLeague }),
+        body: JSON.stringify({ data: base64EncondedImage, name: fileName }),
         headers: {
           "Content-type": "application/json",
         },
       })
-      .then(createLeague(nameLeague,id,nameLeague))
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   const createLeague = async (name, id, logo) => {
     const response = await fetch(
       "https://soccer-league12.herokuapp.com/competizione/add",
       {
         method: "POST",
-        body: JSON.stringify({name:name, logo:logo, tournamentId:id}),
+        body: JSON.stringify({
+          name: name,
+          logo: "soccerManage12/" + logo,
+          tournamentId: id,
+        }),
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
@@ -70,11 +83,11 @@ const AddModal = () => {
           "Content-Type": "application/json",
         },
       }
-    );
-    if(!response.ok){
-      window.alert("Something went wrong creating league...")
+    )
+    if (!response.ok) {
+      window.alert("Something went wrong creating league...");
     } else {
-
+      window.alert("League created successfully\nresponse: " + await response.json())
     }
   };
 
@@ -87,7 +100,12 @@ const AddModal = () => {
               {" "}
               Aggiungi un Torneo{" "}
             </h1>
-            <button className="AddModal__container__closeButton"onClick={() => handleCloseModal()}>X</button>
+            <button
+              className="AddModal__container__closeButton"
+              onClick={() => handleCloseModal()}
+            >
+              X
+            </button>
           </div>
           <div className="AddModal__container__right">
             {previewSource && (
@@ -104,7 +122,7 @@ const AddModal = () => {
             )}
           </div>
           <div className="AddModal__container__left__formContainer">
-            <form onSubmit={(e) => handleSubmit(e,fileName)}>
+            <form onSubmit={(e) => handleSubmit(e, fileName)}>
               <input
                 type="text"
                 className="AddModal__container__left__formContainer__input"

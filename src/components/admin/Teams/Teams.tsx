@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Image } from 'cloudinary-react';
+
 import "./Teams.scss"
 const Teams = () => {
     const [teams,setTeams] = useState([{}]);
@@ -44,7 +46,9 @@ const Teams = () => {
                     {
                         teams.map((team:any)=>(
                             <tr>
-                                <td><img src={team.logo} alt="" className='Teams__container__tableWrapper__icon'/></td>
+                                <td>
+                                    <Image public_id={team.logo + ".png"} cloud_name="dhadbk8ko"/>
+                                </td>
                                 <td>
                                     <Link to={"/admin/team/" + team._id}>
                                         {team.name}
