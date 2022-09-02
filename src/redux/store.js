@@ -3,6 +3,7 @@ import addModalReducer from "./modals.js";
 import showMenuReducer from "./menu.js";
 import adminLoggedReducer from "./adminLogged.js";
 import sidebarReducer from "./sidebar.js";
+import { playerSlice } from "./playerSlice.js";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     showMenu: showMenuReducer,
     adminLogged: adminLoggedReducer,
     sidebar: sidebarReducer,
+    player: playerSlice,
   },
 });

@@ -20,7 +20,7 @@ const AdminLogin = () => {
                 console.log("password valida: " + process.env.REACT_APP_ADMIN_PWD)
                 dispatch(login());
                 bake_cookie(cookie_key, true);
-                history.push("/admin")
+                history.push("/admin/dashboard")
             } else {
                 window.alert("la password inserita non e' corretta")
             }
@@ -32,7 +32,7 @@ const AdminLogin = () => {
     useEffect(()=>{
         console.log(read_cookie("adminLogged"));
         if(read_cookie("adminLogged")?.length > 0){
-            history.push("/admin")
+            history.push("/admin/dashboard")
         }
     },[])
 

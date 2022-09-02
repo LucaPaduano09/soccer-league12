@@ -6,7 +6,8 @@ const sidebarSlice = createSlice({
         dashboard: true,
         competitions: false,
         teams: false,
-        players: false
+        players: false,
+        calendar: false,
     },
     reducers: {
         toggleDashboard : (state, action) => {
@@ -21,14 +22,18 @@ const sidebarSlice = createSlice({
         togglePlayers : (state, action) => {
             state.players = action.payload
         },
+        toggleCalendar : (state, action) => {
+            state.calendar = action.payload
+        },
         reset: (state) => {
             state.dashboard = true
             state.competitions = false
             state.teams = false
             state.players = false
+            state.calendar = false
         }
     }
 })
 
-export const { toggleDashboard, toggleCompetitions, togglePlayers, toggleTeams, reset  } = sidebarSlice.actions
+export const { toggleDashboard, toggleCompetitions, togglePlayers, toggleTeams, toggleCalendar, reset  } = sidebarSlice.actions
 export default sidebarSlice.reducer;

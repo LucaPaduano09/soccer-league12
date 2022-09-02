@@ -1,13 +1,23 @@
 .Header{
     &__container{
+        position: absolute;
+        top: 0;
+        left: 0;
         height: 80px;
         width: 100vw;
-        background-color: #2B2D42;
+        background-color: transparent;
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 101;
+       
         &__logo{
             flex: 1;
+            & img {
+                margin-left: 20px;
+                height: 120px;
+                width: 70px;
+            }
         }
 
         &__menu{
@@ -16,17 +26,19 @@
             justify-content: center;
             flex: 2;
             &__option{
-                color: #EDF2F4;
+                // color: #adb1b3;
+                color: white;
                 list-style: none;
                 margin: 0px 20px;
                 transition: all 0.3s ease-in-out;    
                 text-transform: uppercase;
                 font-family: 'Stick No Bills', sans-serif;
-                font-size: 18px;
-                letter-spacing: 0.1px;        
+                font-size: 21px;
+                letter-spacing: 0.8px;        
                 &:hover{
                     cursor: pointer;
-                    color: #EF233C;
+                    color: rgb(230,174,0);
+                    transform: scale(1.1);
                 }
             }
         }

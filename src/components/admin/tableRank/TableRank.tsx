@@ -58,7 +58,6 @@ const TableRank = () => {
 
   return (
     <div className="TableRank__container">
-      <p className="TableRank__container__label">Top Leghe</p>
       {
         // @ts-ignore
         fill.map((competizione: any, index) => {

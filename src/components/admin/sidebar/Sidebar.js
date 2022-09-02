@@ -7,6 +7,7 @@ import {
   toggleTeams,
   toggleDashboard,
   togglePlayers,
+  toggleCalendar
 } from "../../../redux/sidebar";
 
 const Sidebar = () => {
@@ -15,6 +16,9 @@ const Sidebar = () => {
   const competitionsState = useSelector((state)=> state.sidebar.competitions);
   const teamsState = useSelector((state)=> state.sidebar.teams);
   const playersState = useSelector((state)=> state.sidebar.players);
+  const calendarState = useSelector((state)=> state.sidebar.calendar);
+  const urlQueryString = window.location.pathname;
+
   const dispatch = useDispatch();
 
   const handleDashboardClick = () => {
@@ -22,56 +26,67 @@ const Sidebar = () => {
     dispatch(toggleCompetitions(false));
     dispatch(toggleTeams(false));
     dispatch(togglePlayers(false));
+    dispatch(toggleCalendar(false));
   }
   const handleCompetitionsClick = () => {
     dispatch(toggleDashboard(false));
     dispatch(toggleCompetitions(true));
     dispatch(toggleTeams(false));
     dispatch(togglePlayers(false));
+    dispatch(toggleCalendar(false));
   }
   const handleTeamsClick = () => {
     dispatch(toggleDashboard(false));
     dispatch(toggleCompetitions(false));
     dispatch(toggleTeams(true));
     dispatch(togglePlayers(false));
+    dispatch(toggleCalendar(false));
   }
   const handlePlayersClick = () => {
     dispatch(toggleDashboard(false));
     dispatch(toggleCompetitions(false));
     dispatch(toggleTeams(false));
     dispatch(togglePlayers(true));
+    dispatch(toggleCalendar(false));
+  }
+  const handleCalendarClick = () => {
+    dispatch(toggleDashboard(false));
+    dispatch(toggleCompetitions(false));
+    dispatch(toggleTeams(false));
+    dispatch(togglePlayers(false));
+    dispatch(toggleCalendar(true));
   }
 
   return (
     <div className="Sidebar__container">
-      <img src="/images/podium.png" alt="logo" />
+      <div className="Sidebar__container__logoContainer" />
       <div className="Sidebar__container__menu">
         <div
           className={
             "Sidebar__container__menu__option" +
-            ( dashboardState === true ? "__withActive" : "")
+            ( urlQueryString.indexOf("dashboard") !== -1 ? "__withActive" : "")
           }
         >
-          <img src="/images/soccer-player.png" alt="" />
-          <Link to="/admin" onClick={()=>handleDashboardClick()}>
+          <img src="/images/dashboard.png" alt="" />
+          <Link to="/admin/dashboard" onClick={()=>handleDashboardClick()}>
             <p>Dashboard</p>
           </Link>
         </div>
         <div
           className={
             "Sidebar__container__menu__option" +
-            ( competitionsState === true ? "__withActive" : "")
+            ( urlQueryString.indexOf("tournaments") !== -1 ? "__withActive" : "")
           }
         >
           <img src="/images/podium.png" alt="" />
           <Link to="/admin/tournaments"onClick={()=>handleCompetitionsClick()}>
-            <p>Leghe</p>
+            <p>Tornei</p>
           </Link>
         </div>
         <div
           className={
             "Sidebar__container__menu__option" +
-            ( teamsState === true ? "__withActive" : "")
+            ( urlQueryString.indexOf("teams") !== -1 ? "__withActive" : "")
           }
         >
           <img src="/images/team.png" alt="" />
@@ -82,12 +97,23 @@ const Sidebar = () => {
         <div
           className={
             "Sidebar__container__menu__option" +
-            ( playersState === true ? "__withActive" : "")
+            ( urlQueryString.indexOf("giocatori") !== -1 ? "__withActive" : "")
           }
         >
           <img src="/images/soccer-player.png" alt="" />
-          <Link to=""onClick={()=>handlePlayersClick()}>
+          <Link to="/admin/giocatori"onClick={()=>handlePlayersClick()}>
             <p>Giocatori</p>
+          </Link>
+        </div>
+        <div
+          className={
+            "Sidebar__container__menu__option" +
+            ( urlQueryString.indexOf("calendario") !== -1 ? "__withActive" : "")
+          }
+        >
+          <img src="/images/calendar.png" alt="" />
+          <Link to="/admin/calendario"onClick={()=>handleCalendarClick()}>
+            <p>Calendario</p>
           </Link>
         </div>
       </div>

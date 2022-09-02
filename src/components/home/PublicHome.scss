@@ -1,0 +1,48 @@
+.PublicHome{
+    &__container{
+        height: calc(100vh );
+        overflow: hidden;
+        &__videoWrapper{
+            height: 100%;
+            width: 100%;
+            & video{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                filter: grayscale(100%);
+            }
+        }
+        &__titleWrapper{
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            display: flex;
+            justify-content: center;
+            // flex-direction: column;
+            & p{
+                font-size: 50px;
+                color: white;
+                font-family: 'Stick No Bills', sans-serif;
+                margin: 0px 10px 0px 10px;
+                &:last-child{
+                    color: rgb(241, 182, 2);;
+                }
+            }
+        }
+        &__descWrapper{
+            position: absolute;
+            top: 80%;
+            left: 35%;
+            display: flex;
+            justify-content: center;
+            // flex-direction: column;
+            & p{
+                font-size: 40px;
+                color: white;
+                font-family: 'Stick No Bills', sans-serif;
+                margin: 0px 10px 0px 10px;
+               
+            }
+        }
+    }
+}

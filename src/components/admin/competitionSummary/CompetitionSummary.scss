@@ -1,12 +1,14 @@
+@import "../../../mixins/global.scss";
+
 .CompetitionSummary {
   &__container {
     min-height: calc(100vh - 7px);
     width: 90vw;
-    margin-left: 10vw;
+    margin-left: 9.9vw;
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: #e5e5e5;
+    background-color: #e5e5e55e;
     &__menu {
       width: 80%;
       display: flex;
@@ -18,14 +20,15 @@
         width: 70px;
         height: 25px;
         text-align: center;
-        background-color: #14213d;
+        background-color: $full-yellow-color;
         border-radius: 10px;
         color: white;
+
         &:hover {
           cursor: pointer;
           background-color: white;
-          color: #14213d;
-          border: 1px solid #14213d;
+          color: $full-yellow-color;
+          border: 1px solid $main-yellow-color;
           border-radius: 10px;
         }
       }
@@ -33,13 +36,18 @@
     &__table {
       // width: 80%;
       box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+      &:hover{
+        &:hover{
+          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+      }
       & th {
         width: 80vw;
         height: 60px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        background-color: #14213d;
+        background-color: $main-yellow-color;
         // border-bottom: 1px solid black;
         & td {
           height: 100%;

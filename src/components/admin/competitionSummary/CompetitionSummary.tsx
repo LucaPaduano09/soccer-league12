@@ -67,7 +67,7 @@ const CompetitionSummary = () => {
         <p className="CompetitionSummary__container__menu__label">
           Elenco Competizioni
         </p>
-        <div className="CompetitionSummary__container__menu__add" onClick={()=> dispatch(openLeagueModal())}>Add</div>
+        <div className="CompetitionSummary__container__menu__add" onClick={()=> dispatch(openLeagueModal())}>Aggiungi</div>
       </div>
       <table className="CompetitionSummary__container__table">
         <thead>

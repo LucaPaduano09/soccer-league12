@@ -1,12 +1,15 @@
+@import "../../../mixins/global.scss";
+
 .TopBar {
   &__container {
     height: 70px;
     width: 90vw;
-    margin-left: 10vw;
+    margin-left: 9.9vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #14213d;
+    background-color: white;
+    border-bottom: 1px solid $main-yellow-color;
 
     &__alertsContainer {
       &__success {
