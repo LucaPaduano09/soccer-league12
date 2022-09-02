@@ -12,7 +12,7 @@ const AddPartita = () => {
     const urlQueryString = window.location.pathname;
     const id = urlQueryString.replace("/admin/calendario/add-partita/" , "");
     const history = useHistory();
-    var created = false
+    const [created, setCreated] = useState(false);
 
     const handleSubmitCreateGame = async () => {
         const response = await fetch('https://soccer-league12.herokuapp.com/games/add',{
@@ -27,7 +27,7 @@ const AddPartita = () => {
         if(!response.ok){
             window.alert("Something went wrong creating match...")
         }
-        created = true;
+        setCreated(true);
     }
 
     useEffect(()=>{
@@ -71,7 +71,7 @@ const AddPartita = () => {
     useEffect(()=>{
         created === true ? history.push("/admin/calendario") : ""
     })
-    
+
   return (
     <div className="AddPartita__container">
         <p>Crea una nuova Partita</p>
