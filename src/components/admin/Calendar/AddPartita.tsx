@@ -69,7 +69,9 @@ const AddPartita = () => {
     },[gameDay])
 
     useEffect(()=>{
-        created === true ? history.push("/admin/calendario") : ""
+        if( created === true) {
+            history.push("/admin/calendario");
+        }
     })
 
   return (
