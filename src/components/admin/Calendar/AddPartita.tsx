@@ -22,7 +22,7 @@ const AddPartita = () => {
             headers: {
                 "Content-Type" : "application/json"
             }
-        }).then(() => history.push("/admin/calendario/update-giornata/"+id))
+        })
         if(!response.ok){
             window.alert("Something went wrong creating match...")
         }
