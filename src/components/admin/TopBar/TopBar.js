@@ -70,8 +70,8 @@ const TopBar = () => {
           "Content-Type": "application/json",
         },
       })
-        .then(updateProfileImage(name))
-        .then(setShowAlert({ state: true, status: "success" }))
+        .then(() => updateProfileImage(name))
+        .then(() => setShowAlert({ state: true, status: "success" }))
     } catch (error) {
       console.log(error);
     }

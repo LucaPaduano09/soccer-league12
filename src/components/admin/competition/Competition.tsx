@@ -41,8 +41,8 @@ const Competition = () => {
             "Content-Type": "application/json",
           },
         })
-          .then(dispatch(closeDeleteTeamModal()))
-          .then(history.push("/admin/tournaments"));
+          .then(() => dispatch(closeDeleteTeamModal()))
+          .then(() => history.push("/admin/tournaments"));
       } catch (error) {}
     }
   };
@@ -98,7 +98,7 @@ const Competition = () => {
           <div className="SingleTeam__container__modal__container__close">
               <button onClick={() => dispatch(closeDeleteTeamModal())}> X </button>
             </div>
-            <form onSubmit={(e) => handleDeleteComp(e, insertCompId)}>
+            <div className="SingleTeam__container__modal__container__form">
               <h1>Cancella Il Torneo</h1>
               <p>Sei sicuro di voler cancellare il Torneo ? </p>
               <p>Inserisci l'id della competizione per continuare</p>
@@ -107,8 +107,8 @@ const Competition = () => {
                 placeholder="id team"
                 onChange={(e) => setInsertCompId(e.target.value)}
               />
-              <input type="submit" />
-            </form>
+              <input type="submit" onClick={(e) => handleDeleteComp(e, insertCompId)} />
+            </div>
           </div>
         </>
       )}
@@ -117,15 +117,15 @@ const Competition = () => {
           <div className="SingleTeam__container__modal__overlay"></div>
           <div className="SingleTeam__container__modal__container">
           <div className="SingleTeam__container__modal__container__close">
-              <button onClick={() => dispatch(closeDeleteTeamModal())}> X </button>
+              <button onClick={() => dispatch(closeModifyTeamModal())}> X </button>
             </div>
-            <form onSubmit={(e) => handleDeleteComp(e, insertCompId)}>
+            <div className="SingleTeam__container__modal__container__form">
               <h1>Modifica Il Toreno</h1>
               <p>inserisci i nuovi valori per la competizione: <i><b>{competition.name}</b></i></p>
               <input type="text" placeholder="nuovo nome"/> 
               <input type="file" placeholder="nuovo logo"/>
-              <input type="submit" />
-            </form>
+              <input type="submit" onClick={(e) => handleDeleteComp(e, insertCompId)}/>
+            </div>
           </div>
         </>
       )}

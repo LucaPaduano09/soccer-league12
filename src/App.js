@@ -12,15 +12,23 @@ import SingleTeam from "./components/admin/singleTeam/SingleTeam.tsx";
 import PublicHome from "./components/home/PublicHome";
 import Calendar from "./components/admin/Calendar/Calendar.tsx";
 import AddPartita from "./components/admin/Calendar/AddPartita.tsx";
+import UpdateGiornata from "./components/admin/Calendar/UpdateGiornata.tsx";
+import SingleMatch from "./components/admin/Calendar/SingleMatch.tsx";
 
 function App() {
   return (
     <Router>
       <div className="app">
         <Switch>
-          <Route path="/admin/calendario/update-gioranata/:id">
+        <Route path="/admin/calendario/partita/:id">
             <Sidebar />
             <TopBar />
+            <SingleMatch />
+          </Route>
+          <Route path={"/admin/calendario/update-gioranata/:id"}>
+            <Sidebar />
+            <TopBar />
+            <UpdateGiornata />
           </Route>
           <Route path="/admin/calendario/add-partita">
             <Sidebar />

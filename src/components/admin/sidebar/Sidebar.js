@@ -113,6 +113,17 @@ const Sidebar = () => {
         >
           <img src="/images/calendar.png" alt="" />
           <Link to="/admin/calendario"onClick={()=>handleCalendarClick()}>
+            <p>Partite</p>
+          </Link>
+        </div>
+        <div
+          className={
+            "Sidebar__container__menu__option" +
+            ( urlQueryString.indexOf("calendario") !== -1 ? "__withActive" : "")
+          }
+        >
+          <img src="/images/calendar.png" alt="" />
+          <Link to="/admin/calendario"onClick={()=>handleCalendarClick()}>
             <p>Calendario</p>
           </Link>
         </div>

@@ -1,27 +1,29 @@
+@import "../../../mixins/global.scss";
+
 .SingleTeam {
   &__container {
     width: 90vw;
-    min-height: calc(100vh - 70px);
+    // min-height: calc(100vh - 70px);
     margin-left: 10vw;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='40' height='40' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0,0%,100%,1)'/><path d='M15 5h10v30H15zM35-5V5H5V-5zM35 35v10H5V35zM35-15h10v30H35zM55 15v10H25V15zM15 15v10h-30V15zM35 25h10v30H35zM-5 25H5v30H-5zM-5-15H5v30H-5z'  stroke-width='1' stroke='hsla(0, 0%, 90%, 1)' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
-    background-color: #e5e5e5;
+    background-color: $main-grey-color;
     &__topBanner {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
+      margin-top: 100px;
       &__image {
         width: 590px;
-        height: 590px;
+        height: 494px;
         & img {
           // clip-path: circle();
           border-radius: 10px;
           width: 590px;
-          height: 590px;
+          height: 494px;
         }
       }
       &_menu {
@@ -47,6 +49,7 @@
         & table {
           background-color: white;
           width: 500px;
+          border-radius: 10px;
         }
         & th {
           width: 100%;
@@ -55,7 +58,8 @@
           align-items: center;
           justify-content: flex-start;
           background-color: white;
-          color: #14213d;
+          color: white;
+          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -74,8 +78,7 @@
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          border-bottom: 1px solid #14213d;
-          border-radius: 10px;
+          border-bottom: 1px solid $main-yellow-color;
 
           & td {
             height: 100%;
@@ -83,6 +86,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            
           }
         }
       }
@@ -114,7 +118,7 @@
           right: 10px;
           & button{
             border-radius: 10px;
-            background-color: #14213d;
+            background-color: $main-yellow-color;
             border: none;
             color: white;
             height: 30px;
@@ -123,8 +127,8 @@
             &:hover {
               cursor: pointer;
               background-color: white;
-              color: #14213d;
-              border: 1px solid #14213d;
+              color: $main-yellow-color;
+              border: 1px solid $main-yellow-color;
               border-radius: 10px;
             }
           }
@@ -157,7 +161,7 @@
           }
         }
 
-        & form {
+        &__form {
           display: flex;
           padding: 20px 0px;
           align-items: center;
@@ -193,20 +197,77 @@
           }
           & input[type="submit"] {
             border-radius: 10px;
-            background-color: #14213d;
+            background-color: $main-yellow-color;
             color: white;
             height: 30px;
             transition: all 0.2s ease-in-out;
-
+            border: none;
             &:hover {
               cursor: pointer;
               background-color: white;
-              color: #14213d;
-              border: 1px solid #14213d;
+              color: $main-yellow-color;
+              border: 1px solid $main-yellow-color ;
               border-radius: 10px;
             }
           }
         }
+      }
+    }
+    &__middleBanner{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-top: 100px;
+      width: 100%;
+      // min-height: 50vh;
+      & table{
+        & th {
+          width: 59vw;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $main-yellow-color;
+          // border-bottom: 1px solid black;
+          & td {
+            height: 100%;
+            width: 25vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+          }
+        }
+        & tr {
+          width: 59vw;
+          height: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          &:nth-child(odd) {
+            background-color: white;
+          }
+          // border-bottom: 1px solid black;
+          & td {
+            height: 100%;
+            width: 25vw;
+            // border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            & img{
+              height: 100px;
+              width: 100px;
+            }
+          }
+        }
+      }
+      &__yellow{
+        color: $main-yellow-color;
+        font-weight: bold;
       }
     }
   }
