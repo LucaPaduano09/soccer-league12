@@ -31,6 +31,7 @@
       }
       @media screen and (max-width: $main-mobile-brp) {
         width: 100vw;
+        border-radius: 0px;
       }
     }
     &__videoWrapper {

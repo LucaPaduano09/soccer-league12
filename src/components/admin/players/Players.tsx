@@ -115,7 +115,7 @@ const Players = () => {
 
   return (
     <div className="Players__container">
-      <h1>Elenco Giocatori</h1>
+      <h1>Giocatori</h1>
       {players.length == 0 && (
         <>
           <p>Non ci sono giocatori in database</p>

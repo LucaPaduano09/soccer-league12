@@ -64,10 +64,10 @@ const CompetitionSummary = () => {
     <div className="CompetitionSummary__container">
       {showCreateModal === true && <AddModal />}
       <div className="CompetitionSummary__container__menu">
-        <p className="CompetitionSummary__container__menu__label">
-          Elenco Competizioni
-        </p>
-        <div className="CompetitionSummary__container__menu__add" onClick={()=> dispatch(openLeagueModal())}>Aggiungi</div>
+        <h2 className="CompetitionSummary__container__menu__label">
+          Competizioni
+        </h2>
+        <div className="CompetitionSummary__container__menu__add" onClick={()=> dispatch(openLeagueModal())}>+</div>
       </div>
       <table className="CompetitionSummary__container__table">
         <thead>

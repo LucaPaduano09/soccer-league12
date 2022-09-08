@@ -55,9 +55,9 @@
             justify-content: center;
             flex-direction: column;
             @media screen and (min-width: $main-desktop-brp) {
-                height: 60vh;
-                width: 50vw;
-                left: 25%;
+                height: 51vh;
+                width: 36vw;
+                left: 36%;
                 justify-content: flex-start;
                 & h2{
                     font-size: 30px;
@@ -65,6 +65,12 @@
                 & img{
                     height: 300px !important;
                     width: 300px !important;
+                }
+                & button {
+                    // padding: 10px;
+                }
+                & input [type=submit] {
+                    width: 50% ;
                 }
             }
             & button{
@@ -104,6 +110,87 @@
                 @media screen and (min-width: $main-desktop-brp) {
                     width: 42%;
                 }
+            }
+        }
+        &__updateModal{
+            position: absolute;
+            top: 25%;
+            left: 38%;
+            height: 500px;
+            width: 500px;
+            z-index: 1000;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            & h2{
+                text-transform: uppercase;
+            }
+            & div{
+                height: 100px;
+                width: 80%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                & input{
+                    width: 100%;
+                }
+                & input[type=text]{
+                    border: 1px solid black;
+                    height: 30px;
+                    border-radius: 10px;
+                    text-align: center;
+                    font-style: italic;
+                }
+                & label{
+                    width: 100%;
+                    margin-bottom: 5px;
+                }
+            }
+
+            &__selectContainer{
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                flex-direction: row !important;
+                & div{
+                    width: 50%;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    & label{
+                        width: 50%;
+                    }
+                }
+            }
+            & button{
+                width: 80%;
+                height: 30px;
+                margin-top: 30px;
+                background-color: $full-yellow-color;
+                border: none;
+                border-radius: 10px;
+                color: white;
+                &:hover{
+                    background-color: white;
+                    color: $full-yellow-color;
+                    border: 1px solid $full-yellow-color;
+                    cursor: pointer;
+                }
+            }
+            &__close{
+                position: absolute;
+                top: 8px;
+                right: 10px;
+                background-color: $full-yellow-color;
+                border: 1px solid $full-yellow-color;
+                color: white;
+                height: 20px !important;
+                width: 20px !important;
+                border-radius: 50%;
+                margin-top: 0 !important;
             }
         }
         &__overlay{

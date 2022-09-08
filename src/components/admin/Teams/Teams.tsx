@@ -94,10 +94,10 @@ const Teams = () => {
 
   return (
     <div className="Teams__container">
-      <h1>Tutte le squadre presenti in database</h1>
+      <h2>Squadre</h2>
       <div className="Teams__container__addTeam"
       onClick={() => dispatch(openAddTeamModal())}
-      >Aggiungi</div>
+      >+</div>
       <div className="Teams__container__tableWrapper">
         <table>
           <thead>

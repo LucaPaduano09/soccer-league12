@@ -55,9 +55,10 @@ const Games = () => {
     let c = teamsF.filter((teamF: any) => game.team2 === teamF._id);
     return c[0].name;
   };
+  
   return (
     <div className="Games__container">
-      <h1>Elenco Partite</h1>
+      <h2>Elenco Partite</h2>
       <div className="Games__container__tableContainer">
         <table>
           <thead>

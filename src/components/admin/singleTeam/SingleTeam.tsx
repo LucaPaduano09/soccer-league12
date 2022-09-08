@@ -62,7 +62,7 @@ const SingleTeam = () => {
     if (previewSource) {
       uploadImage(previewSource, fileName.replace(" ", "%20"));
     } else {
-      uploadTeam();
+      uploadTeam(newName,fileName,newPoints );
     }
     window.location.reload();
   };
@@ -118,7 +118,7 @@ const SingleTeam = () => {
   const handleDeleteTeam = async (e, insertTeamId) => {
     e.preventDefault();
     console.log("entro in handleDeleteTeam");
-    if (insertTeamId === team.teamId.toString()) {
+    if (insertTeamId === team._id) {
       try {
         console.log("id uguali");
         await fetch("https://soccer-league12.herokuapp.com/teams/" + team._id, {
@@ -129,9 +129,10 @@ const SingleTeam = () => {
             "Content-Type": "application/json",
           },
         })
-          .then(() => dispatch(closeDeleteTeamModal()))
           .then(() => history.push("/admin/teams"));
       } catch (error) {}
+    } else {
+      window.alert('Inserito id team sbagliato, sicuro di voler cancellare?')
     }
   };
 
@@ -298,7 +299,7 @@ const SingleTeam = () => {
             </tr>
             <tr>
               <th>Id Squadra</th>
-              <td>{team.teamId}</td>
+              <td>{team._id}</td>
             </tr>
             <tr>
               <th>Torneo</th>

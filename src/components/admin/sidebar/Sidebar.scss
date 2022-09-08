@@ -42,6 +42,14 @@
         @media screen and (max-width: $main-mobile-brp) {
           padding-left: 10px;
         }
+        @media screen and (max-width: 1490px){
+          justify-content: center;
+          & a{
+            & p{
+              display: none;
+            }
+          }
+        }
         &__withActive {
           display: flex;
           align-items: center;
@@ -53,6 +61,14 @@
           background-color: $main-yellow-color;
           letter-spacing: 1.12px;
           transition: all 0.2s ease-in-out;
+          @media screen and (max-width: 1490px){
+            justify-content: center;
+            & a{
+              & p{
+                display:none
+              }
+            }
+          }
           & img {
             height: 30px;
             width: 30px;

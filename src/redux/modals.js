@@ -61,6 +61,12 @@ export const ModalSlice = createSlice({
     },
     closeDeletePlayerModal: (state) => {
       state.deletePlayerModal = false
+    },
+    openUpdatePlayerModal: (state) => {
+      state.updatePlayerModal = true;
+    },
+    closeUpdatePlayerModal: (state) => {
+      state.updatePlayerModal = false;
     }
   },
 });
@@ -82,5 +88,7 @@ export const {
   closeAddPlayerModal,
   openDeletePlayerModal,
   closeDeletePlayerModal,
+  openUpdatePlayerModal,
+  closeUpdatePlayerModal,
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

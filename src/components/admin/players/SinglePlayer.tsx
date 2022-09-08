@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   openDeletePlayerModal,
   closeDeletePlayerModal,
+  openUpdatePlayerModal,
+  closeUpdatePlayerModal,
 } from "../../../redux/modals";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
@@ -13,32 +15,75 @@ const SinglePlayer = () => {
   const [player, setPlayer] = useState([{}]);
   const [team, setTeam] = useState([{}]);
   const [deleteOption, setDeleteOption] = useState("");
+  const [fileName, setFileName] = useState();
+  const [previewSource, setPreviewSource] = useState();
   const queryUrl = window.location.pathname;
   const id = queryUrl.replace("/admin/giocatore/", "");
   const dispatch = useDispatch();
   const deletePlayerModal = useSelector(
     (state: any) => state.addModal.deletePlayerModal
   );
+  const updatePlayerModal = useSelector(
+    (state: any) => state.addModal.updatePlayerModal
+  );
+  const goal = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+  const [added, setAdded] = useState("");
   const history = useHistory();
-
   const handleDeletePlayer = async () => {
     if (deleteOption === "si") {
       console.log(deleteOption);
-        try {
-          await fetch(
-            "https://soccer-league12.herokuapp.com/players/" + player._id,
-            {
-              method: "DELETE",
-              mode: "cors",
-              cache: "no-cache",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          ).then(() => history.push("/admin/dashboard"));
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        await fetch(
+          "https://soccer-league12.herokuapp.com/players/" + player._id,
+          {
+            method: "DELETE",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        ).then(() => history.push("/admin/dashboard"));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    previewFile(file);
+  };
+  const previewFile = (file) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setPreviewSource(reader.result);
+        setFileName(file.name);
+      };
+    }
+  };
+  const handleSubmit = (e, name) => {
+    e.preventDefault();
+    console.log("submitting...");
+    if(previewSource) {
+      uploadImage(previewSource, name);
+    }
+  };
+  const uploadImage = async (base64EncondedImage, name) => {
+    try {
+      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
+        method: "POST",
+        body: JSON.stringify({ data: base64EncondedImage, name: name }),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(()=> createTeam())
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -98,22 +143,39 @@ const SinglePlayer = () => {
         <>
           <div className="SinglePlayer__container__overlay" />
           <div className="SinglePlayer__container__deletePlayerModal">
-            <button onClick={() => dispatch(closeDeletePlayerModal())}>
-              {" "}
-              x{" "}
-            </button>
-            <h2>Cancella Giocatore</h2>
-            <Image public_id={player.logo + ".png"} cloudName="dhadbk8ko" />
+            
+          </div>
+        </>
+      )}
+      {updatePlayerModal && (
+        <>
+          <div className="SinglePlayer__container__overlay" />
+          <div className="SinglePlayer__container__updateModal">
+            <button className="SinglePlayer__container__updateModal__close" onClick={() => dispatch(closeUpdatePlayerModal())}> X </button>
+            <h2>Modifica Giocatore</h2>
             <div>
-              <p>Sei sicuro di voler cancellare il giocatore ?</p>
-              <label>Cancella: </label>
-              <input
-                type="checkbox"
-                value="si"
-                onChange={(e) => setDeleteOption(e.target.value)}
-              />
+              <label>Nome:</label>
+              <input type="text" placeholder="Mario Rossi" />
             </div>
-            <input type="submit" onClick={() => handleDeletePlayer()} />
+            <div>
+              <label>Foto:</label>
+              <input type="file" onChange={(e) => handleFileInputChange(e)}/>
+            </div>
+            <div className="SinglePlayer__container__updateModal__selectContainer">
+              <div>
+              <label>Goal</label>
+              <select onChange={(e) => setAdded(e.target.value)}>
+                {goal.map((g, index) => (
+                  <option value={index + 1}>{g}</option>
+                ))}
+              </select>
+              </div>
+              <div>
+              <label>Capitano:</label>
+              <input type="checkbox" value={"si"} />
+              </div>
+            </div>
+            <button>Invia</button>
           </div>
         </>
       )}
@@ -122,7 +184,9 @@ const SinglePlayer = () => {
           <>
             <Image public_id={player.logo + ".png"} cloudName="dhadbk8ko" />
             <div className="SinglePlayer__container__left__buttons">
-              <button>Modifica</button>
+              <button onClick={() => dispatch(openUpdatePlayerModal())}>
+                Modifica
+              </button>
               <button onClick={() => dispatch(openDeletePlayerModal())}>
                 Elimina
               </button>
