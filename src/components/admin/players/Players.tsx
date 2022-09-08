@@ -4,11 +4,12 @@ import { openAddPlayerModal, closeAddPlayerModal } from "../../../redux/modals";
 import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
 import "./Players.scss";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Players = () => {
   const [players, setPlayers] = useState([{}]);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const addPlayerModal = useSelector(
     (state: any) => state.addModal.addPlayerModal
   );
@@ -42,7 +43,6 @@ const Players = () => {
     uploadImage(previewSource, fileName);
     createPlayer(fileName, name, surname, teamId, captain);
     dispatch(closeAddPlayerModal());
-    window.location.reload();
   };
 
   const uploadImage = async (base64EncondedImage, filename) => {
@@ -86,7 +86,8 @@ const Players = () => {
     if (!response.ok) {
       window.alert("Something went wrong creating player...");
     }else {
-      window.alert("player created successfully")
+      window.alert("player created successfully");
+      history.push("/admin/dashboard")
     }
   };
 
