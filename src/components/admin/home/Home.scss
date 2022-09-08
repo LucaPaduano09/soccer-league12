@@ -5,5 +5,10 @@
         width: 90vw;
         margin-left: 9.9vw;
         background-color: $main-grey-color;
+        @media screen and (max-width: $main-mobile-brp) {
+            width: 85vw;
+            margin-left: 15vw;
+            // overflow: hidden;
+        }
     }
 }

@@ -1,0 +1,120 @@
+@import "../../../mixins/global.scss";
+
+.SinglePlayer{
+    &__container{
+        width: 85vw;
+        margin-left: 15vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @media screen and (max-width: $main-mobile-brp) {
+            flex-direction: column;
+        }
+        &__left{
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            @media screen and (max-width: $main-mobile-brp) {
+                margin-bottom: 50px;
+            }
+            & img{
+                height: 300px;
+                width: 300px;
+                clip-path: circle();
+            }
+            &__buttons{
+                display: flex;
+                align-items: center;
+                & button{
+                    margin-right: 10px;
+                }
+            }
+        }
+        &__right{
+            width: 70%;
+            &__elem{
+                display: flex;
+                align-items: center;
+                & p{
+                    width: 100px;
+                }
+            }
+        }
+        &__deletePlayerModal{
+            position: absolute;
+            height: 60vh;
+            width: 80vw;
+            left: 17%;
+            top: 25%;
+            z-index: 1000;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            @media screen and (min-width: $main-desktop-brp) {
+                height: 60vh;
+                width: 50vw;
+                left: 25%;
+                justify-content: flex-start;
+                & h2{
+                    font-size: 30px;
+                }
+                & img{
+                    height: 300px !important;
+                    width: 300px !important;
+                }
+            }
+            & button{
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                border-radius: 50%;
+                border: none;
+                background-color: $full-yellow-color;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            & img{
+                height: 200px;
+                width: 200px;
+            }
+            & input[type=submit]{
+                width: 80%;
+                height: 30px;
+                border: none;
+                background-color: $full-yellow-color;
+                color: white;
+                border-radius: 10px;
+                margin-top: 20px;
+                &:hover{
+                    cursor: pointer;
+                    background-color: white;
+                    border: 1px solid $full-yellow-color;
+                    color: $full-yellow-color;
+                }
+                @media screen and (min-width: $main-desktop-brp) {
+                    width: 42%;
+                }
+            }
+        }
+        &__overlay{
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background-color: black;
+            opacity: 0.6;
+            z-index: 1000;
+        }
+    }
+}

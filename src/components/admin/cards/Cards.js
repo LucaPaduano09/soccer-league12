@@ -65,7 +65,6 @@ const Cards = () => {
 
   return (
     <div className="Cards__container">
-      <p className="Cards__container__label">Sommario</p>
       <div className="Cards__container__cardsContainer">
       <div className="Cards__container__cardsContainer__card">
         <p className="Cards__container__cardsContainer__card__number">{competitions}</p>

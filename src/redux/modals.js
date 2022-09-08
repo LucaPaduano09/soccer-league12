@@ -9,6 +9,9 @@ export const ModalSlice = createSlice({
     deleteTeamModal: false,
     modifyTeamModal: false,
     changeMatchStatusModal: false,
+    addPlayerModal: false,
+    deletePlayerModal: false,
+    updatePlayerModal: false,
   },
   reducers: {
     openAdminFotoModal: (state) => {
@@ -46,6 +49,18 @@ export const ModalSlice = createSlice({
     },
     closeChangeMatchStatusModal: (state) => {
       state.changeMatchStatusModal = false;
+    },
+    openAddPlayerModal: (state) => {
+      state.addPlayerModal = true;
+    },
+    closeAddPlayerModal: (state) => {
+      state.addPlayerModal = false;
+    },
+    openDeletePlayerModal: (state) => {
+      state.deletePlayerModal = true;
+    },
+    closeDeletePlayerModal: (state) => {
+      state.deletePlayerModal = false
     }
   },
 });
@@ -62,6 +77,10 @@ export const {
   openModifyTeamModal,
   closeModifyTeamModal,
   openChangeMatchStatusModal,
-  closeChangeMatchStatusModal
+  closeChangeMatchStatusModal,
+  openAddPlayerModal,
+  closeAddPlayerModal,
+  openDeletePlayerModal,
+  closeDeletePlayerModal,
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

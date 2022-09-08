@@ -23,7 +23,7 @@ const HomeAdmin = () => {
   return (
     <div className="Home__container">
         <Cards />
-        <TableRank />
+        {/* <TableRank /> */}
     </div>
   )
 }

@@ -1,3 +1,5 @@
+@import "../../../mixins/global.scss";
+
 .AdminLogin{
     &__container{
         width: 100vw;
@@ -10,6 +12,10 @@
         background-position: center center;
         background-size: cover;
         background-repeat: no-repeat;
+        @media screen and (max-width: $main-mobile-brp) {
+            justify-content: flex-start;
+            padding: 5px;
+        }
         & h1{
             color: #14213D;
             text-transform: capitalize;
@@ -17,7 +23,11 @@
         &__wrapper{
             height: 35%;
             width: 35%;
-            
+            @media screen and (max-width: $main-mobile-brp) {
+                width: 80%;
+                height: 60%;
+                margin-top: 50px;
+            }
             &__form{
                 height: 100%;
                 width: 100%;

@@ -1,3 +1,4 @@
+@import "../../../mixins/global.scss";
 .AddModal{
     &__overlay{
         position: fixed;
@@ -20,8 +21,13 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        @media screen and (max-width: $main-mobile-brp) {
+            width: 80vw;
+            left: 18%;
+            top: 15%;
+        }
         &__closeButton{
-            background-color: #14213D;
+            background-color: $full-yellow-color;
             border-radius: 10px;
             border: none;
             color: white;
@@ -33,6 +39,14 @@
                 color: #14213D;
                 border: 1px solid #14213D;
                 border-radius: 10px;
+            }
+            @media screen and (max-width: $main-mobile-brp) {
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
         &__left{
@@ -50,6 +64,9 @@
                     width: 100%;
                     text-align: center;
                     color: #14213D;
+                    @media screen and (max-width: $main-mobile-brp) {
+                        font-size: 18px;
+                    }
                 }
                 & button{
                     position: absolute;
@@ -81,9 +98,12 @@
                     &:focus{
                         outline: 2px solid #14213D;
                     }
+                    @media screen and (max-width: $main-mobile-brp){
+                        height: 25px;
+                    }
                 }
                 & input[type=submit]{
-                    background-color: #14213D;
+                    background-color: $full-yellow-color;
                     color: white;
                     border-radius: 10px;
                     border: 1px solid #14213D;

@@ -9,9 +9,13 @@ import {
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
+import { Link } from "react-router-dom";
 
 const SingleTeam = () => {
   const [team, setTeam] = useState([{}]);
+  const [players, setPlayers] = useState([{}]);
+  const [correctPlayers, setCorrectPlayers] = useState([{}]);
+  const [loadingPlayers,setLoadingPlayers] = useState(true);
   const [allTeams, setAllTeams] = useState([{}]);
   const [competizione, setCompetizione] = useState([{}]);
   const [insertTeamId, setInsertTeamId] = useState(0);
@@ -22,9 +26,9 @@ const SingleTeam = () => {
   const [fileInputState, setFileInputState] = useState();
   const [publicIds, setPublicIds] = useState([]);
   const [specificPublicId, setSpecificPublicId] = useState("c");
-  const sortedTeams = allTeams.sort((a, b) =>
-    a.points > b.points ? 1 : b.points > a.points ? -1 : 0
-  ).reverse();
+  const sortedTeams = allTeams
+    .sort((a, b) => (a.points > b.points ? 1 : b.points > a.points ? -1 : 0))
+    .reverse();
 
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/admin/team/", "");
@@ -58,7 +62,7 @@ const SingleTeam = () => {
     if (previewSource) {
       uploadImage(previewSource, fileName.replace(" ", "%20"));
     } else {
-      uploadTeam()
+      uploadTeam();
     }
     window.location.reload();
   };
@@ -85,14 +89,14 @@ const SingleTeam = () => {
       JSON.stringify({ name: newName, logo: newLogo, points: newPoints })
     );
     let body = {};
-    if(newName !== null){
-      body = body + JSON.stringify({name: newName})
+    if (newName !== null) {
+      body = body + JSON.stringify({ name: newName });
     }
-    if(newPoints !== null){
-      body = body + JSON.stringify({points: newPoints})
+    if (newPoints !== null) {
+      body = body + JSON.stringify({ points: newPoints });
     }
-    if(fileName !== ""){
-      body = body + JSON.stringify({logo: newLogo})
+    if (fileName !== "") {
+      body = body + JSON.stringify({ logo: newLogo });
     }
     const response = await fetch(
       "https://soccer-league12.herokuapp.com/teams/" + id,
@@ -230,6 +234,39 @@ const SingleTeam = () => {
     );
   }, [publicIds.length]);
 
+  useEffect(() => {
+    const getPlayers = async () => {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/players",
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong fetching all players...");
+      }
+      const result = await response.json();
+      setPlayers(result);
+    };
+    getPlayers();
+  }, [players.length]);
+
+  useEffect(() => {
+    if (players !== null && players !== undefined && players.length > 0) {
+      if (team !== null && team !== undefined) {
+        let correctP = players.filter((p: any) => p.teamId === team._id);
+        setCorrectPlayers(correctP);
+        setLoadingPlayers(false);
+      }
+    }
+  },);
+
   return (
     <div className="SingleTeam__container">
       <div className="SingleTeam__container__topBanner">
@@ -240,7 +277,7 @@ const SingleTeam = () => {
               cloudName="dhadbk8ko"
             ></Image>
           )}
-          <div className="SingleTeam__container__topBanner_menu">
+          <div className="SingleTeam__container__topBanner__image__menu">
             <button onClick={() => dispatch(openModifyTeamModal())}>
               Modifica
             </button>
@@ -293,7 +330,10 @@ const SingleTeam = () => {
                 placeholder="id team"
                 onChange={(e) => setInsertTeamId(e.target.value)}
               />
-              <input type="submit"  onClick={(e) => handleDeleteTeam(e, insertTeamId)}/>
+              <input
+                type="submit"
+                onClick={(e) => handleDeleteTeam(e, insertTeamId)}
+              />
             </div>
           </div>
         </>
@@ -334,12 +374,43 @@ const SingleTeam = () => {
                   <img src="/images/tooltip.png" />
                 </div>
               </div>
-              <input type="submit" onClick={(e) => handleSubmit(e, newName)}/>
+              <input type="submit" onClick={(e) => handleSubmit(e, newName)} />
             </div>
           </div>
         </>
       )}
       <div className="SingleTeam__container__middleBanner">
+        <h2>Squadra</h2>
+        <table>
+          <thead>
+            <th>
+              <td>Nome</td>
+              <td>Cognome</td>
+              <td>Goal</td>
+              <td>Capitano</td>
+            </th>
+          </thead>
+          <tbody>
+            {
+              correctPlayers.length < 1 && (
+                <p>Stiamo caricando i giocatori presenti . . .</p>
+              )
+            }
+            {correctPlayers !== null &&
+              correctPlayers !== undefined &&
+              correctPlayers.length > 0 &&
+              correctPlayers.map((cp: any) => (
+                <Link to={"/admin/giocatore/" + cp._id}style={{color: "#000", cursor: "pointer", textDecoration: "none"}}>
+                  <tr>
+                    <td>{cp.first_name}</td>
+                    <td>{cp.last_name}</td>
+                    <td>{cp.scores ? cp.scores : "0"}</td>
+                    <td>{cp.capitain ? cp.capitain : "-"}</td>
+                  </tr>
+                </Link>
+              ))}
+          </tbody>
+        </table>
         <h2>Classifica</h2>
         <table>
           <thead>
@@ -356,16 +427,19 @@ const SingleTeam = () => {
               sortedTeams.map((st, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td className={st.name === team.name ? "SingleTeam__container__middleBanner__yellow" : ""}>{st.name}</td>
-                  <td>
-                    <Image
-                      publicId={st.logo + ".png"}
-                      cloudName="dhadbk8ko"
-                    />
+                  <td
+                    className={
+                      st.name === team.name
+                        ? "SingleTeam__container__middleBanner__yellow"
+                        : ""
+                    }
+                  >
+                    {st.name}
                   </td>
                   <td>
-                    {st.points}
+                    <Image publicId={st.logo + ".png"} cloudName="dhadbk8ko" />
                   </td>
+                  <td>{st.points}</td>
                 </tr>
               ))}
           </tbody>

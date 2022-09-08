@@ -14,6 +14,11 @@ import Calendar from "./components/admin/Calendar/Calendar.tsx";
 import AddPartita from "./components/admin/Calendar/AddPartita.tsx";
 import UpdateGiornata from "./components/admin/Calendar/UpdateGiornata.tsx";
 import SingleMatch from "./components/admin/Calendar/SingleMatch.tsx";
+import Footer from "./components/footer/Footer";
+import Classifica from "./components/classifica/Classifica.tsx";
+import Mvp from "./components/mvp/Mvp.tsx";
+import Players from "./components/admin/players/Players.tsx";
+import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
 
 function App() {
   return (
@@ -39,6 +44,16 @@ function App() {
             <Sidebar />
             <TopBar />
             <Calendar />
+          </Route>
+          <Route path={"/admin/giocatori"}>
+            <Sidebar />
+            <TopBar />
+            <Players />
+          </Route>
+          <Route path={"/admin/giocatore/:id"}>
+            <Sidebar />
+            <TopBar />
+            <SinglePlayer />
           </Route>
           <Route path="/admin/teams">
             <Sidebar />
@@ -68,9 +83,20 @@ function App() {
             <TopBar />
             <HomeAdmin />
           </Route>
+          <Route path="/classifica-torneo">
+            <Header />
+            <Classifica />
+            <Footer />
+          </Route>
+          <Route path="/mvp">
+            <Header />
+            <Mvp />
+            <Footer />
+          </Route>
           <Route path="/">
             <Header />
             <PublicHome />
+            <Footer />
           </Route>
         </Switch>
       </div>

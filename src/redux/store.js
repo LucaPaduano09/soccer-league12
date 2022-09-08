@@ -4,6 +4,7 @@ import showMenuReducer from "./menu.js";
 import adminLoggedReducer from "./adminLogged.js";
 import sidebarReducer from "./sidebar.js";
 import { playerSlice } from "./playerSlice.js";
+import loaderSlice from "./loader.js"
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     adminLogged: adminLoggedReducer,
     sidebar: sidebarReducer,
     player: playerSlice,
+    loader: loaderSlice,
   },
 });

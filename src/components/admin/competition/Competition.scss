@@ -7,15 +7,24 @@
     min-height: calc(100vh - 100px);
     padding-top: 50px;
     background-color: $main-grey-color;
+    @media screen and (max-width: $main-mobile-brp) {
+      // min-height: 140vh;
+    }
     &__topBanner {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: flex-start;
+      @media screen and (max-width: $main-mobile-brp) {
+        flex-direction: column;
+      }
       &__back{
         position: absolute;
         top: 10px;
         right: 40px;
+        @media screen and (max-width: $main-mobile-brp) {
+          display: none;
+        }
         & p{
           color: #14213D;
           
@@ -37,6 +46,16 @@
           & img {
             width: 400px;
             height: 100%;
+          }
+          @media screen and (max-width: $main-mobile-brp) {
+            width: 80vw;
+            font-size: 14px;
+            width: 250px;
+            height: 200px;
+            & img{
+              width: 250px;
+              height: 200px;
+            }
           }
         }
         &__actions{
@@ -71,6 +90,12 @@
         &__title {
           font-size: 35px;
         }
+        @media screen and (max-width: $main-mobile-brp) {
+          width: 80vw;
+          margin-left: 8vw;
+          font-size: 12px;
+          letter-spacing: 1.1px;
+        }
       }
     }
 
@@ -85,6 +110,12 @@
         justify-content: center;
         flex-direction: column;
         padding-left: 60px;
+        @media screen and (max-width: $main-mobile-brp) {
+          padding: 0px;
+          margin-left: 8vw;
+          font-size: 10px;
+          height: unset;
+        }
         & h1 {
           width: 84%;
           text-align: left;
@@ -98,16 +129,17 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            background-color: $main-yellow-color;
+            background-color: $full-yellow-color;
             // border-bottom: 1px solid black;
             & td {
               height: 100%;
               width: 25vw;
               color: white;
-              text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+              text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
               display: flex;
               align-items: center;
               justify-content: center;
+             
             }
           }
           & tr {
@@ -118,12 +150,16 @@
             &:nth-child(odd){
                 background-color: white;
             }
+            @media screen and (max-width: $main-mobile-brp) {
+              height: 100px;
+            }
             & td {
               height: 100%;
               width: 25vw;
               display: flex;
               align-items: center;
               justify-content: center;
+              
               & div{
                 display: flex;
                 align-items: center;

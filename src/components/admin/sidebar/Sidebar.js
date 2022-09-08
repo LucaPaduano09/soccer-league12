@@ -67,7 +67,9 @@ const Sidebar = () => {
             ( urlQueryString.indexOf("dashboard") !== -1 ? "__withActive" : "")
           }
         >
+          <Link to="/admin/dashboard">
           <img src="/images/dashboard.png" alt="" />
+          </Link>
           <Link to="/admin/dashboard" onClick={()=>handleDashboardClick()}>
             <p>Dashboard</p>
           </Link>
@@ -78,7 +80,9 @@ const Sidebar = () => {
             ( urlQueryString.indexOf("tournaments") !== -1 ? "__withActive" : "")
           }
         >
+          <Link to="/admin/tournaments">
           <img src="/images/podium.png" alt="" />
+          </Link>
           <Link to="/admin/tournaments"onClick={()=>handleCompetitionsClick()}>
             <p>Tornei</p>
           </Link>
@@ -89,7 +93,9 @@ const Sidebar = () => {
             ( urlQueryString.indexOf("teams") !== -1 ? "__withActive" : "")
           }
         >
+          <Link to="/admin/teams">
           <img src="/images/team.png" alt="" />
+          </Link>
           <Link to="/admin/teams"onClick={()=>handleTeamsClick()}>
             <p>Squadre</p>
           </Link>
@@ -100,7 +106,9 @@ const Sidebar = () => {
             ( urlQueryString.indexOf("giocatori") !== -1 ? "__withActive" : "")
           }
         >
+          <Link to="/admin/giocatori">
           <img src="/images/soccer-player.png" alt="" />
+          </Link>
           <Link to="/admin/giocatori"onClick={()=>handlePlayersClick()}>
             <p>Giocatori</p>
           </Link>
@@ -108,11 +116,13 @@ const Sidebar = () => {
         <div
           className={
             "Sidebar__container__menu__option" +
-            ( urlQueryString.indexOf("calendario") !== -1 ? "__withActive" : "")
+            ( urlQueryString.indexOf("games") !== -1 ? "__withActive" : "")
           }
         >
-          <img src="/images/calendar.png" alt="" />
-          <Link to="/admin/calendario"onClick={()=>handleCalendarClick()}>
+          <Link to="/admin/games">
+          <img src="/images/games.png" alt="" />
+          </Link>
+          <Link to="/admin/games"onClick={()=>handleCalendarClick()}>
             <p>Partite</p>
           </Link>
         </div>
@@ -122,7 +132,9 @@ const Sidebar = () => {
             ( urlQueryString.indexOf("calendario") !== -1 ? "__withActive" : "")
           }
         >
+          <Link to="/admin/calendario">
           <img src="/images/calendar.png" alt="" />
+          </Link>
           <Link to="/admin/calendario"onClick={()=>handleCalendarClick()}>
             <p>Calendario</p>
           </Link>

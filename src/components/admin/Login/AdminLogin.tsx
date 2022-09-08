@@ -38,11 +38,11 @@ const AdminLogin = () => {
 
   return (
     <div className="AdminLogin__container">
-        <h1>Inserisci le tue credenziali admin</h1>
+        <h1>Inserisci le tue credenziali</h1>
         <div className="AdminLogin__container__wrapper">
             <form className="AdminLogin__container__wrapper__form" onSubmit={(e)=>checkForLogin(e,adminUser,adminPwd)}>
                 <input type="text" className="AdminLogin__container__wrapper__form__input"placeholder='inserisci nome admin' onChange={(e)=>setAdminUser(e.target.value)}/>
-                <input type="text" className="AdminLogin__container__wrapper__form__input"placeholder='inserisci password admin'onChange={(e)=>setAdminPwd(e.target.value)} />
+                <input type="password" className="AdminLogin__container__wrapper__form__input"placeholder='inserisci password admin'onChange={(e)=>setAdminPwd(e.target.value)} />
                 <input type="submit" className="AdminLogin__container__wrapper__form__inputSubmit" />
             </form>
         </div>

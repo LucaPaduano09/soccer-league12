@@ -1,3 +1,5 @@
+@import "../../../mixins/global.scss";
+
 .Cards {
   &__container {
     width: 90vw;
@@ -6,6 +8,11 @@
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    @media screen and (max-width: $main-mobile-brp) {
+      height: 40vh;
+      width: 85vw;
+      
+    }
     &__label{
         width: 100%;
         text-align: left;
@@ -16,6 +23,12 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+        @media screen and (max-width: $main-mobile-brp) {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          margin-left: 20px;
+          gap: 20px 0px;
+        }
         &__card {
           height: 60%;
           width: 22%;
@@ -30,6 +43,10 @@
             &:hover{
                 box-shadow: 0 8px 16px 0 rgba(230, 174, 0, 0.2);
             }
+          @media screen and (max-width: $main-mobile-brp) {
+            width: 120px;
+            height: 80%;
+          }
           &__number {
             font-size: 35px;
             margin: 0;
@@ -48,6 +65,9 @@
             align-items: center;
             justify-content: center;
             text-transform: capitalize;
+            @media screen and (max-width: $main-mobile-brp) {
+              font-size: 12px;
+            }
           }
         }
     }

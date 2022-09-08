@@ -1,0 +1,62 @@
+@import "../../mixins/global.scss";
+
+.Mvp {
+  &__container {
+    width: 100vw;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $main-grey-color;
+    @media screen and (max-width: $main-mobile-brp) {
+      min-height: calc(100vh - 60px);
+      margin-top: 60px;
+      height: unset;
+    }
+    &__galleryContainer {
+      width: 46%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      align-self: center;
+      grid-gap: 30px 30px;
+      padding: 50px 50px;
+      @media screen and (max-width: $main-mobile-brp) {
+        flex-direction: column;
+        height: unset;
+        grid-template-columns: 1fr;
+        padding: 0px;
+        grid-gap: 20px 0px;
+      }
+
+      &__mvp {
+        height: 400px;
+        width: 100%;
+        border-radius: 10px;
+        background: url("../../../public/images/card1.jpg");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: 1.5px 1.5px 1.5px 0px rgba(3, 3, 3, 0.5);
+        transition: 0.3s;
+        @media screen and (max-width: $main-mobile-brp) {
+            height: 250px;
+            width: 220px;
+            margin: 20px 0px;
+        };
+        &:hover {
+          box-shadow: 0 8px 16px 0 rgba(7, 7, 7, 0.7);
+        }
+        &:nth-child(odd) {
+          background: url("../../../public/images/card2.jpg");
+          background-position: center center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+}

@@ -97,7 +97,7 @@ const Teams = () => {
       <h1>Tutte le squadre presenti in database</h1>
       <div className="Teams__container__addTeam"
       onClick={() => dispatch(openAddTeamModal())}
-      >add</div>
+      >Aggiungi</div>
       <div className="Teams__container__tableWrapper">
         <table>
           <thead>

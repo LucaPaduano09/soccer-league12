@@ -6,11 +6,15 @@
     top: 0;
     left: 0;
     height: 100vh;
+    z-index: 1000;
     width: 10vw;
-    background-color: $main-yellow-color;
+    @media screen and (max-width: $main-mobile-brp) {
+      width: 15vw;
+    }
+    background-color: $full-yellow-color;
 
     &__logoContainer {
-      height: 300px;
+      height: 150px;
       background: url("../../../../public/images/befootball-logo.png");
       background-position: center center;
       background-size: contain;
@@ -35,6 +39,9 @@
         justify-content: flex-start;
         letter-spacing: 1.12px;
         padding-left: 20px;
+        @media screen and (max-width: $main-mobile-brp) {
+          padding-left: 10px;
+        }
         &__withActive {
           display: flex;
           align-items: center;
@@ -43,14 +50,15 @@
           height: 15%;
           border-left: 5px solid rgb(156, 119, 6);
           color: white;
-          background-color: $full-yellow-color;
+          background-color: $main-yellow-color;
           letter-spacing: 1.12px;
           transition: all 0.2s ease-in-out;
           & img {
             height: 30px;
             width: 30px;
             margin-right: 20px;
-            margin-left: 20px;
+            margin-left: 5px;
+            margin-top: 5px;
           }
           & a {
             color: #fff;
@@ -62,6 +70,9 @@
             1px 1px 0 #000;
             text-align: center;
             font-size: 20px;
+            @media screen and (max-width: $main-mobile-brp) {
+              display: none;
+            }
           }
         }
         & a {
@@ -73,11 +84,15 @@
             1px 1px 0 #000;
           width: 80px;
           text-align: center;
+          margin-left: 25px;
+          @media screen and (max-width: $main-mobile-brp) {
+            display: none;
+          }
         }
         & img {
           height: 30px;
           width: 30px;
-          margin-right: 20px;
+          margin-right: 0px;
         }
       }
     }

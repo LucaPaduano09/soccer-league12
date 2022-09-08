@@ -10,7 +10,11 @@
     justify-content: space-between;
     background-color: white;
     border-bottom: 1px solid $main-yellow-color;
-
+    @media screen and (max-width: $main-mobile-brp) {
+      width: 85vw;
+      height: 50px;
+      margin-left: 15vw;
+    }
     &__alertsContainer {
       &__success {
         border: 1px solid rgb(1, 80, 1);
@@ -29,6 +33,10 @@
       margin-left: 50px;
       background-color: #e3eff5;
       border-radius: 5px;
+      @media screen and (max-width: $main-mobile-brp) {
+        width: 60%;
+        margin-left: 10px
+      }
       &__search {
         width: 100%;
         display: flex;
@@ -41,6 +49,11 @@
           &:focus {
             outline: none;
           }
+        }
+        &__icon{
+          height: 20px;
+          width: 20px;
+          margin-left: 10px;
         }
       }
     }
@@ -62,6 +75,9 @@
         }
       }
       &__label {
+        @media screen and (max-width: $main-mobile-brp) {
+          display: none;
+        }
         &__dropMenu {
           position: absolute;
           top: 80px;

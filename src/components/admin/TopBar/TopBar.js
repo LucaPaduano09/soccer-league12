@@ -134,15 +134,15 @@ const TopBar = () => {
     <div className="TopBar__container">
       <div className="TopBar__container__searchContainer">
         <div className="TopBar__container__searchContainer__search">
+          <img
+            src="/images/search.png"
+            alt="icon"
+            className="TopBar__container__searchContainer__search__icon"
+          />
           <input
             type="text"
             className="TopBar__container__searchContainer__search__input"
-            placeholder="cerca una competizione, una squadra o un giocatore..."
-          />
-          <img
-            src=""
-            alt="icon"
-            className="TopBar__container__searchContainer__search__icon"
+            placeholder="cerca qualcosa..."
           />
         </div>
       </div>

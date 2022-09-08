@@ -1,0 +1,91 @@
+@import "../../mixins/global.scss";
+
+.Classifica {
+  &__container {
+    position: relative;
+    height: calc(100vh - 80px);
+    width: 100vw;
+    margin-top: 80px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: url("../../../public/images/classifica-sfondo.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    @media screen and (max-width: $main-mobile-brp) {
+      height: unset;
+      margin-top: 60px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+      & h1 {
+        width: 100%;
+        height: 100px;
+        text-align: center;
+        text-transform: uppercase;
+        @media screen and (max-width: $main-mobile-brp) {
+          height: unset;
+        }
+      }
+      & img {
+        height: 100px;
+        width: 100px;
+        clip-path: circle();
+      }
+      & table {
+        border-collapse: separate;
+        border-spacing: 0 20px;
+        & tr {
+          height: 110px;
+          background-color: rgba(233, 230, 230, 0.947) ;
+          border-radius: 10px;
+          margin: 25px 0px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          transition: all 0.2s ease-in-out;
+          border: 1px solid white;
+          &:hover{
+            background-color: rgba(255,255,255,1);
+          }
+          @media screen and (max-width: $main-mobile-brp) {
+            width: 95vw;
+          }
+          & td {
+            width: 235px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 500;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @media screen and (max-width: $main-mobile-brp) {
+              &:first-child{
+                width: 50px;
+              }
+              &:nth-child(3){
+                width: 35%;
+                text-align: center;
+              }
+              &:last-child{
+                width: 50px;
+              }
+              width: 25%;
+              font-size: 12px;
+              text-align: center;
+            }
+            & img{
+              @media screen and (max-width: $main-mobile-brp) {
+                width: 80px;
+                height: 80px;
+              }
+            }
+          }
+        }
+      }
+    }
+}
+

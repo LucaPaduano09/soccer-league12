@@ -1,48 +1,104 @@
-.PublicHome{
-    &__container{
-        height: calc(100vh );
-        overflow: hidden;
-        &__videoWrapper{
-            height: 100%;
-            width: 100%;
-            & video{
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                filter: grayscale(100%);
-            }
-        }
-        &__titleWrapper{
-            position: absolute;
-            top: 50%;
-            left: 40%;
-            display: flex;
-            justify-content: center;
-            // flex-direction: column;
-            & p{
-                font-size: 50px;
-                color: white;
-                font-family: 'Stick No Bills', sans-serif;
-                margin: 0px 10px 0px 10px;
-                &:last-child{
-                    color: rgb(241, 182, 2);;
-                }
-            }
-        }
-        &__descWrapper{
-            position: absolute;
-            top: 80%;
-            left: 35%;
-            display: flex;
-            justify-content: center;
-            // flex-direction: column;
-            & p{
-                font-size: 40px;
-                color: white;
-                font-family: 'Stick No Bills', sans-serif;
-                margin: 0px 10px 0px 10px;
-               
-            }
-        }
+@import "../../mixins/global.scss";
+
+.PublicHome {
+  &__container {
+    overflow: hidden;
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    @media screen and (max-width: $main-mobile-brp) {
+      height: unset;
+      margin-top: 60px;
+      flex-direction: column;
     }
+    &__image {
+      transition: all 0.2s ease-in-out;
+      height: 100%;
+      width: 100%;
+      border-radius: 10px;
+      &:hover {
+        opacity: 70%;
+        transform: scale(0.96);
+        cursor: pointer;
+        &::after {
+          content: "CLASSIFICA";
+          position: absolute;
+          top: 50%;
+          left: 30%;
+        }
+      }
+      @media screen and (max-width: $main-mobile-brp) {
+        width: 100vw;
+      }
+    }
+    &__videoWrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      height: 100vh;
+      width: 100vw;
+      background-color: white;
+      transition: all 0.5s ease-in-out;
+      & video {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        filter: grayscale(100%);
+      }
+    }
+    &__imageWrapper {
+      position: fixed;
+      top: 35%;
+      left: 30%;
+      display: flex;
+      z-index: 102;
+      justify-content: center;
+      // flex-direction: column;
+      &__image {
+        height: 450px;
+        width: 250px;
+        @media screen and (max-width: $main-mobile-brp) {
+          height: 225px;
+        }
+      }
+    }
+
+    &__leftItem {
+      position: relative;
+      width: 100vw;
+      height: calc(100vh - 80px);
+      background-color: white;
+      @media screen and (max-width: $main-mobile-brp) {
+        width: 100vw;
+        height: calc(100vh - 60px);
+      }
+      & img{
+        object-fit: cover;
+      }
+    }
+    & h1 {
+      position: absolute;
+      top: 50%;
+      left: 30%;
+    }
+    &__rightItem {
+      position: relative;
+      height: calc(100vh - 80px);
+      width: 100vw;
+      border-left: 1px solid black;
+      background-color: white;
+      @media screen and (max-width: $main-mobile-brp) {
+        width: 100vw;
+        height: calc(100vh - 60px);
+      }
+      & h1 {
+        position: absolute;
+        top: 50%;
+        left: 25%;
+      }
+    }
+  }
 }
