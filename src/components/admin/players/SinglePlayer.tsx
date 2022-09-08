@@ -21,30 +21,26 @@ const SinglePlayer = () => {
   );
   const history = useHistory();
 
-    const handleDeletePlayer = async () => {
-        if(deleteOption === "si"){
-            console.log(deleteOption)
-            if(player !== null && player !== undefined){
-                console.log(player)
-                const response = await fetch('https://soccer-league12.herokuapp.com/players/' + player._id,{
-                    method: "DELETE",
-                    mode: "cors",
-                    cache: "no-cache",
-                    credentials: "same-origin",
-                    headers:{
-                        "Content-Type" : "application/json"
-                    }
-                });
-                if(!response.ok){
-                    window.alert("Something went wrong deleting player with id: " + player._id)
-                } else {
-                    console.log("deleted player with id: " + player._id)
-                  }
-                  
-                }
-                history.push("/admin/dashboard");
+  const handleDeletePlayer = async () => {
+    if (deleteOption === "si") {
+      console.log(deleteOption);
+        try {
+          await fetch(
+            "https://soccer-league12.herokuapp.com/players/" + player._id,
+            {
+              method: "DELETE",
+              mode: "cors",
+              cache: "no-cache",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          ).then(() => history.push("/admin/dashboard"));
+        } catch (error) {
+          console.log(error);
         }
     }
+  };
 
   useEffect(() => {
     const getPlayer = async () => {
@@ -100,18 +96,25 @@ const SinglePlayer = () => {
     <div className="SinglePlayer__container">
       {deletePlayerModal && (
         <>
-        <div className="SinglePlayer__container__overlay" />
-        <div className="SinglePlayer__container__deletePlayerModal">
-          <button onClick={() => dispatch(closeDeletePlayerModal())}> x </button>
-          <h2>Cancella Giocatore</h2>
-          <Image public_id={player.logo + ".png"} cloudName="dhadbk8ko" />
-          <div>
-            <p>Sei sicuro di voler cancellare il giocatore ?</p>
-            <label>Cancella: </label>
-            <input type="checkbox" value="si" onChange={(e) => setDeleteOption(e.target.value)}/>
+          <div className="SinglePlayer__container__overlay" />
+          <div className="SinglePlayer__container__deletePlayerModal">
+            <button onClick={() => dispatch(closeDeletePlayerModal())}>
+              {" "}
+              x{" "}
+            </button>
+            <h2>Cancella Giocatore</h2>
+            <Image public_id={player.logo + ".png"} cloudName="dhadbk8ko" />
+            <div>
+              <p>Sei sicuro di voler cancellare il giocatore ?</p>
+              <label>Cancella: </label>
+              <input
+                type="checkbox"
+                value="si"
+                onChange={(e) => setDeleteOption(e.target.value)}
+              />
+            </div>
+            <input type="submit" onClick={() => handleDeletePlayer()} />
           </div>
-          <input type="submit" onClick={() => handleDeletePlayer()}/>
-        </div>
         </>
       )}
       <div className="SinglePlayer__container__left">
