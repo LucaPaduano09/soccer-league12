@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/header/Header";
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Sidebar from "./components/admin/sidebar/Sidebar";
 import HomeAdmin from "./components/admin/home/HomeAdmin";
 import CompetitionSummary from "./components/admin/competitionSummary/CompetitionSummary.tsx";
