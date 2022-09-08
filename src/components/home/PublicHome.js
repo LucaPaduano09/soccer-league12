@@ -38,9 +38,9 @@ const PublicHome = () => {
         <video autoPlay muted loop playsInline>
           <source src="/images/main-video.mov" />
         </video>
-        <div className="PublicHome__container__imageWrapper" >
+        {/* <div className="PublicHome__container__imageWrapper" >
           <img className="PublicHome__container__imageWrapper__image"src="/images/befootball-logo.png" alt="logo" style={loader ? (isMobile ? { width: "125px" } : {width: "250px"}) : { width: 0 } }/>
-        </div>
+        </div> */}
       </div>
 
       <div className="PublicHome__container__leftItem">
