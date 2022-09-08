@@ -39,10 +39,10 @@ const SinglePlayer = () => {
                     window.alert("Something went wrong deleting player with id: " + player._id)
                 } else {
                     console.log("deleted player with id: " + player._id)
+                  }
+                  
                 }
-
-                history.push("/admin/giocatori");
-            }
+                history.push("/admin/dashboard");
         }
     }
 

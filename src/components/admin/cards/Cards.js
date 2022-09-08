@@ -5,27 +5,32 @@ const Cards = () => {
   const [competitions, setCompetitions] = useState("0");
   const [teams, setTeams] = useState("0");
   const [players, setPlayers] = useState("0");
-
+  const [games, setGames] = useState("0");
   useEffect(() => {
     const getCompetitions = async () => {
-      const response = await fetch("https://soccer-league12.herokuapp.com/competizione", {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if(!response.ok){
-        console.error("Error while fetching competitions")
-        return
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/competizione",
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        console.error("Error while fetching competitions");
+        return;
       }
       const result = await response.json();
       setCompetitions(result.length);
     };
     const getTeams = async () => {
-        const response = await fetch("https://soccer-league12.herokuapp.com/teams", {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/teams",
+        {
           method: "GET",
           mode: "cors",
           cache: "no-cache",
@@ -33,16 +38,19 @@ const Cards = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        });
-        if(!response.ok){
-          console.error("Error while fetching teams")
-          return
         }
-        const result = await response.json();
-        setTeams(result.length);
-      };
+      );
+      if (!response.ok) {
+        console.error("Error while fetching teams");
+        return;
+      }
+      const result = await response.json();
+      setTeams(result.length);
+    };
     const getPlayers = async () => {
-        const response = await fetch("https://soccer-league12.herokuapp.com/players", {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/players",
+        {
           method: "GET",
           mode: "cors",
           cache: "no-cache",
@@ -50,38 +58,76 @@ const Cards = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        });
-        if(!response.ok){
-          console.error("Error while fetching players")
-          return
         }
-        const result = await response.json();
-        setPlayers(result.length);
-      };
-    getCompetitions()
-    getTeams()
-    getPlayers()
+      );
+      if (!response.ok) {
+        console.error("Error while fetching players");
+        return;
+      }
+      const result = await response.json();
+      setPlayers(result.length);
+    };
+    const getGames = async () => {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/games",
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        console.error("Error while fetching players");
+        return;
+      }
+      const result = await response.json();
+      setGames(result.length);
+    };
+    getCompetitions();
+    getTeams();
+    getPlayers();
+    getGames();
   }, [competitions]);
 
   return (
     <div className="Cards__container">
       <div className="Cards__container__cardsContainer">
-      <div className="Cards__container__cardsContainer__card">
-        <p className="Cards__container__cardsContainer__card__number">{competitions}</p>
-        <p className="Cards__container__cardsContainer__card__label">Competizioni</p>
-      </div>
-      <div className="Cards__container__cardsContainer__card">
-        <p className="Cards__container__cardsContainer__card__number">{teams}</p>
-        <p className="Cards__container__cardsContainer__card__label">squadre</p>
-      </div>
-      <div className="Cards__container__cardsContainer__card">
-        <p className="Cards__container__cardsContainer__card__number">{players}</p>
-        <p className="Cards__container__cardsContainer__card__label">giocatori</p>
-      </div>
-      <div className="Cards__container__cardsContainer__card">
-        <p className="Cards__container__cardsContainer__card__number">{competitions}</p>
-        <p className="Cards__container__cardsContainer__card__label">Competizioni</p>
-      </div>
+        <div className="Cards__container__cardsContainer__card">
+          <p className="Cards__container__cardsContainer__card__number">
+            {competitions}
+          </p>
+          <p className="Cards__container__cardsContainer__card__label">
+            Competizioni
+          </p>
+        </div>
+        <div className="Cards__container__cardsContainer__card">
+          <p className="Cards__container__cardsContainer__card__number">
+            {teams}
+          </p>
+          <p className="Cards__container__cardsContainer__card__label">
+            squadre
+          </p>
+        </div>
+        <div className="Cards__container__cardsContainer__card">
+          <p className="Cards__container__cardsContainer__card__number">
+            {players}
+          </p>
+          <p className="Cards__container__cardsContainer__card__label">
+            giocatori
+          </p>
+        </div>
+        <div className="Cards__container__cardsContainer__card">
+          <p className="Cards__container__cardsContainer__card__number">
+            {games}
+          </p>
+          <p className="Cards__container__cardsContainer__card__label">
+            Partite
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -119,7 +119,7 @@ const Teams = () => {
                 <td>
                   <Link to={"/admin/team/" + team._id}>{team.name}</Link>
                 </td>
-                <td>{team.teamId}</td>
+                <td>{team._id}</td>
               </tr>
             ))}
           </tbody>

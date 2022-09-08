@@ -85,9 +85,9 @@ const Players = () => {
     );
     if (!response.ok) {
       window.alert("Something went wrong creating player...");
-    }else {
+    } else {
       window.alert("player created successfully");
-      history.push("/admin/dashboard")
+      history.push("/admin/dashboard");
     }
   };
 
@@ -166,7 +166,11 @@ const Players = () => {
             </div>
             <div>
               <label>Capitano</label>
-              <input type="checkbox" value="si" onChange={(e) => setCaptain(e.target.value)}/>
+              <input
+                type="checkbox"
+                value="si"
+                onChange={(e) => setCaptain(e.target.value)}
+              />
             </div>
             <div>
               <label></label>
@@ -176,7 +180,10 @@ const Players = () => {
         </>
       )}
       <table>
-        <button className="Players__container__addNewPlayer" onClick={() => dispatch(openAddPlayerModal())}>
+        <button
+          className="Players__container__addNewPlayer"
+          onClick={() => dispatch(openAddPlayerModal())}
+        >
           +
         </button>
         <thead>
@@ -188,10 +195,10 @@ const Players = () => {
             <td>squadra</td>
           </th>
         </thead>
-        {players !== null &&
-          players !== undefined &&
-          players.map((player: any) => (
-            <tbody>
+        <tbody>
+          {players !== null &&
+            players !== undefined &&
+            players.map((player: any) => (
               <Link to={"/admin/giocatore/" + player._id}>
                 <tr className="Players__container__playerContainer">
                   <td>
@@ -204,12 +211,17 @@ const Players = () => {
                   <td>{player.last_name}</td>
                   <td>{player.scores ? player.scores : "0"}</td>
                   <td>
-                    <Link style={{color:"red", textDecoration: "underline"}} to={"/admin/team/" + player.teamId}>{player.teamId}</Link>
+                    <Link
+                      style={{ color: "red", textDecoration: "underline" }}
+                      to={"/admin/team/" + player.teamId}
+                    >
+                      {player.teamId}
+                    </Link>
                   </td>
                 </tr>
               </Link>
-            </tbody>
-          ))}
+            ))}
+        </tbody>
       </table>
     </div>
   );

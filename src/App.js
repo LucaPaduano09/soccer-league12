@@ -19,12 +19,24 @@ import Classifica from "./components/classifica/Classifica.tsx";
 import Mvp from "./components/mvp/Mvp.tsx";
 import Players from "./components/admin/players/Players.tsx";
 import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
+import Games from "./components/admin/games/Games.tsx";
+import SingleGame from "./components/admin/games/SingleGame.tsx";
 
 function App() {
   return (
     <Router>
       <div className="app">
         <Switch>
+          <Route path={"/admin/games"}>
+            <Sidebar />
+            <TopBar />
+            <Games />
+          </Route>
+          <Route path={"/admin/game/:id"}>
+            <Sidebar />
+            <TopBar />
+            <SingleGame />
+          </Route>
         <Route path="/admin/calendario/partita/:id">
             <Sidebar />
             <TopBar />
