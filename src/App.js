@@ -65,7 +65,7 @@ function App() {
             <TopBar />
             <SingleTeam />
           </Route>
-          <Route exact path="/admin/tournaments">
+          <Route path="/admin/tournaments">
             <Sidebar />
             <TopBar />
             <CompetitionSummary />
@@ -78,7 +78,7 @@ function App() {
             <TopBar />
             <Competition />
           </Route>
-          <Route exact path="/admin/dashboard">
+          <Route path="/admin/dashboard">
             <Sidebar />
             <TopBar />
             <HomeAdmin />
