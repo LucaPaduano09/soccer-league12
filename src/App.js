@@ -37,7 +37,7 @@ function App() {
             <TopBar />
             <SingleGame />
           </Route>
-        <Route path="/admin/calendario/partita/:id">
+          <Route path="/admin/calendario/partita/:id">
             <Sidebar />
             <TopBar />
             <SingleMatch />
@@ -53,8 +53,8 @@ function App() {
             <AddPartita />
           </Route>
           <Route path="/admin/calendario">
-            <Sidebar />
-            <TopBar />
+            {/* <Sidebar />
+            <TopBar /> */}
             <Calendar />
           </Route>
           <Route path={"/admin/giocatori"}>

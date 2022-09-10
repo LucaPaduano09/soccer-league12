@@ -12,6 +12,7 @@ export const ModalSlice = createSlice({
     addPlayerModal: false,
     deletePlayerModal: false,
     updatePlayerModal: false,
+    addDayModal: false,
   },
   reducers: {
     openAdminFotoModal: (state) => {
@@ -67,6 +68,12 @@ export const ModalSlice = createSlice({
     },
     closeUpdatePlayerModal: (state) => {
       state.updatePlayerModal = false;
+    },
+    openAddDayModal: (state) => {
+      state.addDayModal = true;
+    },
+    closeAddDayModal: (state) => {
+      state.addDayModal = false;
     }
   },
 });
@@ -90,5 +97,7 @@ export const {
   closeDeletePlayerModal,
   openUpdatePlayerModal,
   closeUpdatePlayerModal,
+  openAddDayModal,
+  closeAddDayModal
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

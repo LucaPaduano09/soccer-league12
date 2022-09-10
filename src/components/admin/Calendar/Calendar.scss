@@ -1,84 +1,365 @@
-@import "../../../mixins/global.scss";
-.Calendar {
-  &__container {
-    min-height: calc(100vh - 100px);
-    width: 90vw;
-    margin-left: 10vw;
+ @import "../../../mixins/global.scss";
+// .Calendar {
+//   &__container {
+//     min-height: calc(100vh - 100px);
+//     width: 90vw;
+//     margin-left: 10vw;
+//     display: flex;
+//     align-items: center;
+//     flex-direction: column;
+//     @media screen and (max-width: $main-mobile-brp){
+//       width: 85vw;
+//       margin-left: 15vw;
+//     }
+//     &__noDays {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       flex-direction: column;
+//       &__label {
+//         font-size: 32px;
+//       }
+//       &__add {
+//         width: 70px;
+//         height: 25px;
+//         text-align: center;
+//         background-color: $full-yellow-color;
+//         border-radius: 10px;
+//         border: none;
+//         color: white;
+
+//         &:hover {
+//           cursor: pointer;
+//           background-color: white;
+//           color: $full-yellow-color;
+//           border: 1px solid $main-yellow-color;
+//           border-radius: 10px;
+//         }
+//       }
+//       &__overlay {
+//         position: fixed;
+//         top: 0;
+//         left: 0;
+//         height: 100vh;
+//         width: 100vw;
+//         background-color: rgba(0, 0, 0, 0.337);
+//         z-index: 100;
+//       }
+//       &__gamesWarning{
+//         position: absolute;
+//         top: 35%;
+//         left: 35%;
+//         height: 30vh;
+//         width: 30vw;
+//         background-color: white;
+//         z-index: 102;
+//         border-radius: 10px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         flex-direction: column;
+//         & p{
+//             width: 50%;
+//         }
+//       }
+//       &__understand{
+//         width: 300px;
+//         height: 25px;
+//         text-align: center;
+//         background-color: $full-yellow-color;
+//         border: none;
+//         border-radius: 10px;
+//         color: white;
+//         margin-top: 50px;
+
+//         &:hover {
+//           cursor: pointer;
+//           background-color: white;
+//           color: $full-yellow-color;
+//           border: 1px solid $main-yellow-color;
+//           border-radius: 10px;
+//         }
+//       }
+//     }
+//     &__overlay{
+//       position: fixed;
+//       top: 0;
+//       left: 0;
+//       height: 100vh;
+//       width: 100vw;
+//       background-color: rgba(0, 0, 0, 0.337);
+//       z-index: 100;
+//     }
+//     &__addDayModal{
+//       position: absolute;
+//       top: 35%;
+//       width: 35%;
+//       background-color: white;
+//       border-radius: 10px;
+//       border: none;
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-evenly;
+//       flex-direction: column;
+//       z-index: 102;
+//       min-width: 40vw;
+//       min-height: 30vh;
+//       & form{
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-evenly;
+//         flex-direction: column;
+//         width: 100%;
+//         height: 80%;
+//         & div{
+//           width: 500px;
+//           display: flex;
+//           align-items: center;
+//           margin: 10px 0px;
+//           & label{
+//             margin-right: 30px;
+//             width: 150px;
+//           }
+//           & input{
+//             width: 250px;
+//             height: 30px;
+//           }
+//           & select{
+//             width: 250px;
+//             height: 30px;
+//           }
+//         }
+//       }
+//     }
+//     &__addGameModal{
+//       position: absolute;
+//       top: 35%;
+//       width: 35%;
+//       background-color: white;
+//       border-radius: 10px;
+//       border: none;
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-evenly;
+//       flex-direction: column;
+//       z-index: 102;
+//       min-width: 50vw;
+//       min-height: 40vh;
+//       & form{
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-evenly;
+//         flex-direction: column;
+//         width: 100%;
+//         height: 80%;
+//         & div{
+//           width: 500px;
+//           display: flex;
+//           align-items: center;
+//           margin: 10px 0px;
+//           & label{
+//             margin-right: 30px;
+//             width: 150px;
+//           }
+//           & input{
+//             width: 250px;
+//             height: 30px;
+//           }
+//           & select{
+//             width: 250px;
+//             height: 30px;
+//           }
+//         }
+//       }
+//     }
+//     & #gameIdInput{
+//        &::after{
+//         content: "";
+//         background-image: url("../../../../public/images/tooltip.png");
+//         position: absolute;
+//         top: 0;
+//        }
+//     }
+//     & table{
+//       & th {
+//         width: 80vw;
+//         height: 60px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         background-color: $main-yellow-color;
+//         // border-bottom: 1px solid black;
+//         & td {
+//           height: 100%;
+//           width: 25vw;
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+//           color: white;
+//         }
+//       }
+//       & tr {
+//         width: 80vw;
+//         height: 60px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: flex-start;
+//         &:nth-child(odd) {
+//           background-color: white;
+//         }
+//         // border-bottom: 1px solid black;
+//         & td {
+//           height: 100%;
+//           width: 25vw;
+//           // border: 1px solid black;
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+          
+//         }
+//       }
+//     }
+//     &__changeStatusModal{
+//       &__overlay{
+//         position: fixed;
+//         top: 0;
+//         left: 0;
+//         height: 100vh;
+//         width: 100vw;
+//         background-color: rgba(0, 0, 0, 0.337);
+//         z-index: 100;
+//       }
+//       &__container{
+//         position: absolute;
+//         top: 40%;
+//         left: 40%;
+//         height: 30vh;
+//         width: 40vw;
+//         z-index: 102;
+//         background-color: white;
+//         border-radius: 10px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-evenly;
+//         flex-direction: column;
+//       }
+//     }
+//   }
+// }
+.Calendar{
+  *{
+   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+  }
+  &__container{
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     flex-direction: column;
-    @media screen and (max-width: $main-mobile-brp){
-      width: 85vw;
-      margin-left: 15vw;
-    }
-    &__noDays {
+    &__topBanner{
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      &__label {
-        font-size: 32px;
-      }
-      &__add {
-        width: 70px;
-        height: 25px;
-        text-align: center;
-        background-color: $full-yellow-color;
-        border-radius: 10px;
-        border: none;
+      width: 100vw;
+      background-color: $full-yellow-color;
+      color: white;
+      & a{
         color: white;
-
-        &:hover {
-          cursor: pointer;
-          background-color: white;
-          color: $full-yellow-color;
-          border: 1px solid $main-yellow-color;
-          border-radius: 10px;
+        flex: 1;
+        font-size: 13px;
+        &::before{
+          content: "<";
+          text-decoration: none;
+          margin-right: 5px;
+          margin-left: 5px;
         }
       }
-      &__overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba(0, 0, 0, 0.337);
-        z-index: 100;
+      & h3{
+        flex: 1.5;
+        font-size: 13px;
       }
-      &__gamesWarning{
-        position: absolute;
-        top: 35%;
-        left: 35%;
-        height: 30vh;
-        width: 30vw;
-        background-color: white;
-        z-index: 102;
-        border-radius: 10px;
+    }
+    &__subTopBanner{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      &__logo{
+        flex: 1;
+        & img{
+          height: 100px;
+          margin-left: 10px;
+        }
+      }
+      &__name{
+        flex: 3;
+        display: flex;
+        align-items:flex-start;
+        flex-direction: column;
+        & p{
+          margin: 5px 0px;
+          color: lightgray;
+          @media screen and (max-width: $main-mobile-brp) {
+            font-size: 10px;
+          }
+        }
+        & h3{
+          margin: 0;
+          color: $full-yellow-color;
+          text-transform: uppercase;
+          font-size: 15px;
+          @media screen and (max-width: $main-mobile-brp) {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    &__daysContainer{
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      overflow-x: scroll;
+      border-bottom: 1px solid black;
+      border-top: 1px solid black;
+      background-color: $main-grey-color;
+      &__active{
+        border-bottom: 3px solid $full-yellow-color;
+        padding-bottom: 5px;
+        text-align: center;
+        margin-right: 10px;
+      }
+      &__notActive{
+        padding-bottom: 8px;
+        text-align: center;
+      }
+      &__noDaysYet{
+        width: 80vw;
+        text-align: center;
+        margin-right: 0px !important;
+        margin-left: 35px !important;
+      }
+      & h3{
+        // margin: 20px 8px;
+        font-size: 8px;
+        text-transform: uppercase;
+        min-width: 100px;
+        &:first-child{
+          margin-left: 15px;
+        }
+      }
+      & button{
+        height: 20px;
+        width: 20px;
+        padding: 0px !important;
+        margin: 0px !important;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction: column;
-        & p{
-            width: 50%;
-        }
-      }
-      &__understand{
-        width: 300px;
-        height: 25px;
-        text-align: center;
-        background-color: $full-yellow-color;
         border: none;
-        border-radius: 10px;
+        border-radius: 50%;
+        background-color: $full-yellow-color;
         color: white;
-        margin-top: 50px;
-
-        &:hover {
-          cursor: pointer;
-          background-color: white;
-          color: $full-yellow-color;
-          border: 1px solid $main-yellow-color;
-          border-radius: 10px;
-        }
       }
     }
     &__overlay{
@@ -90,158 +371,139 @@
       background-color: rgba(0, 0, 0, 0.337);
       z-index: 100;
     }
-    &__addDayModal{
+    &__modal{
       position: absolute;
-      top: 35%;
-      width: 35%;
+      top: 25%;
+      left: 10%;
       background-color: white;
-      border-radius: 10px;
-      border: none;
+      height: 50vh;
+      width: 80vw;
+      z-index: 101;
       display: flex;
       align-items: center;
-      justify-content: space-evenly;
+      justify-content: flex-start;
       flex-direction: column;
-      z-index: 102;
-      min-width: 40vw;
-      min-height: 30vh;
-      & form{
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        flex-direction: column;
-        width: 100%;
-        height: 80%;
-        & div{
-          width: 500px;
-          display: flex;
-          align-items: center;
-          margin: 10px 0px;
-          & label{
-            margin-right: 30px;
-            width: 150px;
-          }
-          & input{
-            width: 250px;
-            height: 30px;
-          }
-          & select{
-            width: 250px;
-            height: 30px;
-          }
-        }
-      }
-    }
-    &__addGameModal{
-      position: absolute;
-      top: 35%;
-      width: 35%;
-      background-color: white;
       border-radius: 10px;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      flex-direction: column;
-      z-index: 102;
-      min-width: 50vw;
-      min-height: 40vh;
-      & form{
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        flex-direction: column;
-        width: 100%;
-        height: 80%;
-        & div{
-          width: 500px;
-          display: flex;
-          align-items: center;
-          margin: 10px 0px;
-          & label{
-            margin-right: 30px;
-            width: 150px;
-          }
-          & input{
-            width: 250px;
-            height: 30px;
-          }
-          & select{
-            width: 250px;
-            height: 30px;
-          }
-        }
-      }
-    }
-    & #gameIdInput{
-       &::after{
-        content: "";
-        background-image: url("../../../../public/images/tooltip.png");
+      & button{
         position: absolute;
-        top: 0;
-       }
-    }
-    & table{
-      & th {
-        width: 80vw;
-        height: 60px;
+        top: 5px;
+        right: 5px;
+        height: 20px;
+        width: 20px;
+        padding: 0px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: $main-yellow-color;
-        // border-bottom: 1px solid black;
-        & td {
-          height: 100%;
-          width: 25vw;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
+        border: none;
+        border-radius: 50%;
+        background-color: $full-yellow-color;
+        color: white;
+      }
+      & div{
+        margin: 50px 0px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        & label{
+          margin: 10px 0px;
+          height: 30px;
+        }
+        & input[type=number]{
+          border-radius: 10px;
+          border: 1px solid black;
+          text-align: center;
+          height: 25px;
         }
       }
-      & tr {
-        width: 80vw;
-        height: 60px;
+      & input[type=submit]{
+        width: 65%;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        background-color: $full-yellow-color;
+        height: 30px;
+      }
+    }
+    &__close{
+      height: 20px;
+      width: 20px;
+      padding: 0px !important;
+      margin: 0px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 50%;
+      background-color: $full-yellow-color;
+      color: white;
+      position: absolute;
+      top: 50px;
+      right: 20px;
+    }
+    &__middleBanner{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      &__gameContainer{
+        height: 100px;
+        width: 100vw;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        &:nth-child(odd) {
-          background-color: white;
+        &__firstTeam{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 40%;
+            & img{
+              height: 40px;
+              width: 40px;
+              clip-path: circle();
+              margin: 0px 10px 0px 20px;
+            }
+            &__name{
+              font-size: 10px;
+              width: 100%;
+              text-transform: uppercase;
+              white-space: pre;
+            }
         }
-        // border-bottom: 1px solid black;
-        & td {
-          height: 100%;
-          width: 25vw;
-          // border: 1px solid black;
+        &__result{
+          width: 20%;
+          text-align: center;
+          background-color: $main-grey-color;
+          margin: 0px 5px;
+          letter-spacing: 3px;
           display: flex;
           align-items: center;
           justify-content: center;
-          
+          flex-direction: column;
+        }
+        &__secondTeam{
+          width: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          & img{
+            height: 40px;
+            width: 40px;
+            clip-path: circle();
+            margin-right: 10px;
+          }
+          &__name{
+            font-size: 10px;
+            width: 100%;
+            white-space: pre;
+            text-transform: uppercase;
+          }
         }
       }
-    }
-    &__changeStatusModal{
-      &__overlay{
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba(0, 0, 0, 0.337);
-        z-index: 100;
-      }
-      &__container{
-        position: absolute;
-        top: 40%;
-        left: 40%;
-        height: 30vh;
-        width: 40vw;
-        z-index: 102;
-        background-color: white;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        flex-direction: column;
+      &__separator{
+        width: 80%;
+        height: 1px;
+        background-color: $main-grey-color;
       }
     }
   }
