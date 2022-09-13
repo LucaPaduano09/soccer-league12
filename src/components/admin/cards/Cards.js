@@ -6,6 +6,8 @@ const Cards = () => {
   const [teams, setTeams] = useState("0");
   const [players, setPlayers] = useState("0");
   const [games, setGames] = useState("0");
+  const [days, setDays] = useState(0);
+
   useEffect(() => {
     const getCompetitions = async () => {
       const response = await fetch(
@@ -87,10 +89,27 @@ const Cards = () => {
       const result = await response.json();
       setGames(result.length);
     };
+    const getDays = async () => {
+      const response = await fetch('https://soccer-league12.herokuapp.com/calendar',{
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers:{
+          "Content-Type" : "application/json"
+        }
+      })
+      if(!response.ok){
+        window.alert("Something went wrong fetching days...")
+      }
+      const result = await response.json();
+      setDays(result.length);
+    }
     getCompetitions();
     getTeams();
     getPlayers();
     getGames();
+    getDays();
   }, [competitions]);
 
   return (
@@ -126,6 +145,22 @@ const Cards = () => {
           </p>
           <p className="Cards__container__cardsContainer__card__label">
             Partite
+          </p>
+        </div>
+        <div className="Cards__container__cardsContainer__card">
+          <p className="Cards__container__cardsContainer__card__number">
+            {days}
+          </p>
+          <p className="Cards__container__cardsContainer__card__label">
+            Giornate
+          </p>
+        </div>
+        <div className="Cards__container__cardsContainer__card">
+          <p className="Cards__container__cardsContainer__card__number">
+            0
+          </p>
+          <p className="Cards__container__cardsContainer__card__label">
+            Foto
           </p>
         </div>
       </div>

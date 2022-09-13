@@ -3,10 +3,20 @@ import { useHistory } from "react-router-dom";
 import "./Calendar.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { openAddDayModal, closeAddDayModal } from "../../../redux/modals";
+import {
+  openAddDayModal,
+  closeAddDayModal,
+  openAddGameModal,
+  closeAddGameModal,
+  openAddGameToDayModal,
+  closeAddGameToDayModal,
+  openRemoveGameFromDayModal,
+  closeRemoveGameFromDayModal,
+} from "../../../redux/modals";
 import { Image } from "cloudinary-react";
 
 import "../../../mixins/global.scss";
+
 const Calendar = () => {
   const [calendar, setCalendar] = useState([{}]);
   const [dayNumber, setDayNumber] = useState();
@@ -14,86 +24,26 @@ const Calendar = () => {
   const [teams, setTeams] = useState([{}]);
   const [team, setTeam] = useState([{}]);
   const [game, setGame] = useState([{}]);
+  const [games, setGames] = useState([{}]);
   const [filteredTeam, setFilteredTeam] = useState([{}]);
   const [filteredTeam2, setFilteredTeam2] = useState([{}]);
   const history = useHistory();
   const dispatch = useDispatch();
   const [indexActive, setIndexActive] = useState(0);
   const [selectedDayGames, setSelectedDayGames] = useState([{}]);
+  const [gameToAddId, setGameToAddId] = useState("");
+  const [gameToRemoveId, setGameToRemoveId] = useState("");
   const changeMatchStatusModal = useSelector(
     (state: any) => state.addModal.changeMatchStatusModal
   );
-
   const addDayModal = useSelector((state: any) => state.addModal.addDayModal);
-
-  const handleChangeStatus = () => {
-    // dispatch(openChangeMatchStatusModal());
-    console.log(changeMatchStatusModal);
-  };
-
-  const handleCreateDay = async (e) => {
-    e.preventDefault();
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/calendar/add",
-      {
-        method: "POST",
-        body: JSON.stringify({ giornata: dayNumber, partite: null }),
-        mode: "cors",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (!response.ok) {
-      window.alert("Something went wrong creating new calendar day");
-    } else {
-      window.alert("Giornata creata correttamente: " + (await response.json()));
-    }
-  };
-  const handleAddGame = (idGiornata) => {
-    setAddGame(true);
-    setDayId(idGiornata);
-  };
-  const getPartita = async (idPartita) => {
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games/" + idPartita,
-      {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (!response.ok) {
-      window.alert("Something went wrong fetching game...");
-    } else {
-      // window.alert("response: " + (await response.json()));
-      const result = await response.json();
-      setGame(result);
-      if (game !== null && game !== undefined) {
-        filterTeams(game.team1);
-        filterTeams2(game.team2);
-      }
-    }
-  };
-  const filterTeams = (teamId) => {
-    const filteredTeamM = teams.filter((team: any) => team._id == teamId);
-    setFilteredTeam(filteredTeamM);
-  };
-  const filterTeams2 = (teamId) => {
-    const filteredTeamM = teams.filter((team: any) => team._id == teamId);
-    setFilteredTeam2(filteredTeamM);
-  };
-  const handleDayClick = (index, c: any) => {
-    setIndexActive(index);
-    if(c !== null && c !== undefined){
-      setSelectedDayGames([c]);
-    }
-  }
+  const addGameModal = useSelector((state: any) => state.addModal.addGameModal);
+  const addGameToDayModal = useSelector(
+    (state: any) => state.addModal.addGameToDayModal
+  );
+  const removeGameFromDayModal = useSelector((state: any) => state.addModal.removeGameFromDayModal);
+  var x = [{}];
+  var y = [{}];
 
   useEffect(() => {
     const getCalendar = async () => {
@@ -138,150 +88,421 @@ const Calendar = () => {
     };
     getTeams();
   }, [teams.length]);
+  useEffect(() => {
+    const getGames = async () => {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/games",
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong fetching games");
+      }
+      const result = await response.json();
+      setGames(result);
+    };
+    getGames();
+  }, [games.length]);
+
+  const handleCreateDay = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/calendar/add",
+      {
+        method: "POST",
+        body: JSON.stringify({ giornata: dayNumber, partite: null }),
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong creating new calendar day");
+    } else {
+      window.alert("Giornata creata correttamente: " + (await response.json()));
+    }
+  };
+  const filterTeams = (teamId) => {
+    const filteredTeamM = teams.filter((team: any) => team._id == teamId);
+    if (
+      filteredTeamM !== null &&
+      filteredTeamM !== undefined &&
+      filteredTeamM.length > 0
+    ) {
+      return (
+        <Image
+          public_id={filteredTeamM[0].logo + ".png"}
+          cloudName="dhadbk8ko"
+        />
+      );
+    }
+  };
+  const filterGames = (partita) => {
+    let filteredGames = games.filter((game: any) => game._id === partita);
+    if (
+      filteredGames[0] !== null &&
+      filteredGames[0] !== undefined &&
+      filteredGames.length > 0
+    ) {
+      return filteredGames[0].team1;
+    }
+  };
+  const filterGames2 = (partita) => {
+    let filteredGames = games.filter((game: any) => game._id === partita);
+    if (
+      filteredGames[0] !== null &&
+      filteredGames[0] !== undefined &&
+      filteredGames.length > 0
+    ) {
+      return filteredGames[0].team2;
+    }
+  };
+  const handleDayClick = (index, c: any) => {
+    setIndexActive(index);
+    if (c !== null && c !== undefined) {
+      setSelectedDayGames([c]);
+    }
+  };
+  const handleAddGameToDay = async (gameId) => {
+    let add: any = calendar.filter(
+      (c: any) => c.giornata === selectedDayGames[0].giornata
+    );
+    let giornataToFind = add[0]._id;
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/calendar/" + giornataToFind,
+      {
+        method: "POST",
+        body: JSON.stringify({ partite: gameToAddId }),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert(
+        `Something went wrong updating calendar\ngiornata: ${add[0].giornata}\npartitaId: ${gameToAddId}`
+      );
+    }
+    window.location.reload();
+  };
+  const handleRemoveGame = async (gameId) => {
+    let remove: any = calendar.filter(
+      (c: any) => c.giornata === (selectedDayGames[0] as any).giornata
+    );
+    let giornataToFind = remove[0]._id;
+    const response = await fetch('https://soccer-league12.herokuapp.com/calendar-remove/'+ giornataToFind,{
+      method: "POST",
+      body: JSON.stringify({ partite: gameToRemoveId }),
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Cotent-Type" : "application/json"
+      }
+    });
+    if(!response.ok){
+      window.alert("Something went wrong removing game...")
+    }
+    window.location.reload();
+  }
+  const getResult = (partita: any) => {
+    const filteredGame: any = games.filter((game: any) => game._id === partita);
+    if (filteredGame[0] !== null && filteredGame[0] !== undefined) {
+      return filteredGame[0].result !== null ? filteredGame[0].result : "0-0";
+    }
+  };
+  const getTeamName = (teamId: any) => {
+    const filteredTeamM = teams.filter((team: any) => team._id == teamId);
+    if (
+      filteredTeamM !== null &&
+      filteredTeamM !== undefined &&
+      filteredTeamM.length > 0
+    ) {
+      return filteredTeamM[0].name;
+    }
+  };
 
   return (
-    <div className="Calendar__container">
-      {addDayModal && (
-        <>
-          <div className="Calendar__container__overlay" />
-          <div className="Calendar__container__modal">
-            <button onClick={() => dispatch(closeAddDayModal())}> X </button>
-            <h3>Aggiungi Giornata</h3>
-            <div>
-              <label>numero giornata:</label>
+    <div className="Calendar">
+      <div className="Calendar__container">
+        {addDayModal && (
+          <>
+            <div className="Calendar__container__overlay" />
+            <div className="Calendar__container__modal">
+              <button onClick={() => dispatch(closeAddDayModal())}> X </button>
+              <h3>Aggiungi Giornata</h3>
+              <div>
+                <label>numero giornata:</label>
+                <input
+                  type="number"
+                  placeholder="0"
+                  onChange={(e) => setDayNumber(e.target.value)}
+                />
+              </div>
+              <input type="submit" onClick={(e) => handleCreateDay(e)} />
+            </div>
+          </>
+        )}
+        {addGameToDayModal && (
+          <>
+            <div className="Calendar__container__overlay" />
+            <div className="Calendar__container__gameModal">
+              <button
+                className="Calendar__container__gameModal__close"
+                onClick={() => dispatch(closeAddGameToDayModal())}
+              >
+                X
+              </button>
+              <h2>Aggiungi una Partita</h2>
+              <label>Partita</label>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyItems: "space-evenly",
+                  flexDirection: "row",
+                }}
+              >
+                <select
+                  style={{ width: "70%" }}
+                  onChange={(e) => setGameToAddId(e.target.value)}
+                >
+                  {games !== undefined &&
+                    games !== null &&
+                    games.length > 0 &&
+                    games.map((game: any) => (
+                      <option value={game._id}>
+                        {(x = teams.filter(
+                          (team: any) => team._id === game.team1
+                        )) +
+                          "" +
+                          x !==
+                          undefined &&
+                          x !== null &&
+                          x.length > 0 &&
+                          x[0].name + " vs "}
+                        {(y = teams.filter(
+                          (team: any) => team._id === game.team2
+                        )) +
+                          "" +
+                          y !==
+                          null &&
+                          y !== undefined &&
+                          y.length > 0 &&
+                          y[0].name}
+                      </option>
+                    ))}
+                </select>
+              </div>
               <input
-                type="number"
-                placeholder="0"
-                onChange={(e) => setDayNumber(e.target.value)}
+                type="submit"
+                onClick={() => handleAddGameToDay(gameToAddId)}
               />
             </div>
-            <input type="submit" onClick={(e) => handleCreateDay(e)} />
-          </div>
-        </>
-      )}
-      <div className="Calendar__container__topBanner">
-        <Link to="/admin/dashboard">indietro</Link>
-        <h3>Calendario</h3>
-      </div>
-      <div className="Calendar__container__subTopBanner">
-        <div className="Calendar__container__subTopBanner__logo">
-          <img src="/images/befootball-logo.png" />
-        </div>
-        <div className="Calendar__container__subTopBanner__name">
-          <h3>be football star qatar 2022</h3>
-          <p>Calcio a 8</p>
-        </div>
-      </div>
-      <div className="Calendar__container__daysContainer">
-        {calendar !== null &&
-          calendar !== undefined &&
-          calendar.map((c: any, index) => (
+          </>
+        )}
+        {
+          removeGameFromDayModal && (
             <>
-              <h3>
-                <p
-                  className={
-                    "Calendar__container__daysContainer" +
-                    (index === indexActive ? "__active" : "__notActive")
-                  }
-                  onClick={() => handleDayClick(index, c)}
+            <div className="Calendar__container__overlay" />
+            <div className="Calendar__container__gameModal">
+            <button
+                className="Calendar__container__gameModal__close"
+                onClick={() => dispatch(closeAddGameToDayModal())}
+              >
+                X
+              </button>
+              <h2>Rimuovi Partita</h2>
+              <label>Partita</label>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyItems: "space-evenly",
+                  flexDirection: "row",
+                }}
+              >
+                <select
+                  style={{ width: "70%" }}
+                  onChange={(e) => setGameToRemoveId(e.target.value)}
                 >
-                  {"Giornata " + c.giornata}
-                </p>
-              </h3>
+                  {selectedDayGames !== undefined &&
+                    selectedDayGames !== null &&
+                    selectedDayGames.length > 0 &&
+                    selectedDayGames.map((game: any) => (
+                      <option value={game._id}>
+                        {(x = teams.filter(
+                          (team: any) => team._id === game.team1
+                        )) +
+                          "" +
+                          x !==
+                          undefined &&
+                          x !== null &&
+                          x.length > 0 &&
+                          (x[0] as any).name + " vs "}
+                        {(y = teams.filter(
+                          (team: any) => team._id === game.team2
+                        )) +
+                          "" +
+                          y !==
+                          null &&
+                          y !== undefined &&
+                          y.length > 0 &&
+                          (y[0] as any).name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <input
+                type="submit"
+                onClick={() => handleRemoveGame(gameToRemoveId)}
+              />
+            </div>
             </>
-          ))}
 
-        {calendar == null ||
-          (calendar === undefined && (
-            <>
-              <h3 className="Calendar__container__daysContainer__noDaysYet">
-                non ci sono ancora giornate nel calendario
-              </h3>
-            </>
-          ))}
-      </div>
-      <button
-        className="Calendar__container__close"
-        onClick={() => dispatch(openAddDayModal())}
-      >
-        +
-      </button>
-      <div className="Calendar__container__middleBanner">
-        {calendar !== null &&
-          calendar !== undefined &&
-          selectedDayGames !== null &&
-          selectedDayGames !== undefined &&
-          selectedDayGames.length > 0 &&
-          selectedDayGames.map(
-            (c: any, index) =>
-              c.partite !== null &&
-              c.partite !== undefined &&
-              c.partite.length > 0 &&
-              c.partite.map(
-                (partita: any, index) =>
-                  getPartita(partita) && (
-                    <>
-                      <div className="Calendar__container__middleBanner__gameContainer">
-                        <div className="Calendar__container__middleBanner__gameContainer__firstTeam">
-                          <div className="Calendar__container__middleBanner__gameContainer__firstTeam__logo">
-                          {game !== null &&
-                            game !== undefined &&
-                            filteredTeam !== undefined &&
-                            filteredTeam.length > 0 &&
-                            <Image public_id={filteredTeam[0].logo + ".png"}cloudName="dhadbk8ko"/>
-                            }
-                          </div>
-                          <div className="Calendar__container__middleBanner__gameContainer__firstTeam__name">
-                          {game !== null &&
-                            game !== undefined &&
-                            filteredTeam !== undefined &&
-                            filteredTeam.length > 0 &&
-                            filteredTeam[0].name}
-                          </div>
-                        </div>
-                        <div className="Calendar__container__middleBanner__gameContainer__result">
-                          {game !== null &&
-                           game !== undefined &&
-                           game.result === null ? "0-0" : game.result
-                          }
-                          
-                        </div>
-                        <div className="Calendar__container__middleBanner__gameContainer__secondTeam">
-                          <div className="Calendar__container__middleBanner__gameContainer__secondTeam__name">
-                          {game !== null &&
-                            game !== undefined &&
-                            filteredTeam2 !== undefined &&
-                            filteredTeam2.length > 0 &&
-                            filteredTeam2[0].name}
-                          </div>
-                          <div className="Calendar__container__middleBanner__gameContainer__secondTeam__logo">
-                          {game !== null &&
-                            game !== undefined &&
-                            filteredTeam2 !== undefined &&
-                            filteredTeam2.length > 0 &&
-                            <Image public_id={filteredTeam2[0].logo + ".png"}cloudName="dhadbk8ko"/>
-                            }
-                          </div>
-                        </div>
-                      </div>
-                      <div className="Calendar__container__middleBanner__separator" />
-                    </>
-                  )
-              )
-          )}
-          {
-            selectedDayGames !== null && 
+          )
+        }
+        <div className="Calendar__container__topBanner">
+          <Link to="/admin/dashboard">indietro</Link>
+          <h3>Calendario</h3>
+        </div>
+        <div className="Calendar__container__subTopBanner">
+          <div className="Calendar__container__subTopBanner__logo">
+            <img src="/images/befootball-logo.png" />
+          </div>
+          <div className="Calendar__container__subTopBanner__name">
+            <h3>be football star qatar 2022</h3>
+            <p>Calcio a 8</p>
+          </div>
+        </div>
+        <div className="Calendar__container__daysContainer">
+          {calendar !== null &&
+            calendar !== undefined &&
+            calendar.map((c: any, index) => (
+              <>
+                <h3>
+                  <p
+                    className={
+                      "Calendar__container__daysContainer" +
+                      (index === indexActive ? "__active" : "__notActive")
+                    }
+                    onClick={() => handleDayClick(index, c)}
+                  >
+                    {"Giornata " + c.giornata}
+                  </p>
+                </h3>
+              </>
+            ))}
+
+          {calendar == null ||
+            (calendar === undefined && (
+              <>
+                <h3 className="Calendar__container__daysContainer__noDaysYet">
+                  non ci sono ancora giornate nel calendario
+                </h3>
+              </>
+            ))}
+        </div>
+        <button
+          className="Calendar__container__close"
+          onClick={() => dispatch(openAddDayModal())}
+        >
+          +
+        </button>
+        <div className="Calendar__container__middleBanner">
+          {calendar !== null &&
+            calendar !== undefined &&
+            selectedDayGames !== null &&
             selectedDayGames !== undefined &&
             selectedDayGames.length > 0 &&
-            selectedDayGames.map(
-              (c: any, index) =>
-                c.partite == null ||
-                c.partite == undefined &&
-                <div>
-                  <p>Non ci sono partite in questa giornata</p>
-                </div>
-            )
-          }
+            selectedDayGames.map((c: any, index) =>
+              c.partite !== null &&
+              c.partite !== undefined &&
+              c.partite.length > 0 ? (
+                c.partite.map(
+                  (partita: any, index) =>
+                    games.filter((gameM: any) => gameM._id === partita) && (
+                      <>
+                        <div
+                          key={partita._id}
+                          className="Calendar__container__middleBanner__gameContainer"
+                        >
+                          <div className="Calendar__container__middleBanner__gameContainer__firstTeam">
+                            <div className="Calendar__container__middleBanner__gameContainer__firstTeam__logo">
+                              {filterTeams(filterGames(partita))}
+                            </div>
+                            <div className="Calendar__container__middleBanner__gameContainer__firstTeam__name">
+                              {getTeamName(filterGames(partita))}
+                            </div>
+                          </div>
+                          <div className="Calendar__container__middleBanner__gameContainer__result">
+                            {getResult(partita)}
+                          </div>
+                          <div className="Calendar__container__middleBanner__gameContainer__secondTeam">
+                            <div className="Calendar__container__middleBanner__gameContainer__secondTeam__name">
+                              {getTeamName(filterGames2(partita))}
+                            </div>
+                            <div className="Calendar__container__middleBanner__gameContainer__secondTeam__logo">
+                              {filterTeams(filterGames2(partita))}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="Calendar__container__middleBanner__separator" />
+                      </>
+                    )
+                )
+              ) : (
+                <>
+                  <p className="Calendar__container__middleBanner__noGames">
+                    Non Ci sono partite
+                  </p>
+                  <div className="Calendar__container__middleBanner__separator" />
+                </>
+              )
+            )}
+        </div>
+      </div>
+      <div className="Calendar__buttonContainer">
+        {selectedDayGames.map((c: any, index) =>
+          c.partite !== null &&
+          c.partite !== undefined &&
+          c.partite.length > 0 ? (
+            <>
+              <button
+                className="Calendar__button"
+                onClick={() => dispatch(openAddGameToDayModal())}
+              >
+                Aggiungi
+              </button>
+              <button
+                className="Calendar__button"
+                onClick={() => dispatch(openRemoveGameFromDayModal())}
+              >
+                rimuovi
+              </button>
+            </>
+          ) : (
+            <button
+              className="Calendar__button"
+              onClick={() => dispatch(openAddGameToDayModal())}
+            >
+              Aggiungi
+            </button>
+          )
+        )}
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ import Players from "./components/admin/players/Players.tsx";
 import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
 import Games from "./components/admin/games/Games.tsx";
 import SingleGame from "./components/admin/games/SingleGame.tsx";
+import AddGameToCalendar from "./components/admin/Calendar/AddGameToCalendar.tsx";
 
 function App() {
   return (
@@ -56,6 +57,9 @@ function App() {
             {/* <Sidebar />
             <TopBar /> */}
             <Calendar />
+          </Route>
+          <Route path="/admin/calendario/add-game-to-calendar">
+            <AddGameToCalendar />
           </Route>
           <Route path={"/admin/giocatori"}>
             <Sidebar />

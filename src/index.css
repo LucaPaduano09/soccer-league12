@@ -1,6 +1,9 @@
 *{
   font-family: 'Open Sans', sans-serif;
 }
+button{
+  border-radius: 5px !important;
+}
 body {
 
   margin: 0;
