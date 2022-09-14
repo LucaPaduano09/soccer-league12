@@ -36,7 +36,6 @@ const Classifica = () => {
   return (
     <div className="Classifica__container">
       <>
-        <h1>Classifica</h1>
         <table>
           <tbody>
             {teams !== null &&

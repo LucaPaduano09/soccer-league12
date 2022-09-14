@@ -1,0 +1,384 @@
+@import "../../mixins/global.scss";
+.PublicCalendar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  *{
+   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+  }
+  &__container{
+    // height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    @media screen and (max-width:$main-mobile-brp){
+      margin-top: 60px;
+    }
+    &__topBanner{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      background-color: $full-yellow-color;
+      color: white;
+      & a{
+        color: white;
+        flex: 1;
+        font-size: 13px;
+        margin-left: 20px;
+        &::before{
+          content: "";
+          text-decoration: none;
+          height: 20px;
+          width: 20px;
+          background-image: url("../../../public/images/white-back-arrow.png");
+          background-position: center center;
+          background-size: cover;
+          position: absolute;
+          z-index: 10000;
+          left: 0;
+        }
+      }
+      & h3{
+        flex: 2;
+        font-size: 15px;
+        text-transform: uppercase;
+      }
+    }
+    &__subTopBanner{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      &__logo{
+        flex: 1;
+        & img{
+          height: 100px;
+          margin-left: 10px;
+        }
+      }
+      &__name{
+        flex: 3;
+        display: flex;
+        align-items:flex-start;
+        flex-direction: column;
+        & p{
+          margin: 5px 0px;
+          color: lightgray;
+          @media screen and (max-width: $main-mobile-brp) {
+            font-size: 10px;
+          }
+        }
+        & h3{
+          margin: 0;
+          color: $full-yellow-color;
+          text-transform: uppercase;
+          font-size: 15px;
+          @media screen and (max-width: $main-mobile-brp) {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+    &__daysContainer{
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      overflow-x: scroll;
+      border-bottom: 1px solid black;
+      border-top: 1px solid black;
+      background-color: $main-grey-color;
+      transition: all 0.3s ease-in-out;
+      &__active{
+        font-size: 10px !important;
+        border-bottom: 3px solid $full-yellow-color;
+        padding-bottom: 5px;
+        text-align: center;
+        margin-right: 10px;
+      }
+      &__notActive{
+        font-size: 10px !important;
+        padding-bottom: 8px;
+        text-align: center;
+      }
+      &__noDaysYet{
+        width: 80vw;
+        text-align: center;
+        margin-right: 0px !important;
+        margin-left: 35px !important;
+      }
+      & h3{
+        // margin: 20px 8px;
+        font-size: 8px;
+        text-transform: uppercase;
+        min-width: 100px;
+        &:first-child{
+          margin-left: 15px;
+        }
+      }
+      & button{
+        height: 20px;
+        width: 20px;
+        padding: 0px !important;
+        margin: 0px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 50%;
+        background-color: $full-yellow-color;
+        color: white;
+      }
+    }
+    &__overlay{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: rgba(0, 0, 0, 0.337);
+      z-index: 100;
+    }
+    &__modal{
+      position: absolute;
+      top: 25%;
+      left: 10%;
+      background-color: white;
+      height: 50vh;
+      width: 80vw;
+      z-index: 101;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      border-radius: 10px;
+      & button{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 20px;
+        width: 20px;
+        padding: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 50%;
+        background-color: $full-yellow-color;
+        color: white;
+      }
+      & div{
+        margin: 50px 0px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        & label{
+          margin: 10px 0px;
+          height: 30px;
+        }
+        & input[type=number]{
+          border-radius: 10px;
+          border: 1px solid black;
+          text-align: center;
+          height: 25px;
+        }
+      }
+      & input[type=submit]{
+        width: 65%;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        background-color: $full-yellow-color;
+        height: 30px;
+      }
+    }
+    &__gameModal{
+      position: absolute;
+      top: 20%;
+      left: 6%;
+      background-color: white;
+      height: 40vh;
+      width: 88vw;
+      z-index: 101;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      border-radius: 10px;
+      & button{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 20px;
+        width: 20px;
+        padding: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 50%;
+        background-color: $full-yellow-color;
+        color: white;
+      }
+      & div{
+        margin: 10px 0px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        & label{
+          margin: 5px 0px 12px 0px;
+          height: 15px;
+          text-transform: uppercase;
+          text-align: left;
+          width: 70%;
+          font-size: 12px;
+        }
+        & input[type=number]{
+          border-radius: 10px;
+          border: 1px solid black;
+          text-align: center;
+          height: 25px;
+        }
+      }
+      & label{
+        margin: 8px 0px;
+        height: 15px;
+        text-transform: uppercase;
+        text-align: left;
+        width: 70%;
+        font-size: 12px;
+      }
+      & input{
+        width: 190px;
+        height: 30px;
+        color: black;
+      }
+      & input[type=date], input[type=time]{
+        letter-spacing: 2.5px;
+      }
+      & input[type=submit]{
+        width: 70%;
+        border: none;
+        border-radius: 5px !important;
+        color: white;
+        background-color: $full-yellow-color;
+        height: 25px;
+        margin-top: 20px;
+      }
+      & select{
+        border-radius: 5px;
+        color: black;
+        padding: 5px;
+        width: 100px;
+        height: 30px;
+      }
+    }
+    &__close{
+      height: 20px;
+      width: 20px;
+      padding: 0px !important;
+      margin: 0px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 50%;
+      background-color: $full-yellow-color;
+      color: white;
+      position: absolute;
+      top: 60px;
+      right: 10px;
+    }
+    &__middleBanner{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      overflow-y: scroll;
+
+      // margin-bottom: 100px;
+      &__gameContainer{
+        height: 100px;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &__firstTeam{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 40%;
+            & img{
+              height: 40px;
+              width: 40px;
+              clip-path: circle();
+              margin: 0px 10px 0px 10px;
+            }
+            &__name{
+              font-size: 10px;
+              width: 100%;
+              text-transform: uppercase;
+              white-space: pre;
+            }
+        }
+        &__result{
+          width: 20%;
+          text-align: center;
+          background-color: $main-grey-color;
+          margin: 0px 9px 0px 5px;
+          letter-spacing: 3px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+        &__secondTeam{
+          width: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          & img{
+            height: 40px;
+            width: 40px;
+            clip-path: circle();
+            margin-right: 10px;
+          }
+          &__name{
+            font-size: 10px;
+            width: 100%;
+            white-space: pre;
+            text-transform: uppercase;
+          }
+        }
+      }
+      &__separator{
+        width: 80%;
+        height: 1px;
+        background-color: $main-grey-color;
+      }
+      &__noGames{
+        width: 90vw;
+        text-transform: capitalize;
+        text-align: center;
+        pointer-events: none;
+        padding: 20px;
+      }
+    }
+  }
+  &__button{
+    width: 40vw;
+    height: 30px;
+    border-radius: 5px;
+    background-color: $full-yellow-color;
+    color: white;
+    border: none;
+    text-transform: uppercase;
+    margin: 20px 5px;
+  }
+}

@@ -22,6 +22,7 @@ import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
 import Games from "./components/admin/games/Games.tsx";
 import SingleGame from "./components/admin/games/SingleGame.tsx";
 import AddGameToCalendar from "./components/admin/Calendar/AddGameToCalendar.tsx";
+import PublicCalendar from "./components/publicCalendar/PublicCalendar.tsx";
 
 function App() {
   return (
@@ -29,8 +30,6 @@ function App() {
       <div className="app">
         <Switch>
           <Route path={"/admin/games"}>
-            <Sidebar />
-            <TopBar />
             <Games />
           </Route>
           <Route path={"/admin/game/:id"}>
@@ -103,6 +102,10 @@ function App() {
             <Header />
             <Classifica />
             <Footer />
+          </Route>
+          <Route path="/calendario">
+            <Header />
+            <PublicCalendar />
           </Route>
           <Route path="/mvp">
             <Header />

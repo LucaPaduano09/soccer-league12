@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import Gallery from '../gallery/Gallery'
-// import VerticalGallery from '../verticalGallery/VerticalGallery.tsx'
 import "./PublicHome.scss";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import { update }  from "../../redux/loader";
-import { isMobile } from "react-device-detect";
 
 const PublicHome = () => {
   const [loading, setLoading] = useState(true);
@@ -50,12 +47,11 @@ const PublicHome = () => {
         </Link>
       </div>
       <div className="PublicHome__container__rightItem">
+        <Link to="/calendario">
         <img className="PublicHome__container__image"src="/images/squadra3.jpg" alt="squadre" />
-        <h1>Grafica Squadre</h1>
+        <h1>Grafica Calendario</h1>
+        </Link>
       </div>
-      {/* <div className="PublicHome__container__descWrapper">
-        <p>Il primo torneo di calciotto al Vomero</p>
-      </div> */}
     </div>
   );
 };

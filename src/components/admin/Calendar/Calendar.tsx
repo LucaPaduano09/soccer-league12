@@ -41,7 +41,9 @@ const Calendar = () => {
   const addGameToDayModal = useSelector(
     (state: any) => state.addModal.addGameToDayModal
   );
-  const removeGameFromDayModal = useSelector((state: any) => state.addModal.removeGameFromDayModal);
+  const removeGameFromDayModal = useSelector(
+    (state: any) => state.addModal.removeGameFromDayModal
+  );
   var x = [{}];
   var y = [{}];
 
@@ -177,47 +179,96 @@ const Calendar = () => {
       (c: any) => c.giornata === selectedDayGames[0].giornata
     );
     let giornataToFind = add[0]._id;
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/calendar/" + giornataToFind,
-      {
-        method: "POST",
-        body: JSON.stringify({ partite: gameToAddId }),
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      }
-    );
-    if (!response.ok) {
-      window.alert(
-        `Something went wrong updating calendar\ngiornata: ${add[0].giornata}\npartitaId: ${gameToAddId}`
+    if(add[0].partite === null){
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/calendar-first/" + giornataToFind,
+        {
+          method: "POST",
+          body: JSON.stringify({ partite: [gameToAddId] }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
+      if (!response.ok) {
+        window.alert(
+          `Something went wrong updating calendar\ngiornata: ${add[0].giornata}\npartitaId: ${gameToAddId}`
+        );
+      }
+      window.location.reload();
     }
-    window.location.reload();
+    if(add[0].partite.length !== null){
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/calendar/" + giornataToFind,
+        {
+          method: "POST",
+          body: JSON.stringify({ partite: gameToAddId }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      if (!response.ok) {
+        window.alert(
+          `Something went wrong updating calendar\ngiornata: ${add[0].giornata}\npartitaId: ${gameToAddId}`
+        );
+      }
+      window.location.reload();
+    }
   };
   const handleRemoveGame = async (gameId) => {
     let remove: any = calendar.filter(
       (c: any) => c.giornata === (selectedDayGames[0] as any).giornata
     );
     let giornataToFind = remove[0]._id;
-    const response = await fetch('https://soccer-league12.herokuapp.com/calendar-remove/'+ giornataToFind,{
-      method: "POST",
-      body: JSON.stringify({ partite: gameToRemoveId }),
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Cotent-Type" : "application/json"
+      if(remove[0].partite.length === 1){
+        const response = await fetch(
+          "https://soccer-league12.herokuapp.com/calendar-remove-first/" + giornataToFind,
+          {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        );
+        if (!response.ok) {
+          window.alert("Something went wrong removing game...");
+        }
+        // window.location.reload();
       }
-    });
-    if(!response.ok){
-      window.alert("Something went wrong removing game...")
-    }
-    window.location.reload();
-  }
+      if(remove[0].partite.length > 1){
+        const response = await fetch(
+          "https://soccer-league12.herokuapp.com/calendar-remove/" + giornataToFind,
+          {
+            method: "POST",
+            body: JSON.stringify({partite: gameToRemoveId}),
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        );
+        if (!response.ok) {
+          window.alert("Something went wrong removing game...");
+        }
+        // window.location.reload();
+      }
+  };
   const getResult = (partita: any) => {
     const filteredGame: any = games.filter((game: any) => game._id === partita);
     if (filteredGame[0] !== null && filteredGame[0] !== undefined) {
@@ -314,14 +365,13 @@ const Calendar = () => {
             </div>
           </>
         )}
-        {
-          removeGameFromDayModal && (
-            <>
+        {removeGameFromDayModal && (
+          <>
             <div className="Calendar__container__overlay" />
             <div className="Calendar__container__gameModal">
-            <button
+              <button
                 className="Calendar__container__gameModal__close"
-                onClick={() => dispatch(closeAddGameToDayModal())}
+                onClick={() => dispatch(closeRemoveGameFromDayModal())}
               >
                 X
               </button>
@@ -342,26 +392,11 @@ const Calendar = () => {
                   {selectedDayGames !== undefined &&
                     selectedDayGames !== null &&
                     selectedDayGames.length > 0 &&
-                    selectedDayGames.map((game: any) => (
-                      <option value={game._id}>
-                        {(x = teams.filter(
-                          (team: any) => team._id === game.team1
-                        )) +
-                          "" +
-                          x !==
-                          undefined &&
-                          x !== null &&
-                          x.length > 0 &&
-                          (x[0] as any).name + " vs "}
-                        {(y = teams.filter(
-                          (team: any) => team._id === game.team2
-                        )) +
-                          "" +
-                          y !==
-                          null &&
-                          y !== undefined &&
-                          y.length > 0 &&
-                          (y[0] as any).name}
+                    (selectedDayGames[0] as any).partite.map((partita: any) => (
+                      <option value={partita}>
+                        {getTeamName(filterGames(partita)) +
+                          "  vs  " +
+                          getTeamName(filterGames2(partita))}
                       </option>
                     ))}
                 </select>
@@ -371,10 +406,8 @@ const Calendar = () => {
                 onClick={() => handleRemoveGame(gameToRemoveId)}
               />
             </div>
-            </>
-
-          )
-        }
+          </>
+        )}
         <div className="Calendar__container__topBanner">
           <Link to="/admin/dashboard">indietro</Link>
           <h3>Calendario</h3>
