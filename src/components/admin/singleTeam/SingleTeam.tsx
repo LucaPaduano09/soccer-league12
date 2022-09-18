@@ -4,8 +4,12 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import {
   openDeleteTeamModal,
   closeDeleteTeamModal,
-  openModifyTeamModal,
-  closeModifyTeamModal,
+  openUpdateTeamNameModal,
+  closeUpdateTeamNameModal,
+  closeUpdateTeamPointsModal,
+  openUpdateTeamPointsModal,
+  openUpdateTeamLogoModal,
+  closeUpdateTeamLogoModal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
@@ -15,12 +19,10 @@ const SingleTeam = () => {
   const [team, setTeam] = useState([{}]);
   const [players, setPlayers] = useState([{}]);
   const [correctPlayers, setCorrectPlayers] = useState([{}]);
-  const [loadingPlayers,setLoadingPlayers] = useState(true);
+  const [loadingPlayers, setLoadingPlayers] = useState(true);
   const [allTeams, setAllTeams] = useState([{}]);
-  const [competizione, setCompetizione] = useState([{}]);
-  const [insertTeamId, setInsertTeamId] = useState(0);
-  const [newName, setNewName] = useState(null);
-  const [newPoints, setNewPoints] = useState(null);
+  const [newTeamName, setNewTeamName] = useState("");
+  const [teamPointsToAdd, setTeamPointsToAdd] = useState(0);
   const [fileName, setFileName] = useState("");
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState();
@@ -32,110 +34,140 @@ const SingleTeam = () => {
 
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/admin/team/", "");
-  const showDeleteModal = useSelector(
-    (state) => state.addModal.deleteTeamModal
+  const deleteTeamModal = useSelector(
+    (state: any) => state.addModal.deleteTeamModal
   );
-  const showChangeModal = useSelector(
-    (state) => state.addModal.modifyTeamModal
+  const updateTeamNameModal = useSelector(
+    (state: any) => state.addModal.updateTeamNameModal
+  );
+  const updateTeamPointsModal = useSelector(
+    (state: any) => state.addModal.updateTeamPointsModal
+  );
+  const updateTeamLogoModal = useSelector(
+    (state: any) => state.addModal.updateTeamLogoModal
   );
   const dispatch = useDispatch();
   const history = useHistory();
 
   //funzioni per gestire upload file sul modifica team
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    previewFile(file);
-  };
-  const previewFile = (file) => {
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setPreviewSource(reader.result);
-        setFileName(file.name);
-      };
-    }
-  };
-  const handleSubmit = (e, newName) => {
-    e.preventDefault();
-    console.log("submitting...");
-    if (previewSource) {
-      uploadImage(previewSource, fileName.replace(" ", "%20"));
-    } else {
-      uploadTeam(newName,fileName,newPoints );
-    }
-    window.location.reload();
-  };
-
-  const uploadImage = async (base64EncondedImage, name) => {
-    try {
-      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
-        method: "POST",
-        body: JSON.stringify({ data: base64EncondedImage, name: name }),
+  // const handleFileInputChange = (event) => {
+  //   const file = event.target.files[0];
+  //   previewFile(file);
+  // };
+  // const previewFile = (file) => {
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onloadend = () => {
+  //       setPreviewSource(reader.result);
+  //       setFileName(file.name);
+  //     };
+  //   }
+  // };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("submitting...");
+  //   uploadImage(previewSource, fileName);
+  //   window.location.reload();
+  // };
+  // const uploadImage = async (base64EncondedImage, name) => {
+  //   let fileNameWithNoExtension = name.replace(".png","");
+  //   fileNameWithNoExtension.replace(".jpg","");
+  //   fileNameWithNoExtension.replace(".jpeg","");
+  //   try {
+  //     await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
+  //       method: "POST",
+  //       body: JSON.stringify({ data: base64EncondedImage, name: fileNameWithNoExtension }),
+  //       mode: "cors",
+  //       cache: "no-cache",
+  //       credentials: "same-origin",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }).then(() => uploadTeamLogo(fileNameWithNoExtension))
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // const uploadTeamLogo = async (name) => {
+  //   const response = await fetch('https://soccer-league12.herokuapp.com/teams-logo/' + id,{
+  //     method: "POST",
+  //     body: JSON.stringify({logo: "soccerManage12/" + name}),
+  //     mode: "cors",
+  //     cache: "no-cache",
+  //     credentials: "same-origin",
+  //     headers: {
+  //       "Content-Type" : "application/json"
+  //     }
+  //   });
+  //   if(!response.ok){
+  //     window.alert("Something went wrong updating team logo...");
+  //   } else {
+  //     window.alert("Team logo updated successfully");
+  //     window.location.reload();
+  //   }
+  // }
+  const handleDeleteTeam = async () => {
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams/" + id,
+      {
+        method: "DELETE",
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
         },
-      }).then(() => uploadTeam(newName, fileName, newPoints));
-    } catch (error) {
-      console.log(error);
+      }
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong deleting team...");
+    } else {
+      window.alert("Team deleted successfully");
+      history.push("/admin/teams");
     }
   };
-
-  const uploadTeam = async (newName, newLogo, newPoints) => {
-    console.log(
-      JSON.stringify({ name: newName, logo: newLogo, points: newPoints })
-    );
-    let body = {};
-    if (newName !== null) {
-      body = body + JSON.stringify({ name: newName });
-    }
-    if (newPoints !== null) {
-      body = body + JSON.stringify({ points: newPoints });
-    }
-    if (fileName !== "") {
-      body = body + JSON.stringify({ logo: newLogo });
-    }
+  const handleUpdateTeamName = async (e) => {
+    e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams/" + id,
+      "https://soccer-league12.herokuapp.com/teams-name/" + id,
       {
         method: "POST",
-        body: JSON.stringify(body),
+        body: JSON.stringify({ name: newTeamName }),
         mode: "cors",
         cache: "no-cache",
+        credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
     if (!response.ok) {
-      window.alert("Something went wrong updating team...");
-    }
-  };
-
-  const handleDeleteTeam = async (e, insertTeamId) => {
-    e.preventDefault();
-    console.log("entro in handleDeleteTeam");
-    if (insertTeamId === team._id) {
-      try {
-        console.log("id uguali");
-        await fetch("https://soccer-league12.herokuapp.com/teams/" + team._id, {
-          method: "DELETE",
-          mode: "cors",
-          cache: "no-cache",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then(() => history.push("/admin/teams"));
-      } catch (error) {}
+      window.alert("something went wrong updating team name...");
     } else {
-      window.alert('Inserito id team sbagliato, sicuro di voler cancellare?')
+      window.alert("team name updated successfully");
+      window.location.reload();
     }
   };
-
+  const handleUpdateTeamPoints = async (e) => {
+    e.preventDefault();
+    const response = await fetch('https://soccer-league12.herokuapp.com/teams-points/' + id,{
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify({points: teamPointsToAdd}),
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type" : "application/json"
+      }
+    });
+    if(!response.ok){
+      window.alert("Something went wrong updating team points...")
+    } else {
+      window.alert("Team points updated successfully");
+      window.location.reload();
+    }
+  }
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
@@ -177,30 +209,8 @@ const SingleTeam = () => {
       const result = await response.json();
       setTeam(result);
     };
-    const getTournamentName = async () => {
-      const response = await fetch(
-        "https://soccer-league12.herokuapp.com/competizione",
-        {
-          method: "GET",
-          mode: "cors",
-          cache: "no-cache",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        window.alert("something went wrong fetching competitions....");
-      }
-      const result = await response.json();
-      result.forEach((element) => {
-        if (element.tournamentId === team.tournamentId.toString()) {
-          setCompetizione(element);
-        }
-      });
-    };
 
-    getCorrectTeam().then(() => getTournamentName());
+    getCorrectTeam();
   }, [team.length]);
 
   useEffect(() => {
@@ -259,17 +269,108 @@ const SingleTeam = () => {
   }, [players.length]);
 
   useEffect(() => {
-    if (players !== null && players !== undefined && players.length > 0) {
-      if (team !== null && team !== undefined) {
-        let correctP = players.filter((p: any) => p.teamId === team._id);
-        setCorrectPlayers(correctP);
-        setLoadingPlayers(false);
-      }
-    }
-  },);
+    let correctP = players.filter((p: any) => p.teamId === id);
+    setCorrectPlayers(correctP);
+    setLoadingPlayers(false);
+  }, [correctPlayers.length, players]);
 
   return (
     <div className="SingleTeam__container">
+      {deleteTeamModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeDeleteTeamModal())}
+            >
+              X
+            </button>
+            <h2>Cancella la squadra</h2>
+            <p>Sicuro di voler cancellare la squadra ? </p>
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={() => handleDeleteTeam()}
+            >
+              Cancella
+            </button>
+          </div>
+        </>
+      )}
+      {updateTeamNameModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamNameModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Nome Squadra</h2>
+            <input
+              type="text"
+              onChange={(e) => setNewTeamName(e.target.value)}
+              placeholder="Nome Squadra"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamName(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
+      {updateTeamPointsModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamPointsModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Punti Squadra</h2>
+            <input
+              type="number"
+              onChange={(e) => setTeamPointsToAdd(e.target.valueAsNumber)}
+              placeholder="Punti da aggiungere"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamPoints(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
+      {/* {updateTeamLogoModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamLogoModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Logo Squadra</h2>
+            <input
+              type="file"
+              onChange={(e) => handleFileInputChange(e)}
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleSubmit(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )} */}
       <div className="SingleTeam__container__topBanner">
         <div className="SingleTeam__container__topBanner__image">
           {specificPublicId.length > 0 && (
@@ -278,14 +379,6 @@ const SingleTeam = () => {
               cloudName="dhadbk8ko"
             ></Image>
           )}
-          <div className="SingleTeam__container__topBanner__image__menu">
-            <button onClick={() => dispatch(openModifyTeamModal())}>
-              Modifica
-            </button>
-            <button onClick={() => dispatch(openDeleteTeamModal())}>
-              Elimina
-            </button>
-          </div>
         </div>
         <div className="SingleTeam__container__topBanner__desc">
           <table>
@@ -301,85 +394,9 @@ const SingleTeam = () => {
               <th>Id Squadra</th>
               <td>{team._id}</td>
             </tr>
-            <tr>
-              <th>Torneo</th>
-              <td>{competizione.name}</td>
-            </tr>
-            <tr>
-              <th>Id Torneo</th>
-              <td>{competizione.tournamentId}</td>
-            </tr>
           </table>
         </div>
       </div>
-      {showDeleteModal === true && (
-        <>
-          <div className="SingleTeam__container__modal__overlay"></div>
-          <div className="SingleTeam__container__modal__container">
-            <div className="SingleTeam__container__modal__container__close">
-              <button onClick={() => dispatch(closeDeleteTeamModal())}>
-                {" "}
-                X{" "}
-              </button>
-            </div>
-            <div className="SingleTeam__container__modal__container__form">
-              <h1>Cancella la Squadra</h1>
-              <p>Sei sicuro di voler cancellare la squadra ? </p>
-              <p>Inserisci l'id della squadra per continuare</p>
-              <input
-                type="number"
-                placeholder="id team"
-                onChange={(e) => setInsertTeamId(e.target.value)}
-              />
-              <input
-                type="submit"
-                onClick={(e) => handleDeleteTeam(e, insertTeamId)}
-              />
-            </div>
-          </div>
-        </>
-      )}
-      {showChangeModal === true && (
-        <>
-          <div className="SingleTeam__container__modal__overlay"></div>
-          <div className="SingleTeam__container__modal__container">
-            <div className="SingleTeam__container__modal__container__close">
-              <button onClick={() => dispatch(closeModifyTeamModal())}>
-                {" "}
-                X{" "}
-              </button>
-            </div>
-            <div className="SingleTeam__container__modal__container__form">
-              <h1>Modifica La squadra</h1>
-              <p>Se non vuoi cambiare tutti i parametri</p>
-              <p>Lascia pure vuoti quelli che devono rimanere uguali</p>
-
-              <input
-                type="text"
-                placeholder="nome squadra"
-                onChange={(e) => setNewName(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="punti squadra"
-                onChange={(e) => setNewPoints(e.target.value)}
-              />
-              <div className="SingleTeam__container__modal__container__fileInput">
-                <input
-                  type="file"
-                  placeholder="logo squadra"
-                  onChange={(e) => handleFileInputChange(e)}
-                  value={fileInputState}
-                />
-                <div className="SingleTeam__container__modal__container__fileInput__tooltip">
-                  <img src="/images/tooltip.png" />
-                </div>
-              </div>
-              <input type="submit" onClick={(e) => handleSubmit(e, newName)} />
-            </div>
-          </div>
-        </>
-      )}
       <div className="SingleTeam__container__middleBanner">
         <h2>Squadra</h2>
         <table>
@@ -392,16 +409,21 @@ const SingleTeam = () => {
             </th>
           </thead>
           <tbody>
-            {
-              correctPlayers.length < 1 && (
-                <p>Stiamo caricando i giocatori presenti . . .</p>
-              )
-            }
+            {correctPlayers.length === 0 && (
+              <p>Stiamo caricando i giocatori presenti . . .</p>
+            )}
             {correctPlayers !== null &&
               correctPlayers !== undefined &&
               correctPlayers.length > 0 &&
               correctPlayers.map((cp: any) => (
-                <Link to={"/admin/giocatore/" + cp._id}style={{color: "#000", cursor: "pointer", textDecoration: "none"}}>
+                <Link
+                  to={"/admin/giocatore/" + cp._id}
+                  style={{
+                    color: "#000",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                  }}
+                >
                   <tr>
                     <td>{cp.first_name}</td>
                     <td>{cp.last_name}</td>
@@ -445,6 +467,20 @@ const SingleTeam = () => {
               ))}
           </tbody>
         </table>
+      </div>
+      <div className="SingleTeam__container__bottomBanner">
+        <div>
+          <button onClick={() => dispatch(openUpdateTeamNameModal())}>
+            Modifica Nome
+          </button>
+          <button onClick={() => dispatch(openUpdateTeamPointsModal())}>Modifica Punti</button>
+        </div>
+        <div>
+          {/* <button onClick={() => dispatch(openUpdateTeamLogoModal())}>Modifica Logo</button> */}
+          <button onClick={() => dispatch(openDeleteTeamModal())}>
+            Elimina
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -20,6 +20,7 @@ const Players = () => {
   const [fileName, setFileName] = useState("");
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState();
+  const [id, setId] = useState("");
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -27,11 +28,14 @@ const Players = () => {
     previewFile(file);
   };
   const previewFile = (file: any) => {
+    let fileWithNoExtension = file.name.replace(".png","");
+    fileWithNoExtension.replace(".jpg","");
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreviewSource(reader.result);
-      setFileName(file.name);
+      window.alert(fileWithNoExtension);
+      setFileName(fileWithNoExtension);
     };
   };
   const handleSubmit = (e, fileName) => {
@@ -68,6 +72,7 @@ const Players = () => {
       {
         method: "POST",
         body: JSON.stringify({
+          id: id,
           logo: "soccerManage12/" + logo,
           first_name: name,
           last_name: surname,
@@ -119,9 +124,6 @@ const Players = () => {
       {players.length == 0 && (
         <>
           <p>Non ci sono giocatori in database</p>
-          <button onClick={() => dispatch(openAddPlayerModal())}>
-            Aggiungi
-          </button>
         </>
       )}
       {addPlayerModal === true && (
@@ -136,6 +138,10 @@ const Players = () => {
               X{" "}
             </button>
             <h2> Aggiungi giocatore </h2>
+            <div>
+              <label>id</label>
+              <input type="text" onChange={(e) => setId(e.target.value)} />
+            </div>
             <div>
               <label>Inserisci il nome</label>
               <input
@@ -202,10 +208,18 @@ const Players = () => {
               <Link to={"/admin/giocatore/" + player._id}>
                 <tr className="Players__container__playerContainer">
                   <td>
-                    <Image
-                      public_id={player.logo + ".png"}
-                      cloudName="dhadbk8ko"
-                    />
+                    {player !== null &&
+                    player !== undefined &&
+                    player.logo !== null &&
+                    player.logo !== undefined &&
+                    player.logo.indexOf(".jpeg") ? (
+                      <Image
+                        public_id={player.logo + ".jpeg"}
+                        cloudName="dhadbk8ko"
+                      />
+                    ) : (
+                      <Image public_id={player.logo} cloudName="dhadbk8ko" />
+                    )}
                   </td>
                   <td>{player.first_name}</td>
                   <td>{player.last_name}</td>

@@ -27,10 +27,8 @@
       }
       &__image {
         width: 500px;
-        height: 486px;
         @media screen and (max-width: $main-mobile-brp) {
           width: 80vw;
-          height: 389px;
         }
         & img {
           // clip-path: circle();
@@ -41,34 +39,15 @@
             width: 80vw;
             height: 336px;
             object-fit: cover;
+            margin-bottom: 5px;
           }
         }
-        &_menu {
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          @media screen and (max-width: $main-mobile-brp) {
-            height: 80px;
-          }
-          & button {
-            margin-right: 10px;
-            border-radius: 10px;
-            background-color: #14213d;
-            color: white;
-            &:hover {
-              cursor: pointer;
-              background-color: white;
-              color: #14213d;
-              border: 1px solid #14213d;
-              border-radius: 10px;
-            }
-          }
+        &__menu {
         }
       }
       &__desc {
         color: #14213d;
         & table {
-          background-color: white;
           width: 500px;
           border-radius: 10px;
           @media screen and (max-width: $main-mobile-brp) {
@@ -81,9 +60,9 @@
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          background-color: white;
           color: white;
-          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+            1px 1px 0 #000;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -113,7 +92,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            
           }
         }
       }
@@ -123,7 +101,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        height: 100vh;
+        height: 106vh;
         width: 100vw;
         background-color: #14213d8a;
         z-index: 101;
@@ -133,39 +111,48 @@
         z-index: 102;
         top: 25%;
         left: 30%;
-        min-height: 50vh;
+        height: 30vh;
         width: 40vw;
         background-color: white;
         border-radius: 10px;
         box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.39);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
         @media screen and (max-width: $main-mobile-brp) {
           width: 80vw;
+          height: 50vh;
+          justify-content: space-evenly;
           left: 17%;
+          & h2, p{
+            width: 100%;
+            text-align: center;
+          }
         }
 
         &__close {
           position: absolute;
           top: 10px;
           right: 10px;
-          & button{
+          padding: 0px;
+          border-radius: 10px;
+          background-color: $full-yellow-color;
+          border: none;
+          color: white;
+          height: 30px;
+          width: 50px;
+          transition: all 0.2s ease-in-out;
+          @media screen and (max-width: $main-mobile-brp) {
+            width: 20px;
+            height: 20px;
+          }
+          &:hover {
+            cursor: pointer;
+            background-color: white;
+            color: $main-yellow-color;
+            border: 1px solid $main-yellow-color;
             border-radius: 10px;
-            background-color: $full-yellow-color;
-            border: none;
-            color: white;
-            height: 30px;
-            width: 50px;
-            transition: all 0.2s ease-in-out;
-            @media screen and (max-width: $main-mobile-brp) {
-              width: 20px;
-              height: 20px;
-            }
-            &:hover {
-              cursor: pointer;
-              background-color: white;
-              color: $main-yellow-color;
-              border: 1px solid $main-yellow-color;
-              border-radius: 10px;
-            }
           }
         }
         &__fileInput {
@@ -198,73 +185,25 @@
             }
           }
         }
-
-        &__form {
-          display: flex;
-          padding: 20px 0px;
-          align-items: center;
-          justify-content: space-evenly;
-          flex-direction: column;
-          min-height: 50vh;
-          & h1{
-            margin: 0;
-            @media screen and (max-width: $main-mobile-brp) {
-              font-size: 18px;
-            }
-          }
-          & p {
-            margin: 0;
-            width: 300px;
-            @media screen and (max-width: $main-mobile-brp) {
-              font-size: 12px;
-              width: 85%;
-            }
-          }
-          & input {
-            width: 300px;
-            border-radius: 10px;
-            border: 1px solid black;
-            text-align: center;
-            height: 30px;
-            &:focus {
-              outline: none;
-            }
-            @media screen and (max-width: $main-mobile-brp) {
-              width: 85%
-            }
-          }
-          & input[type=file] {
-            width: 200px;
-            text-align: center;
-            border: none;
-            border-radius: unset;
-            height: 30px;
-            &:focus {
-              outline: none;
-            }
-            @media screen and (max-width: $main-mobile-brp) {
-              width: 80%;
-            }
-          }
-          & input[type=submit] {
-            border-radius: 10px;
-            background-color: $full-yellow-color;
-            color: white;
-            height: 30px;
-            transition: all 0.2s ease-in-out;
-            border: none;
-            &:hover {
-              cursor: pointer;
-              background-color: white;
-              color: $main-yellow-color;
-              border: 1px solid $main-yellow-color ;
-              border-radius: 10px;
-            }
-          }
+        &__submit{
+          width: 200px;
+          height: 30px;
+          background-color: $full-yellow-color;
+          color: white;
+          border: 1px solid black;
+        }
+        & input{
+          margin: 25px 0px;
+          height: 30px;
+          border: 1px solid black;
+          border-radius: 5px;
+          text-align: center;
+          font-style: italic;
+          width: 190px;
         }
       }
     }
-    &__middleBanner{
+    &__middleBanner {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -272,10 +211,10 @@
       margin-top: 100px;
       width: 100%;
       @media screen and (max-width: $main-mobile-brp) {
-       margin-top: 50px; 
+        margin-top: 50px;
       }
       // min-height: 50vh;
-      & table{
+      & table {
         width: 73vw;
         & th {
           width: 73vw;
@@ -324,7 +263,7 @@
             @media screen and (max-width: $main-mobile-brp) {
               font-size: 12px;
             }
-            & img{
+            & img {
               height: 100px;
               width: 100px;
               clip-path: circle();
@@ -336,9 +275,32 @@
           }
         }
       }
-      &__yellow{
+      &__yellow {
         color: $full-yellow-color;
         font-weight: bold;
+      }
+    }
+    &__bottomBanner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      @media screen and (max-width: $main-mobile-brp) {
+      }
+      & div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        & button {
+          width: 130px;
+          height: 30px;
+          margin: 10px;
+          background-color: $full-yellow-color;
+          border: 1px solid black;
+          color: white;
+        }
       }
     }
   }

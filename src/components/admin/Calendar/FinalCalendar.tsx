@@ -503,7 +503,7 @@ const Calendar = () => {
               ) : (
                 <>
                   <p className="Calendar__container__middleBanner__noGames">
-                    Non Ci sono partite per questa giornata
+                    Non Ci sono partite
                   </p>
                   <div className="Calendar__container__middleBanner__separator" />
                 </>

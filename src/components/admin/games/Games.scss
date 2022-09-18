@@ -33,5 +33,41 @@
         text-transform: uppercase;
       }
     }
+    &__middleBanner{
+      min-height: 70vh;
+      margin-top: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+
+      & div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 80%;
+        height: 80px;
+        & label{
+          width: 200px;
+          text-align: left;
+          margin-bottom: 5px;
+        }
+        & input, select{
+          width: 200px;
+          height: 30px;
+          border: 1px solid black;
+          border-radius: 5px;
+          text-align: center;
+        }
+        & input[type=submit]{
+          background-color: $full-yellow-color;
+          border: none; 
+          color: white;
+          text-transform: uppercase;
+          border-radius: 5px;
+        }
+      }
+    }
   }
 }

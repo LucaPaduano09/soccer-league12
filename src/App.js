@@ -21,7 +21,6 @@ import Players from "./components/admin/players/Players.tsx";
 import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
 import Games from "./components/admin/games/Games.tsx";
 import SingleGame from "./components/admin/games/SingleGame.tsx";
-import AddGameToCalendar from "./components/admin/Calendar/AddGameToCalendar.tsx";
 import PublicCalendar from "./components/publicCalendar/PublicCalendar.tsx";
 
 function App() {
@@ -32,14 +31,7 @@ function App() {
           <Route path={"/admin/games"}>
             <Games />
           </Route>
-          <Route path={"/admin/game/:id"}>
-            <Sidebar />
-            <TopBar />
-            <SingleGame />
-          </Route>
           <Route path="/admin/calendario/partita/:id">
-            <Sidebar />
-            <TopBar />
             <SingleMatch />
           </Route>
           <Route path={"/admin/calendario/update-gioranata/:id"}>
@@ -56,9 +48,6 @@ function App() {
             {/* <Sidebar />
             <TopBar /> */}
             <Calendar />
-          </Route>
-          <Route path="/admin/calendario/add-game-to-calendar">
-            <AddGameToCalendar />
           </Route>
           <Route path={"/admin/giocatori"}>
             <Sidebar />

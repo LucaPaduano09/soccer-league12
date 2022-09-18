@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { closeDeleteTeamModal, openDeleteTeamModal, openModifyTeamModal, closeModifyTeamModal } from "../../../redux/modals";
+import {
+  closeDeleteTeamModal,
+  openDeleteTeamModal,
+} from "../../../redux/modals";
 
 const Competition = () => {
   const [competition, setCompetition] = useState({});
@@ -21,7 +24,7 @@ const Competition = () => {
   const showModifyModal = useSelector(
     (state) => state.addModal.modifyTeamModal
   );
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const history = useHistory();
   correctTeams
     .sort((a, b) => (a.points > b.points ? 1 : b.points > a.points ? -1 : 0))
@@ -33,14 +36,18 @@ const Competition = () => {
     if (insertCompId === competition.tournamentId) {
       try {
         console.log("id uguali");
-        await fetch("https://soccer-league12.herokuapp.com/competizione/" + competition._id, {
-          method: "DELETE",
-          mode: "cors",
-          cache: "no-cache",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        await fetch(
+          "https://soccer-league12.herokuapp.com/competizione/" +
+            competition._id,
+          {
+            method: "DELETE",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
           .then(() => dispatch(closeDeleteTeamModal()))
           .then(() => history.push("/admin/tournaments"));
       } catch (error) {}
@@ -95,8 +102,11 @@ const Competition = () => {
         <>
           <div className="SingleTeam__container__modal__overlay"></div>
           <div className="SingleTeam__container__modal__container">
-          <div className="SingleTeam__container__modal__container__close">
-              <button onClick={() => dispatch(closeDeleteTeamModal())}> X </button>
+            <div className="SingleTeam__container__modal__container__close">
+              <button onClick={() => dispatch(closeDeleteTeamModal())}>
+                {" "}
+                X{" "}
+              </button>
             </div>
             <div className="SingleTeam__container__modal__container__form">
               <h1>Cancella Il Torneo</h1>
@@ -107,7 +117,10 @@ const Competition = () => {
                 placeholder="id team"
                 onChange={(e) => setInsertCompId(e.target.value)}
               />
-              <input type="submit" onClick={(e) => handleDeleteComp(e, insertCompId)} />
+              <input
+                type="submit"
+                onClick={(e) => handleDeleteComp(e, insertCompId)}
+              />
             </div>
           </div>
         </>
@@ -116,15 +129,26 @@ const Competition = () => {
         <>
           <div className="SingleTeam__container__modal__overlay"></div>
           <div className="SingleTeam__container__modal__container">
-          <div className="SingleTeam__container__modal__container__close">
-              <button onClick={() => dispatch(closeModifyTeamModal())}> X </button>
+            <div className="SingleTeam__container__modal__container__close">
+              <button onClick={() => dispatch(closeModifyTeamModal())}>
+                {" "}
+                X{" "}
+              </button>
             </div>
             <div className="SingleTeam__container__modal__container__form">
               <h1>Modifica Il Toreno</h1>
-              <p>inserisci i nuovi valori per la competizione: <i><b>{competition.name}</b></i></p>
-              <input type="text" placeholder="nuovo nome"/> 
-              <input type="file" placeholder="nuovo logo"/>
-              <input type="submit" onClick={(e) => handleDeleteComp(e, insertCompId)}/>
+              <p>
+                inserisci i nuovi valori per la competizione:{" "}
+                <i>
+                  <b>{competition.name}</b>
+                </i>
+              </p>
+              <input type="text" placeholder="nuovo nome" />
+              <input type="file" placeholder="nuovo logo" />
+              <input
+                type="submit"
+                onClick={(e) => handleDeleteComp(e, insertCompId)}
+              />
             </div>
           </div>
         </>
@@ -146,8 +170,12 @@ const Competition = () => {
             }
           </div>
           <div className="Competition__container__topBanner__left__actions">
-            <button onClick={()=> dispatch(openModifyTeamModal())}>Modifica</button>
-            <button onClick={()=> dispatch(openDeleteTeamModal())}>Elimina</button>
+            <button onClick={() => dispatch(openModifyTeamModal())}>
+              Modifica
+            </button>
+            <button onClick={() => dispatch(openDeleteTeamModal())}>
+              Elimina
+            </button>
           </div>
         </div>
         <div className="Competition__container__topBanner__desc">
@@ -170,32 +198,37 @@ const Competition = () => {
         <div className="Competition__container__middleBanner__searchContainer"></div>
         <div className="Competition__container__middleBanner__chartContainer">
           <h1>Classifica</h1>
-          <table className="Competition__container__middleBanner__chartContainer__chart">
-            <thead>
-              <th>
-                <td>Posizione</td>
-                <td>Squadra</td>
-                <td>Punti</td>
-              </th>
-            </thead>
-            <tbody>
-              {correctTeams.map((ct: any, index) => (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>
-                    <div>
-                      <Image
-                        public_id={ct.logo + ".jpg"}
-                        cloudName="dhadbk8ko"
-                      ></Image>
-                      {ct.name}
-                    </div>
-                  </td>
-                  <td>{ct.points}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {teams.length === 0 && (
+            <h3>Non ci sono squadre associate alla competizione</h3>
+          )}
+          {teams !== null && teams !== undefined && teams.length > 0 && (
+            <table className="Competition__container__middleBanner__chartContainer__chart">
+              <thead>
+                <th>
+                  <td>Posizione</td>
+                  <td>Squadra</td>
+                  <td>Punti</td>
+                </th>
+              </thead>
+              <tbody>
+                {correctTeams.map((ct: any, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>
+                      <div>
+                        <Image
+                          public_id={ct.logo + ".jpg"}
+                          cloudName="dhadbk8ko"
+                        ></Image>
+                        {ct.name}
+                      </div>
+                    </td>
+                    <td>{ct.points}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

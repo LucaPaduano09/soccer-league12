@@ -13,6 +13,9 @@
     @media screen and (max-width: $main-mobile-brp){
       width: 85vw;
       margin-left: 15vw;
+      & h3{
+        font-size: 12px;
+      }
     }
     & h2 {
       width: 88%;

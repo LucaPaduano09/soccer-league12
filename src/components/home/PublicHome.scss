@@ -72,11 +72,13 @@
       width: 100vw;
       height: calc(100vh - 80px);
       background-color: white;
+      text-align: center;
+      text-transform: uppercase;
       @media screen and (max-width: $main-mobile-brp) {
         width: 100vw;
         height: calc(100vh - 60px);
       }
-      & img{
+      & img {
         object-fit: cover;
       }
     }
@@ -91,14 +93,44 @@
       width: 100vw;
       border-left: 1px solid black;
       background-color: white;
+      text-align: center;
+      text-transform: uppercase;
       @media screen and (max-width: $main-mobile-brp) {
         width: 100vw;
         height: calc(100vh - 60px);
+        margin-bottom: 70px;
       }
       & h1 {
         position: absolute;
         top: 50%;
         left: 25%;
+      }
+      & img {
+        object-fit: cover;
+      }
+    }
+    &__rightItemDesc {
+      position: relative;
+      // height: calc(100vh - 80px);
+      width: 100vw;
+      border-left: 1px solid black;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      & iframe {
+        width: 100vw;
+        height: 500px;
+      }
+      @media screen and (max-width: $main-mobile-brp) {
+        width: 100vw;
+        height: calc(100vh - 60px);
+        margin-bottom: 70px;
+        & iframe {
+          width: 310px;
+          height: 300px;
+        }
       }
     }
   }

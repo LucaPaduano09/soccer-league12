@@ -7,15 +7,21 @@ export const ModalSlice = createSlice({
     leagueModal: false,
     addTeamModal: false,
     deleteTeamModal: false,
-    modifyTeamModal: false,
+    updateTeamNameModal: false,
+    updateTeamPointsModal: false,
+    updateTeamLogoModal: false,
     changeMatchStatusModal: false,
     addPlayerModal: false,
     deletePlayerModal: false,
-    updatePlayerModal: false,
+    updatePlayerNameModal: false,
+    updatePlayerLastNameModal: false,
+    updatePlayerGoalModal: false,
+    updatePlayerLogoModal: false,
     addDayModal: false,
     addGameModal: false,
     addGameToDayModal: false,
     removeGameFromDayModal: false,
+    updateResultModal: false,
   },
   reducers: {
     openAdminFotoModal: (state) => {
@@ -42,11 +48,23 @@ export const ModalSlice = createSlice({
     closeDeleteTeamModal: (state) => {
       state.deleteTeamModal = false;
     },
-    openModifyTeamModal: (state) => {
-      state.modifyTeamModal = true;
+    openUpdateTeamNameModal: (state) => {
+      state.updateTeamNameModal = true;
     },
-    closeModifyTeamModal: (state) => {
-      state.modifyTeamModal = false;
+    closeUpdateTeamNameModal: (state) => {
+      state.updateTeamNameModal = false;
+    },
+    openUpdateTeamPointsModal: (state) => {
+      state.updateTeamPointsModal = true
+    },
+    closeUpdateTeamPointsModal: (state) => {
+      state.updateTeamPointsModal = false
+    },
+    openUpdateTeamLogoModal: (state) => {
+      state.updateTeamLogoModal = true
+    },
+    closeUpdateTeamLogoModal: (state) => {
+      state.updateTeamLogoModal = false
     },
     openChangeMatchStatusModal: (state) => {
       state.changeMatchStatusModal = true;
@@ -64,13 +82,25 @@ export const ModalSlice = createSlice({
       state.deletePlayerModal = true;
     },
     closeDeletePlayerModal: (state) => {
-      state.deletePlayerModal = false
+      state.deletePlayerModal = false;
     },
-    openUpdatePlayerModal: (state) => {
-      state.updatePlayerModal = true;
+    openUpdatePlayerNameModal: (state) => {
+      state.updatePlayerNameModal = true;
     },
-    closeUpdatePlayerModal: (state) => {
-      state.updatePlayerModal = false;
+    closeUpdatePlayerNameModal: (state) => {
+      state.updatePlayerNameModal = false
+    },
+    openUpdatePlayerGoalModal: (state) => {
+      state.updatePlayerGoalModal = true
+    },
+    closeUpdatePlayerGoalModal: (state) => {
+      state.updatePlayerGoalModal = false
+    },
+    openUpdatePlayerLogoModal: (state) => {
+      state.updatePlayerLogoModal = true
+    },
+    closeUpdatePlayerLogoModal: (state) => {
+      state.updatePlayerLogoModal = false
     },
     openAddDayModal: (state) => {
       state.addDayModal = true;
@@ -95,6 +125,18 @@ export const ModalSlice = createSlice({
     },
     closeRemoveGameFromDayModal: (state) => {
       state.removeGameFromDayModal = false;
+    },
+    openUpdateResultModal: (state) => {
+      state.updateResultModal = true;
+    },
+    closeUpdateResultModal: (state) => {
+      state.updateResultModal = false;
+    },
+    openUpdatePlayerLastNameModal: (state) => {
+      state.updatePlayerLastNameModal = true;
+    },
+    closeUpdatePlayerLastNameModal: (state) => {
+      state.updatePlayerLastNameModal = false;
     }
   },
 });
@@ -108,15 +150,18 @@ export const {
   closeAddTeamModal,
   openDeleteTeamModal,
   closeDeleteTeamModal,
-  openModifyTeamModal,
-  closeModifyTeamModal,
+  openUpdateTeamNameModal,
+  closeUpdateTeamNameModal,
+  openUpdateTeamPointsModal,
+  closeUpdateTeamPointsModal,
+  openUpdateTeamLogoModal,
+  closeUpdateTeamLogoModal,
   openChangeMatchStatusModal,
   closeChangeMatchStatusModal,
   openAddPlayerModal,
   closeAddPlayerModal,
   openDeletePlayerModal,
   closeDeletePlayerModal,
-  openUpdatePlayerModal,
   closeUpdatePlayerModal,
   openAddDayModal,
   closeAddDayModal,
@@ -126,5 +171,15 @@ export const {
   closeAddGameToDayModal,
   openRemoveGameFromDayModal,
   closeRemoveGameFromDayModal,
+  openUpdateResultModal,
+  closeUpdateResultModal,
+  openUpdatePlayerNameModal,
+  closeUpdatePlayerNameModal,
+  openUpdatePlayerLastNameModal,
+  closeUpdatePlayerLastNameModal,
+  openUpdatePlayerGoalModal,
+  closeUpdatePlayerGoalModal,
+  openUpdatePlayerLogoModal,
+  closeUpdatePlayerLogoModal
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

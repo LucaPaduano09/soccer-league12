@@ -29,10 +29,14 @@ const AddModal = () => {
   };
   const previewFile = (file: any) => {
     const reader = new FileReader();
+    let fileWithNoExtension = file.name.replace(".png","");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpg","");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpeg","");
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreviewSource(reader.result);
-      setFileName(file.name);
+      window.alert(fileWithNoExtension);
+      setFileName(fileWithNoExtension);
     };
   };
   const handleSubmit = (e, fileName) => {
@@ -42,12 +46,10 @@ const AddModal = () => {
       return;
     }
     uploadImage(previewSource, fileName);
-    createLeague(nameLeague, id, fileName);
     dispatch(closeLeagueModal());
    
     window.location.reload();
   };
-
   const uploadImage = async (base64EncondedImage, filename) => {
     // console.log(base64EncondedImage)
     try {
@@ -60,7 +62,7 @@ const AddModal = () => {
         headers: {
           "Content-type": "application/json",
         },
-      })
+      }).then(() => createLeague(nameLeague, id, fileName));
     } catch (error) {
       console.log(error);
     }
@@ -72,9 +74,9 @@ const AddModal = () => {
       {
         method: "POST",
         body: JSON.stringify({
+          _id: id,
           name: name,
           logo: "soccerManage12/" + logo,
-          tournamentId: id,
         }),
         mode: "cors",
         cache: "no-cache",

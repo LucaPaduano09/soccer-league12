@@ -41,16 +41,23 @@ const PublicHome = () => {
       </div>
 
       <div className="PublicHome__container__leftItem">
+        <h2>Classifica</h2>
         <Link to="/classifica-torneo">
         <img className="PublicHome__container__image"src="/images/ball1.jpg" alt="squadre" />
-        <h1>Grafica Torneo (Classifica)</h1>
         </Link>
       </div>
       <div className="PublicHome__container__rightItem">
+        <h2>Calendario</h2>
         <Link to="/calendario">
         <img className="PublicHome__container__image"src="/images/squadra3.jpg" alt="squadre" />
-        <h1>Grafica Calendario</h1>
         </Link>
+      </div>
+      <div className="PublicHome__container__rightItemDesc">
+        <h2 style={{width: "90%", textAlign:"center"}}>BeFootballStar</h2>
+        <p style={{width: "90%", textAlign:"center"}}>E' il primo toreno di calciotto al Vomero! Le iscrizioni sono aperte, per info e contatti: <a href="https://wa.me/3312147601" target={"blank"}>3312147601</a></p>
+        <h2 style={{width: "90%", textAlign:"center"}}>Dove ci troviamo</h2>
+        <iframe  id="gmap_canvas" src="https://maps.google.com/maps?q=campetti%20marasca%20napoli&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+        </iframe>
       </div>
     </div>
   );
