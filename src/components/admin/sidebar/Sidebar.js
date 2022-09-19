@@ -133,10 +133,23 @@ const Sidebar = () => {
           }
         >
           <Link to="/admin/calendario">
-          <img src="/images/calendar.png" alt="" />
+          <img src="/images/calendar1.png" alt="" />
           </Link>
           <Link to="/admin/calendario"onClick={()=>handleCalendarClick()}>
             <p>Calendario</p>
+          </Link>
+        </div>
+        <div
+          className={
+            "Sidebar__container__menu__option" +
+            ( urlQueryString.indexOf("foto") !== -1 ? "__withActive" : "")
+          }
+        >
+          <Link to="/admin/foto">
+          <img src="/images/camera.png" alt="" />
+          </Link>
+          <Link to="/admin/foto"onClick={()=>handleCalendarClick()}>
+            <p>Foto</p>
           </Link>
         </div>
       </div>

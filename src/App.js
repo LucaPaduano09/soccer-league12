@@ -22,6 +22,7 @@ import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
 import Games from "./components/admin/games/Games.tsx";
 import SingleGame from "./components/admin/games/SingleGame.tsx";
 import PublicCalendar from "./components/publicCalendar/PublicCalendar.tsx";
+import Foto from "./components/admin/foto/Foto.tsx";
 
 // const express = require("express")
 // const app = express();
@@ -91,6 +92,9 @@ function App() {
             <Sidebar />
             <TopBar />
             <HomeAdmin />
+          </Route>
+          <Route path="/admin/foto">
+            <Foto />
           </Route>
           <Route path="/classifica-torneo">
             <Header />
