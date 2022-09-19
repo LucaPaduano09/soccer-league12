@@ -146,7 +146,7 @@
         top: 30%;
         left: 18%;
         width: 80vw;
-        height: 300px;
+        height: 350px;
         & h2{
           width: 90%;
           text-align: center;
@@ -162,6 +162,7 @@
           }
           & input {
             width: 200px !important;
+            text-align: center;
           }
         }
       }
@@ -195,16 +196,16 @@
       }
       &__close{
         position: absolute;
-        top: 10px;
+        top: 5px;
         right: 10px;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         text-align: center;
         background-color: $full-yellow-color;
         border-radius: 10px;
         border: none;
         color: white;
-
+        padding: 0px;
         &:hover {
           cursor: pointer;
           background-color: white;

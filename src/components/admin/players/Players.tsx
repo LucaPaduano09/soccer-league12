@@ -67,32 +67,40 @@ const Players = () => {
     }
   };
   const createPlayer = async (logo, name, surname, teamId, captain) => {
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/players/add",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          id: id,
-          logo: "soccerManage12/" + logo,
-          first_name: name,
-          last_name: surname,
-          scores: 0,
-          teamId: teamId,
-          capitain: captain,
-        }),
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-type": "application/json",
-        },
+    if(players !== null && players !== undefined && players.length > 0){
+      let searchedPlayerId =  [{}];
+      searchedPlayerId = players.filter((game: any) => game._id === id);
+      if(searchedPlayerId.length === 0){
+        const response = await fetch(
+          "https://soccer-league12.herokuapp.com/players/add",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              id: id,
+              logo: "soccerManage12/" + logo,
+              first_name: name,
+              last_name: surname,
+              scores: 0,
+              teamId: teamId,
+              capitain: captain,
+            }),
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          window.alert("Something went wrong creating player...");
+        } else {
+          window.alert("player created successfully");
+          history.push("/admin/dashboard");
+        }
+      } else {
+        window.alert(`Esiste gia un giocatore con id: ${id}\ngiocatore: ${(searchedPlayerId[0] as any).first_name + " " + (searchedPlayerId[0] as any).last_name }`)
       }
-    );
-    if (!response.ok) {
-      window.alert("Something went wrong creating player...");
-    } else {
-      window.alert("player created successfully");
-      history.push("/admin/dashboard");
     }
   };
 

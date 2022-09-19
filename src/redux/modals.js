@@ -22,6 +22,9 @@ export const ModalSlice = createSlice({
     addGameToDayModal: false,
     removeGameFromDayModal: false,
     updateResultModal: false,
+    updateDateModal: false,
+    updateTimeModal: false,
+    updateScorerModal: false,
   },
   reducers: {
     openAdminFotoModal: (state) => {
@@ -102,6 +105,12 @@ export const ModalSlice = createSlice({
     closeUpdatePlayerLogoModal: (state) => {
       state.updatePlayerLogoModal = false
     },
+    openUpdatePlayerLastNameModal: (state) => {
+      state.updatePlayerLastNameModal = true;
+    },
+    closeUpdatePlayerLastNameModal: (state) => {
+      state.updatePlayerLastNameModal = false;
+    },
     openAddDayModal: (state) => {
       state.addDayModal = true;
     },
@@ -132,11 +141,23 @@ export const ModalSlice = createSlice({
     closeUpdateResultModal: (state) => {
       state.updateResultModal = false;
     },
-    openUpdatePlayerLastNameModal: (state) => {
-      state.updatePlayerLastNameModal = true;
+    openUpdateDateModal: (state) => {
+      state.updateDateModal = true;
     },
-    closeUpdatePlayerLastNameModal: (state) => {
-      state.updatePlayerLastNameModal = false;
+    closeUpdateDateModal: (state) => {
+      state.updateDateModal = false;
+    },
+    openUpdateTimeModal: (state) => {
+      state.updateTimeModal = true;
+    },
+    closeUpdateTimeModal: (state) => {
+      state.updateTimeModal = false;
+    },
+    openUpdateScorerModal: (state) => {
+      state.updateScorerModal = true;
+    },
+    closeUpdateScorerModal: (state) => {
+      state.updateScorerModal = false;
     }
   },
 });
@@ -180,6 +201,12 @@ export const {
   openUpdatePlayerGoalModal,
   closeUpdatePlayerGoalModal,
   openUpdatePlayerLogoModal,
-  closeUpdatePlayerLogoModal
+  closeUpdatePlayerLogoModal,
+  openUpdateDateModal,
+  closeUpdateDateModal,
+  openUpdateTimeModal,
+  closeUpdateTimeModal,
+  openUpdateScorerModal,
+  closeUpdateScorerModal,
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

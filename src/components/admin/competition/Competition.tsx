@@ -16,7 +16,7 @@ const Competition = () => {
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/admin/leghe/", "");
   const correctTeams = teams.filter(
-    (elem) => elem.tournamentId.toString() === competition.tournamentId
+    (elem) => elem.tournamentId.toString() === competition._id
   );
   const showDeleteModal = useSelector(
     (state) => state.addModal.deleteTeamModal
@@ -30,28 +30,20 @@ const Competition = () => {
     .sort((a, b) => (a.points > b.points ? 1 : b.points > a.points ? -1 : 0))
     .reverse();
 
-  const handleDeleteComp = async (e, insertCompId) => {
-    e.preventDefault();
-    console.log("entro in handleDeleteTeam");
-    if (insertCompId === competition.tournamentId) {
-      try {
-        console.log("id uguali");
-        await fetch(
-          "https://soccer-league12.herokuapp.com/competizione/" +
-            competition._id,
-          {
-            method: "DELETE",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then(() => dispatch(closeDeleteTeamModal()))
-          .then(() => history.push("/admin/tournaments"));
-      } catch (error) {}
-    }
+  const handleDeleteComp = async () => {
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/competizione/" + competition._id,
+      {
+        method: "DELETE",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then(() => dispatch(closeDeleteTeamModal()))
+      .then(() => history.push("/admin/tournaments"));
   };
   useEffect(() => {
     const getCorrectComp = async () => {
@@ -100,56 +92,19 @@ const Competition = () => {
     <div className="Competition__container">
       {showDeleteModal === true && (
         <>
-          <div className="SingleTeam__container__modal__overlay"></div>
-          <div className="SingleTeam__container__modal__container">
-            <div className="SingleTeam__container__modal__container__close">
-              <button onClick={() => dispatch(closeDeleteTeamModal())}>
-                {" "}
-                X{" "}
-              </button>
-            </div>
-            <div className="SingleTeam__container__modal__container__form">
-              <h1>Cancella Il Torneo</h1>
-              <p>Sei sicuro di voler cancellare il Torneo ? </p>
-              <p>Inserisci l'id della competizione per continuare</p>
-              <input
-                type="number"
-                placeholder="id team"
-                onChange={(e) => setInsertCompId(e.target.value)}
-              />
-              <input
-                type="submit"
-                onClick={(e) => handleDeleteComp(e, insertCompId)}
-              />
-            </div>
-          </div>
-        </>
-      )}
-      {showModifyModal === true && (
-        <>
-          <div className="SingleTeam__container__modal__overlay"></div>
-          <div className="SingleTeam__container__modal__container">
-            <div className="SingleTeam__container__modal__container__close">
-              <button onClick={() => dispatch(closeModifyTeamModal())}>
-                {" "}
-                X{" "}
-              </button>
-            </div>
-            <div className="SingleTeam__container__modal__container__form">
-              <h1>Modifica Il Toreno</h1>
-              <p>
-                inserisci i nuovi valori per la competizione:{" "}
-                <i>
-                  <b>{competition.name}</b>
-                </i>
-              </p>
-              <input type="text" placeholder="nuovo nome" />
-              <input type="file" placeholder="nuovo logo" />
-              <input
-                type="submit"
-                onClick={(e) => handleDeleteComp(e, insertCompId)}
-              />
-            </div>
+          <div className="Competition__container__modal__overlay" />
+          <div className="Competition__container__modal__container">
+            <button
+              className="Competition__container__modal__container__close"
+              onClick={() => dispatch(closeDeleteTeamModal())}
+            >
+              {" "}
+              X{" "}
+            </button>
+
+            <h2>Cancella Il Torneo</h2>
+            <p>Sei sicuro di voler cancellare il Torneo ? </p>
+            <button className="Competition__container__modal__container__submit" onClick={() => handleDeleteComp()}>Elimina</button>
           </div>
         </>
       )}
@@ -170,28 +125,10 @@ const Competition = () => {
             }
           </div>
           <div className="Competition__container__topBanner__left__actions">
-            <button onClick={() => dispatch(openModifyTeamModal())}>
-              Modifica
-            </button>
             <button onClick={() => dispatch(openDeleteTeamModal())}>
               Elimina
             </button>
           </div>
-        </div>
-        <div className="Competition__container__topBanner__desc">
-          <p className="Competition__container__topBanner__desc__title">
-            {competition.name}
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-            consequuntur quibusdam, illo, rerum repellendus voluptas atque
-            corrupti optio cupiditate sed minima? Quisquam consequatur corrupti
-            aliquam ut dignissimos ea illo fugiat. Nihil nemo qui doloremque
-            quia alias molestiae labore explicabo obcaecati dolores placeat, sed
-            ex magnam pariatur assumenda mollitia vel! Quo odio aliquid
-            accusantium odit error. Quibusdam sit quo temporibus saepe!
-          </p>
-          <p>Id Competizione: {competition.tournamentId}</p>
         </div>
       </div>
       <div className="Competition__container__middleBanner">

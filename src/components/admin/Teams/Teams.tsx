@@ -14,7 +14,7 @@ const Teams = () => {
   const [fileInputState, setFileInputState] = useState();
   const [teamName, setTeamName] = useState("");
   const [teamId, setTeamId] = useState("");
-
+  const [tournamentId, setTournamentId] = useState("")
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     previewFile(file);
@@ -62,25 +62,33 @@ const Teams = () => {
     }
   };
   const createTeam = async () => {
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams/add",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          _id: teamId,
-          logo: "soccerManage12/" + fileName,
-          name: teamName,
-          tournamentId: 4,
-        }),
-        mode: "cors",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    if(teams !== null && teams !== undefined && teams.length > 0){
+      let searchedTeamId =  [{}];
+      searchedTeamId = teams.filter((game: any) => game._id === teamId);
+      if(searchedTeamId.length === 0){
+        const response = await fetch(
+          "https://soccer-league12.herokuapp.com/teams/add",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              _id: teamId,
+              logo: "soccerManage12/" + fileName,
+              name: teamName,
+              tournamentId: tournamentId,
+            }),
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          window.alert("Something went wrong creating Team");
+        }
+      } else {
+        window.alert(`Esiste gia una squadra con id ${teamId} => ${(searchedTeamId[0] as any).name}`)
       }
-    );
-    if (!response.ok) {
-      window.alert("Something went wrong creating Team");
     }
   };
 
@@ -179,6 +187,10 @@ const Teams = () => {
                 placeholder="logo squadra"
                 onChange={(e) => handleFileInputChange(e)}
               />
+            </div>
+            <div>
+              <label>Inserisci id torneo</label>
+              <input type="text" placeholder="id torneo" onChange={(e) => setTournamentId(e.target.value)}/>
             </div>
             <div>
               <input type="submit" onClick={(e) => handleSubmit(e, fileName)} />

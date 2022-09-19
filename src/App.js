@@ -23,6 +23,11 @@ import Games from "./components/admin/games/Games.tsx";
 import SingleGame from "./components/admin/games/SingleGame.tsx";
 import PublicCalendar from "./components/publicCalendar/PublicCalendar.tsx";
 
+// const express = require("express")
+// const app = express();
+// const cors = require("cors");
+// app.use(cors());
+
 function App() {
   return (
     <Router>

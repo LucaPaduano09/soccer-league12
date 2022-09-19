@@ -142,7 +142,7 @@ const Calendar = () => {
     ) {
       return (
         <Image
-          public_id={filteredTeamM[0].logo + ".png"}
+          public_id={filteredTeamM[0].logo }
           cloudName="dhadbk8ko"
         />
       );

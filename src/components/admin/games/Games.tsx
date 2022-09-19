@@ -10,6 +10,7 @@ const Games = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [teams, setTeams] = useState([{}]);
+  const [games, setGames] = useState([{}]);
   const history = useHistory();
 
   useEffect(() => {
@@ -34,23 +35,55 @@ const Games = () => {
     };
     getTeams();
   }, [teams.length]);
+  useEffect(() => {
+    const getGames = async () => {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/games",
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong fetching teams...");
+      }
+      const result = await response.json();
+      setGames(result);
+    };
+    getGames();
+  }, [games.length]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://soccer-league12.herokuapp.com/games/add',{
-      method: "POST",
-      body: JSON.stringify({id: id, team1: team1, team2: team2, date: date, time: time}),
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    if(games !== null && games !== undefined && games.length > 0){
+      let searchedGameId =  [{}];
+      searchedGameId = games.filter((game: any) => game._id === id)
+      if(searchedGameId.length === 0){
+        const response = await fetch('https://soccer-league12.herokuapp.com/games/add',{
+          method: "POST",
+          body: JSON.stringify({_id: id, team1: team1, team2: team2, date: date, time: time}),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type" : "application/json"
+          }
+        })
+        if(!response.ok){
+          window.alert("Something went wrong creating game...");
+        } else {
+          history.push("/admin/dashboard")
+        }
+      } else {
+        window.alert("Esiste gia una partita con questo id")
       }
-    })
-    if(!response.ok){
-      window.alert("Something went wrong creating game...");
     } else {
-      history.push("/admin/dashboard")
+      window.alert("Something went wrong fetching teams...")
     }
   };
 

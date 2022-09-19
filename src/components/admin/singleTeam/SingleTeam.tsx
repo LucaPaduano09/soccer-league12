@@ -49,64 +49,6 @@ const SingleTeam = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  //funzioni per gestire upload file sul modifica team
-  // const handleFileInputChange = (event) => {
-  //   const file = event.target.files[0];
-  //   previewFile(file);
-  // };
-  // const previewFile = (file) => {
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onloadend = () => {
-  //       setPreviewSource(reader.result);
-  //       setFileName(file.name);
-  //     };
-  //   }
-  // };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("submitting...");
-  //   uploadImage(previewSource, fileName);
-  //   window.location.reload();
-  // };
-  // const uploadImage = async (base64EncondedImage, name) => {
-  //   let fileNameWithNoExtension = name.replace(".png","");
-  //   fileNameWithNoExtension.replace(".jpg","");
-  //   fileNameWithNoExtension.replace(".jpeg","");
-  //   try {
-  //     await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
-  //       method: "POST",
-  //       body: JSON.stringify({ data: base64EncondedImage, name: fileNameWithNoExtension }),
-  //       mode: "cors",
-  //       cache: "no-cache",
-  //       credentials: "same-origin",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }).then(() => uploadTeamLogo(fileNameWithNoExtension))
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const uploadTeamLogo = async (name) => {
-  //   const response = await fetch('https://soccer-league12.herokuapp.com/teams-logo/' + id,{
-  //     method: "POST",
-  //     body: JSON.stringify({logo: "soccerManage12/" + name}),
-  //     mode: "cors",
-  //     cache: "no-cache",
-  //     credentials: "same-origin",
-  //     headers: {
-  //       "Content-Type" : "application/json"
-  //     }
-  //   });
-  //   if(!response.ok){
-  //     window.alert("Something went wrong updating team logo...");
-  //   } else {
-  //     window.alert("Team logo updated successfully");
-  //     window.location.reload();
-  //   }
-  // }
   const handleDeleteTeam = async () => {
     const response = await fetch(
       "https://soccer-league12.herokuapp.com/teams/" + id,
@@ -347,35 +289,11 @@ const SingleTeam = () => {
           </div>
         </>
       )}
-      {/* {updateTeamLogoModal && (
-        <>
-          <div className="SingleTeam__container__modal__overlay" />
-          <div className="SingleTeam__container__modal__container">
-            <button
-              className="SingleTeam__container__modal__container__close"
-              onClick={() => dispatch(closeUpdateTeamLogoModal())}
-            >
-              X
-            </button>
-            <h2>Modifica Logo Squadra</h2>
-            <input
-              type="file"
-              onChange={(e) => handleFileInputChange(e)}
-            />
-            <button
-              className="SingleTeam__container__modal__container__submit"
-              onClick={(e) => handleSubmit(e)}
-            >
-              Modifica
-            </button>
-          </div>
-        </>
-      )} */}
       <div className="SingleTeam__container__topBanner">
         <div className="SingleTeam__container__topBanner__image">
           {specificPublicId.length > 0 && (
             <Image
-              publicId={specificPublicId[0] + ".png"}
+              publicId={specificPublicId[0]}
               cloudName="dhadbk8ko"
             ></Image>
           )}
@@ -460,7 +378,7 @@ const SingleTeam = () => {
                     {st.name}
                   </td>
                   <td>
-                    <Image publicId={st.logo + ".png"} cloudName="dhadbk8ko" />
+                    <Image publicId={st.logo } cloudName="dhadbk8ko" />
                   </td>
                   <td>{st.points}</td>
                 </tr>
