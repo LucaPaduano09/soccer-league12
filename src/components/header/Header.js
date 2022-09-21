@@ -28,12 +28,22 @@ const Header = () => {
                   onClick={() => setOpenMenu(false)}
                 />
                 <Link to={"/"}>
-                  <a className="Header__container__mobileMenu__option" onClick={() => setOpenMenu(false)}>Home</a>
+                  <a
+                    className="Header__container__mobileMenu__option"
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    Home
+                  </a>
                 </Link>
                 <Link to={"/mvp"}>
-                  <a className="Header__container__mobileMenu__option" onClick={() => setOpenMenu(false)}>MVP</a>
+                  <a
+                    className="Header__container__mobileMenu__option"
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    MVP
+                  </a>
                 </Link>
-                <Link>
+                <Link to={"/fotogallery"}>
                   <a className="Header__container__mobileMenu__option">FOTO</a>
                 </Link>
                 <Link>
@@ -77,12 +87,14 @@ const Header = () => {
           </div>
           <div className="Header__container__menu">
             <Link to={"/"}>
-            <li className="Header__container__menu__option">Home</li>
+              <li className="Header__container__menu__option">Home</li>
             </Link>
             <Link to={"/mvp"}>
-            <li className="Header__container__menu__option">MVP</li>
+              <li className="Header__container__menu__option">MVP</li>
             </Link>
-            <li className="Header__container__menu__option">Foto</li>
+            <Link to={"/fotogallery"}>
+              <li className="Header__container__menu__option">Foto</li>
+            </Link>
             <li className="Header__container__menu__option">About</li>
           </div>
           <div className="Header__container__social">
@@ -106,10 +118,7 @@ const Header = () => {
                 className="Header__container__social__icon"
               />
             </a>
-            <a
-            target="blank"
-            href="https://www.tiktok.com/@befootballstar2022"
-            >
+            <a target="blank" href="https://www.tiktok.com/@befootballstar2022">
               <img
                 src="./images/tiktok.png"
                 alt="social-logo"

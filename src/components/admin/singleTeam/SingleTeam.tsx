@@ -10,6 +10,8 @@ import {
   openUpdateTeamPointsModal,
   openUpdateTeamLogoModal,
   closeUpdateTeamLogoModal,
+  openUpdateTeamGoalSubitiModal,
+  closeUpdateTeamGoalSubitiModal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
@@ -23,9 +25,7 @@ const SingleTeam = () => {
   const [allTeams, setAllTeams] = useState([{}]);
   const [newTeamName, setNewTeamName] = useState("");
   const [teamPointsToAdd, setTeamPointsToAdd] = useState(0);
-  const [fileName, setFileName] = useState("");
-  const [previewSource, setPreviewSource] = useState();
-  const [fileInputState, setFileInputState] = useState();
+  const [goalSubiti, setGoalSubiti] = useState(0);
   const [publicIds, setPublicIds] = useState([]);
   const [specificPublicId, setSpecificPublicId] = useState("c");
   const sortedTeams = allTeams
@@ -43,8 +43,8 @@ const SingleTeam = () => {
   const updateTeamPointsModal = useSelector(
     (state: any) => state.addModal.updateTeamPointsModal
   );
-  const updateTeamLogoModal = useSelector(
-    (state: any) => state.addModal.updateTeamLogoModal
+  const updateTeamGoalSubitiModal = useSelector(
+    (state: any) => state.addModal.updateTeamGoalSubitiModal
   );
   const dispatch = useDispatch();
   const history = useHistory();
@@ -109,6 +109,25 @@ const SingleTeam = () => {
       window.alert("Team points updated successfully");
       window.location.reload();
     }
+  }
+  const handleUpdateGoalSubiti = async (e) => {
+      e.preventDefault();
+      const response = await fetch('https://soccer-league12.herokuapp.com/teams-goal-subiti/' + id,{
+        method: "POST",
+        body: JSON.stringify({goal_subiti: goalSubiti}),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type" : "applcation/json"
+        }
+      });
+      if(!response.ok){
+        window.alert("Something went wrong updating goal subiti...");
+      } else {
+        dispatch(closeUpdateTeamGoalSubitiModal());
+        window.location.reload()
+      }
   }
   useEffect(() => {
     const getTeams = async () => {
@@ -289,6 +308,31 @@ const SingleTeam = () => {
           </div>
         </>
       )}
+      {updateTeamGoalSubitiModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamGoalSubitiModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Goal Subiti</h2>
+            <input
+              type="number"
+              onChange={(e) => setGoalSubiti(e.target.valueAsNumber)}
+              placeholder="Goal subiti"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateGoalSubiti(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
       <div className="SingleTeam__container__topBanner">
         <div className="SingleTeam__container__topBanner__image">
           {specificPublicId.length > 0 && (
@@ -394,7 +438,9 @@ const SingleTeam = () => {
           <button onClick={() => dispatch(openUpdateTeamPointsModal())}>Modifica Punti</button>
         </div>
         <div>
-          {/* <button onClick={() => dispatch(openUpdateTeamLogoModal())}>Modifica Logo</button> */}
+          <button onClick={() => dispatch(openUpdateTeamGoalSubitiModal())}>
+            Goal Subiti
+          </button>
           <button onClick={() => dispatch(openDeleteTeamModal())}>
             Elimina
           </button>

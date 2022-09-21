@@ -265,8 +265,11 @@ const Calendar = () => {
         );
         if (!response.ok) {
           window.alert("Something went wrong removing game...");
+        } else {
+          dispatch(closeRemoveGameFromDayModal());
+          window.location.reload();
         }
-        // window.location.reload();
+        
       }
   };
   const getResult = (partita: any) => {
@@ -331,6 +334,7 @@ const Calendar = () => {
                   style={{ width: "70%" }}
                   onChange={(e) => setGameToAddId(e.target.value)}
                 >
+                  <option selected disabled> - </option>
                   {games !== undefined &&
                     games !== null &&
                     games.length > 0 &&
@@ -389,6 +393,7 @@ const Calendar = () => {
                   style={{ width: "70%" }}
                   onChange={(e) => setGameToRemoveId(e.target.value)}
                 >
+                  <option selected disabled> - </option>
                   {selectedDayGames !== undefined &&
                     selectedDayGames !== null &&
                     selectedDayGames.length > 0 &&

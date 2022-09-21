@@ -20,9 +20,9 @@ import Mvp from "./components/mvp/Mvp.tsx";
 import Players from "./components/admin/players/Players.tsx";
 import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
 import Games from "./components/admin/games/Games.tsx";
-import SingleGame from "./components/admin/games/SingleGame.tsx";
 import PublicCalendar from "./components/publicCalendar/PublicCalendar.tsx";
 import Foto from "./components/admin/foto/Foto.tsx";
+import PublicFoto from "./components/foto/PublicFoto.tsx";
 
 // const express = require("express")
 // const app = express();
@@ -109,6 +109,10 @@ function App() {
             <Header />
             <Mvp />
             <Footer />
+          </Route>
+          <Route path="/fotogallery">
+            <Header />
+            <PublicFoto />
           </Route>
           <Route path="/">
             <Header />

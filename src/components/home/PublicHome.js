@@ -41,14 +41,14 @@ const PublicHome = () => {
       </div>
 
       <div className="PublicHome__container__leftItem">
-        <h2>Classifica</h2>
         <Link to="/classifica-torneo">
+        <h2>Classifica</h2>
         <img className="PublicHome__container__image"src="/images/ball1.jpg" alt="squadre" />
         </Link>
       </div>
       <div className="PublicHome__container__rightItem">
-        <h2>Calendario</h2>
         <Link to="/calendario">
+        <h2>Calendario</h2>
         <img className="PublicHome__container__image"src="/images/squadra3.jpg" alt="squadre" />
         </Link>
       </div>

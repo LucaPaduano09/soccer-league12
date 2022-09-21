@@ -15,9 +15,7 @@ const AdminLogin = () => {
     const checkForLogin = (e,name:string,pwd:string) => {
         e.preventDefault();
         if(name === process.env.REACT_APP_ADMIN_USERNAME){
-            console.log("username valido: " + process.env.REACT_APP_ADMIN_USERNAME)
             if(pwd === process.env.REACT_APP_ADMIN_PWD){
-                console.log("password valida: " + process.env.REACT_APP_ADMIN_PWD)
                 dispatch(login());
                 bake_cookie(cookie_key, true);
                 history.push("/admin/dashboard")
