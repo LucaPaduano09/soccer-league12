@@ -32,7 +32,7 @@
       height: 20px;
       text-align: center;
       background-color: $full-yellow-color;
-      border-radius: 10px;
+      border-radius: 5px;
       border: none;
       color: white;
       display: flex;
@@ -48,7 +48,7 @@
       
       }
       @media screen and (max-width: $main-mobile-brp){
-        top: 60px;
+        top: 20px;
         right: 20px;
       }
     }

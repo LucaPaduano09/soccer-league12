@@ -37,10 +37,10 @@ const SinglePlayer = () => {
   );
   const updatePlayerGoalModal = useSelector(
     (state: any) => state.addModal.updatePlayerGoalModal
-  )
+  );
   const updatePlayerLogoModal = useSelector(
     (state: any) => state.addModal.updatePlayerLogoModal
-  )
+  );
   const history = useHistory();
   const [newName, setNewName] = useState("");
   const [newLastName, setNewLastName] = useState("");
@@ -52,15 +52,15 @@ const SinglePlayer = () => {
   };
   const previewFile = (file) => {
     if (file) {
-      let fileWithNoExtension = file.name.replace(".png","");
-      fileWithNoExtension.replace(".jpg","");
-      window.alert(fileWithNoExtension)
+      let fileWithNoExtension = file.name.replace(".png", "");
+      fileWithNoExtension.replace(".jpg", "");
+      window.alert(fileWithNoExtension);
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setPreviewSource(reader.result);
         setFileName(fileWithNoExtension);
-        dispatch(openUpdatePlayerLogoModal())
+        dispatch(openUpdatePlayerLogoModal());
       };
     }
   };
@@ -75,83 +75,95 @@ const SinglePlayer = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      }).then(() => uploadPlayerLogo())
+      }).then(() => uploadPlayerLogo());
     } catch (error) {
       console.log(error);
     }
   };
   const uploadPlayerLogo = async () => {
-    const response = await fetch('https://soccer-league12.herokuapp.com/players-logo/' + id,{
-      method: "POST",
-      body: JSON.stringify({logo: "soccerManage12/"+ fileName}),
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/players-logo/" + id,
+      {
+        method: "POST",
+        body: JSON.stringify({ logo: "soccerManage12/" + fileName }),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    })
-    if(!response.ok){
+    );
+    if (!response.ok) {
       window.alert("Something went wrong updating logo...");
-    }else{
+    } else {
       dispatch(closeUpdatePlayerLogoModal());
       window.location.reload();
     }
-  }
+  };
   const handleSubmitNewName = async (e) => {
-    const response = await fetch('https://soccer-league12.herokuapp.com/players-name/' + id,{
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({first_name: newName}),
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/players-name/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ first_name: newName }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
-      window.alert("Something went wrong updating name...")
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong updating name...");
     } else {
-      dispatch(closeUpdatePlayerNameModal())
-      history.push("/admin/giocatori")
+      dispatch(closeUpdatePlayerNameModal());
+      history.push("/admin/giocatori");
     }
-  }
+  };
   const handleUpdatePlayerLastName = async (e) => {
-    const response = await fetch('https://soccer-league12.herokuapp.com/players-last-name/' + id,{
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({last_name: newLastName}),
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/players-last-name/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ last_name: newLastName }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
-      window.alert("Something went wrong updating lastname...")
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong updating lastname...");
     } else {
-      dispatch(closeUpdatePlayerLastNameModal())
-      history.push("/admin/giocatori")
+      dispatch(closeUpdatePlayerLastNameModal());
+      history.push("/admin/giocatori");
     }
-  }
+  };
   const handleUpdatePlayerGoal = async (e) => {
-    const response = await fetch('https://soccer-league12.herokuapp.com/players-goal/' + id,{
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({scores: goalToAdd}),
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/players-goal/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ scores: goalToAdd }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
-      window.alert("Something went wrong updating lastname...")
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong updating lastname...");
     } else {
-      dispatch(closeUpdatePlayerGoalModal())
-      history.push("/admin/giocatori")
+      dispatch(closeUpdatePlayerGoalModal());
+      history.push("/admin/giocatori");
     }
-  }
+  };
   const handleDeletePlayer = async () => {
     const response = await fetch(
       "https://soccer-league12.herokuapp.com/players/" + id,
@@ -168,13 +180,13 @@ const SinglePlayer = () => {
     if (!response.ok) {
       window.alert("Something went wrong deleting player...");
     } else {
-      dispatch(closeDeletePlayerModal())
+      dispatch(closeDeletePlayerModal());
       history.push("/admin/giocatori");
     }
   };
   const handleCloseUpdateLogo = () => {
-    dispatch(closeUpdatePlayerLogoModal())
-    window.location.reload()
+    dispatch(closeUpdatePlayerLogoModal());
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -233,7 +245,10 @@ const SinglePlayer = () => {
         <>
           <div className="SinglePlayer__container__overlay" />
           <div className="SinglePlayer__container__deletePlayerModal">
-            <button className="SinglePlayer__container__deletePlayerModal__close" onClick={() => dispatch(closeDeletePlayerModal())}>
+            <button
+              className="SinglePlayer__container__deletePlayerModal__close"
+              onClick={() => dispatch(closeDeletePlayerModal())}
+            >
               X
             </button>
             <h2>Cancella Giocatore</h2>
@@ -247,92 +262,157 @@ const SinglePlayer = () => {
       )}
       {updatePlayerNameModal && (
         <>
-        <div className="SinglePlayer__container__overlay" />
-        <div className="SinglePlayer__container__deletePlayerModal">
-          <button className="SinglePlayer__container__deletePlayerModal__close" onClick={() => dispatch(closeUpdatePlayerNameModal())}> X </button>
-          <h2>Nuovo Nome</h2>
-          <p>Inserisci il nuovo nome</p>
-          <input type="text" onChange={(e) => setNewName(e.target.value)}/>
-          <button onClick={(e) => handleSubmitNewName(e)}>Modifica</button>
-        </div>
+          <div className="SinglePlayer__container__overlay" />
+          <div className="SinglePlayer__container__deletePlayerModal">
+            <button
+              className="SinglePlayer__container__deletePlayerModal__close"
+              onClick={() => dispatch(closeUpdatePlayerNameModal())}
+            >
+              {" "}
+              X{" "}
+            </button>
+            <h2>Nuovo Nome</h2>
+            <p>Inserisci il nuovo nome</p>
+            <input type="text" onChange={(e) => setNewName(e.target.value)} />
+            <button onClick={(e) => handleSubmitNewName(e)}>Modifica</button>
+          </div>
         </>
       )}
       {updatePlayerLastNameModal && (
         <>
-        <div className="SinglePlayer__container__overlay" />
-        <div className="SinglePlayer__container__deletePlayerModal">
-          <button className="SinglePlayer__container__deletePlayerModal__close" onClick={() => dispatch(closeUpdatePlayerLastNameModal())}> X </button>
-          <h2>Nuovo Cognome</h2>
-          <p>Inserisci il nuovo cognome</p>
-          <input type="text" onChange={(e) => setNewLastName(e.target.value)}/>
-          <button onClick={(e) => handleUpdatePlayerLastName(e)}>Modifica</button>
-        </div>
+          <div className="SinglePlayer__container__overlay" />
+          <div className="SinglePlayer__container__deletePlayerModal">
+            <button
+              className="SinglePlayer__container__deletePlayerModal__close"
+              onClick={() => dispatch(closeUpdatePlayerLastNameModal())}
+            >
+              {" "}
+              X{" "}
+            </button>
+            <h2>Nuovo Cognome</h2>
+            <p>Inserisci il nuovo cognome</p>
+            <input
+              type="text"
+              onChange={(e) => setNewLastName(e.target.value)}
+            />
+            <button onClick={(e) => handleUpdatePlayerLastName(e)}>
+              Modifica
+            </button>
+          </div>
         </>
       )}
       {updatePlayerGoalModal && (
         <>
-        <div className="SinglePlayer__container__overlay" />
-        <div className="SinglePlayer__container__deletePlayerModal">
-          <button className="SinglePlayer__container__deletePlayerModal__close" onClick={() => dispatch(closeUpdatePlayerGoalModal())}> X </button>
-          <h2>Goal</h2>
-          <p>Inserisci i goal da aggiungere</p>
-          <input type="number" onChange={(e) => setGoalToAdd(e.target.valueAsNumber)}/>
-          <button onClick={(e) => handleUpdatePlayerGoal(e)}>Modifica</button>
-        </div>
+          <div className="SinglePlayer__container__overlay" />
+          <div className="SinglePlayer__container__deletePlayerModal">
+            <button
+              className="SinglePlayer__container__deletePlayerModal__close"
+              onClick={() => dispatch(closeUpdatePlayerGoalModal())}
+            >
+              {" "}
+              X{" "}
+            </button>
+            <h2>Goal</h2>
+            <p>Inserisci i goal da aggiungere</p>
+            <input
+              type="number"
+              onChange={(e) => setGoalToAdd(e.target.valueAsNumber)}
+            />
+            <button onClick={(e) => handleUpdatePlayerGoal(e)}>Modifica</button>
+          </div>
         </>
       )}
       {updatePlayerLogoModal && (
         <>
-        <div className="SinglePlayer__container__overlay" />
-        <div className="SinglePlayer__container__deletePlayerModal">
-          <button className="SinglePlayer__container__deletePlayerModal__close" onClick={() => handleCloseUpdateLogo()}> X </button>
-          <h2>Foto</h2>
-          <p>Modificare scelta: <i><b>{fileName}</b></i></p>
-          <button onClick={(e) => uploadImage(previewSource, fileName)}>Modifica</button>
-        </div>
+          <div className="SinglePlayer__container__overlay" />
+          <div className="SinglePlayer__container__deletePlayerModal">
+            <button
+              className="SinglePlayer__container__deletePlayerModal__close"
+              onClick={() => handleCloseUpdateLogo()}
+            >
+              {" "}
+              X{" "}
+            </button>
+            <h2>Foto</h2>
+            <p>
+              Modificare scelta:{" "}
+              <i>
+                <b>{fileName}</b>
+              </i>
+            </p>
+            <button onClick={(e) => uploadImage(previewSource, fileName)}>
+              Modifica
+            </button>
+          </div>
         </>
       )}
+      <div className="Foto__container__topBanner">
+        <Link to="/admin/giocatori">indietro</Link>
+        <h3>Giocatore</h3>
+      </div>
       <div className="SinglePlayer__container__left">
-        {player !== null && player !== undefined && player.logo !== null && player.logo !== undefined &&  (
-          player.logo.indexOf(".jpeg") ?
-          (<Image public_id={player.logo + ".jpeg"} cloudName="dhadbk8ko" />) :
-          (<Image public_id={player.logo} cloudName="dhadbk8ko" />)
-        )}
+        {player !== null &&
+          player !== undefined &&
+          player.logo !== null &&
+          player.logo !== undefined &&
+          (player.logo.indexOf(".jpeg") ? (
+            <Image public_id={player.logo + ".jpeg"} cloudName="dhadbk8ko" />
+          ) : (
+            <Image public_id={player.logo} cloudName="dhadbk8ko" />
+          ))}
       </div>
       <div className="SinglePlayer__container__right">
         {player !== null && player !== undefined && (
           <>
             <div className="SinglePlayer__container__right__elem">
               <p>Nome: </p>
+              <p>
               {player.first_name}
+              </p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Cognome: </p>
+              <p>
               {player.last_name}
+              </p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Goal Fatti: </p>
+              <p>
               {player.scores ? player.scores : "0"}
+              </p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Capitano: </p>
+              <p>
               {player.capitain ? player.capitain : "no"}
+              </p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Squadra: </p>
+              <p>
               <Link to={"/admin/team/" + player.teamId}>
                 {team !== null && team !== undefined && team.name}
               </Link>
+              </p>
             </div>
           </>
         )}
       </div>
       <div className="SinglePlayer__container__buttonsContainer">
-        <button onClick={() => dispatch(openUpdatePlayerNameModal())}>Modifica Nome</button>
-        <button onClick={() => dispatch(openUpdatePlayerLastNameModal())}>Modifica Cognome</button>
-        <button onClick={() => dispatch(openUpdatePlayerGoalModal())}>Modifica Goal</button>
-        <input type="file" onChange={(e) => handleFileInputChange(e)}/>
-        <button onClick={() => dispatch(openDeletePlayerModal())}>Elimina</button>
+        <button onClick={() => dispatch(openUpdatePlayerNameModal())}>
+          Modifica Nome
+        </button>
+        <button onClick={() => dispatch(openUpdatePlayerLastNameModal())}>
+          Modifica Cognome
+        </button>
+        <button onClick={() => dispatch(openUpdatePlayerGoalModal())}>
+          Modifica Goal
+        </button>
+        <input type="file" onChange={(e) => handleFileInputChange(e)} />
+        <button onClick={() => dispatch(openDeletePlayerModal())}>
+          Elimina
+        </button>
       </div>
     </div>
   );

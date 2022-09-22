@@ -93,42 +93,48 @@ const SingleTeam = () => {
   };
   const handleUpdateTeamPoints = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://soccer-league12.herokuapp.com/teams-points/' + id,{
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({points: teamPointsToAdd}),
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-points/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ points: teamPointsToAdd }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
-      window.alert("Something went wrong updating team points...")
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong updating team points...");
     } else {
       window.alert("Team points updated successfully");
       window.location.reload();
     }
-  }
+  };
   const handleUpdateGoalSubiti = async (e) => {
-      e.preventDefault();
-      const response = await fetch('https://soccer-league12.herokuapp.com/teams-goal-subiti/' + id,{
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-goal-subiti/" + id,
+      {
         method: "POST",
-        body: JSON.stringify({goal_subiti: goalSubiti}),
+        body: JSON.stringify({ goal_subiti: goalSubiti }),
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
         headers: {
-          "Content-Type" : "applcation/json"
-        }
-      });
-      if(!response.ok){
-        window.alert("Something went wrong updating goal subiti...");
-      } else {
-        dispatch(closeUpdateTeamGoalSubitiModal());
-        window.location.reload()
+          "Content-Type": "applcation/json",
+        },
       }
-  }
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong updating goal subiti...");
+    } else {
+      dispatch(closeUpdateTeamGoalSubitiModal());
+      window.location.reload();
+    }
+  };
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
@@ -333,13 +339,14 @@ const SingleTeam = () => {
           </div>
         </>
       )}
+      <div className="Foto__container__topBanner">
+        <Link to="/admin/teams">indietro</Link>
+        <h3>Squadra</h3>
+      </div>
       <div className="SingleTeam__container__topBanner">
         <div className="SingleTeam__container__topBanner__image">
           {specificPublicId.length > 0 && (
-            <Image
-              publicId={specificPublicId[0]}
-              cloudName="dhadbk8ko"
-            ></Image>
+            <Image publicId={specificPublicId[0]} cloudName="dhadbk8ko"></Image>
           )}
         </div>
         <div className="SingleTeam__container__topBanner__desc">
@@ -422,7 +429,7 @@ const SingleTeam = () => {
                     {st.name}
                   </td>
                   <td>
-                    <Image publicId={st.logo } cloudName="dhadbk8ko" />
+                    <Image publicId={st.logo} cloudName="dhadbk8ko" />
                   </td>
                   <td>{st.points}</td>
                 </tr>
@@ -435,7 +442,9 @@ const SingleTeam = () => {
           <button onClick={() => dispatch(openUpdateTeamNameModal())}>
             Modifica Nome
           </button>
-          <button onClick={() => dispatch(openUpdateTeamPointsModal())}>Modifica Punti</button>
+          <button onClick={() => dispatch(openUpdateTeamPointsModal())}>
+            Modifica Punti
+          </button>
         </div>
         <div>
           <button onClick={() => dispatch(openUpdateTeamGoalSubitiModal())}>

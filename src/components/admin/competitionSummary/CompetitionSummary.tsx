@@ -208,12 +208,16 @@ const CompetitionSummary = () => {
         <h2 className="CompetitionSummary__container__menu__label">
           Competizioni
         </h2>
+        {
+          competitions !== null && competitions !== undefined && competitions.length === 0 && (
         <div
           className="CompetitionSummary__container__menu__add"
           onClick={() => dispatch(openLeagueModal())}
         >
           +
         </div>
+          )
+        }
       </div>
       <table className="CompetitionSummary__container__table">
         <thead>

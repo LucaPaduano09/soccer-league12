@@ -2,17 +2,13 @@
 
 .SingleTeam {
   &__container {
-    width: 90vw;
-    // min-height: calc(100vh - 70px);
-    margin-left: 10vw;
+    width: 100vw;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    background-color: $main-grey-color;
     @media screen and (max-width: $main-mobile-brp) {
-      width: 85vw;
-      margin-left: 15vw;
+
     }
     &__topBanner {
       display: flex;
@@ -216,6 +212,9 @@
       // min-height: 50vh;
       & table {
         width: 73vw;
+        @media screen and (max-width: $main-mobile-brp) {
+          width: 90vw;
+        }
         & th {
           width: 73vw;
           height: 60px;
@@ -224,7 +223,7 @@
           justify-content: center;
           background-color: $full-yellow-color;
           @media screen and (max-width: $main-mobile-brp) {
-            width: 80vw;
+            width: 90vw;
           }
           // border-bottom: 1px solid black;
           & td {
@@ -247,7 +246,7 @@
           align-items: center;
           justify-content: flex-start;
           @media screen and (max-width: $main-mobile-brp) {
-            width: 80vw;
+            width: 90vw;
           }
           &:nth-child(odd) {
             background-color: white;

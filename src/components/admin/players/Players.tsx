@@ -29,7 +29,8 @@ const Players = () => {
   };
   const previewFile = (file: any) => {
     let fileWithNoExtension = file.name.replace(".png","");
-    fileWithNoExtension.replace(".jpg","");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpg","");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpeg","");
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -47,6 +48,7 @@ const Players = () => {
     uploadImage(previewSource, fileName);
     createPlayer(fileName, name, surname, teamId, captain);
     dispatch(closeAddPlayerModal());
+    window.location.reload();
   };
 
   const uploadImage = async (base64EncondedImage, filename) => {
@@ -96,7 +98,6 @@ const Players = () => {
           window.alert("Something went wrong creating player...");
         } else {
           window.alert("player created successfully");
-          history.push("/admin/dashboard");
         }
       } else {
         window.alert(`Esiste gia un giocatore con id: ${id}\ngiocatore: ${(searchedPlayerId[0] as any).first_name + " " + (searchedPlayerId[0] as any).last_name }`)

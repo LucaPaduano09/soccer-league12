@@ -42,55 +42,42 @@ function App() {
           </Route>
           <Route path={"/admin/calendario/update-gioranata/:id"}>
             <Sidebar />
-            <TopBar />
             <UpdateGiornata />
           </Route>
           <Route path="/admin/calendario/add-partita">
             <Sidebar />
-            <TopBar />
+
             <AddPartita />
           </Route>
           <Route path="/admin/calendario">
-            {/* <Sidebar />
-            <TopBar /> */}
             <Calendar />
           </Route>
           <Route path={"/admin/giocatori"}>
             <Sidebar />
-            <TopBar />
             <Players />
           </Route>
           <Route path={"/admin/giocatore/:id"}>
-            <Sidebar />
-            <TopBar />
             <SinglePlayer />
           </Route>
           <Route path="/admin/teams">
             <Sidebar />
-            <TopBar />
             <Teams />
           </Route>
           <Route path="/admin/team/:id">
-            <Sidebar />
-            <TopBar />
             <SingleTeam />
           </Route>
           <Route path="/admin/tournaments">
             <Sidebar />
-            <TopBar />
             <CompetitionSummary />
           </Route>
           <Route path="/admin/login">
             <AdminLogin />
           </Route>
           <Route path="/admin/leghe/:id">
-            <Sidebar />
-            <TopBar />
             <Competition />
           </Route>
           <Route path="/admin/dashboard">
             <Sidebar />
-            <TopBar />
             <HomeAdmin />
           </Route>
           <Route path="/admin/foto">

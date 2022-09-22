@@ -17,7 +17,7 @@
       top: 100px;
       right: 100px;
       @media screen and (max-width: $main-mobile-brp) {
-        top: 60px;
+        top: 20px;
         right: 10px;
       }
     }
@@ -131,7 +131,8 @@
       flex-direction: column;
       @media screen and (max-width: $main-mobile-brp) {
         height: 500px;
-        width: 350px;
+        width: 300px;
+        left: 3%;
       }
       &__close {
         position: absolute;
@@ -160,6 +161,9 @@
       }
       & h2 {
         text-transform: uppercase;
+        @media screen and (max-width: $main-mobile-brp) {
+          font-size: 15px;
+        }
       }
       & div {
         height: 10%;
@@ -167,13 +171,17 @@
         align-items: center;
         justify-content: center;
         @media screen and (max-width: $main-mobile-brp) {
-          height: 15%;
+          height: 10%;
+          flex-direction: column;
+          margin: 10px 0px;
         }
         & label {
           width: 200px;
           text-align: left;
           @media screen and (max-width: $main-mobile-brp) {
-            width: 100px;
+            width: 150px;
+            font-size: 12px;
+            text-align: center;
           }
         }
         & input {

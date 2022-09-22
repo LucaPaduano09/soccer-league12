@@ -108,12 +108,11 @@ const Competition = () => {
           </div>
         </>
       )}
+      <div className="Foto__container__topBanner">
+      <Link to="/admin/tournaments">indietro</Link>
+      <h3>Torneo</h3>
+      </div>
       <div className="Competition__container__topBanner">
-        <div className="Competition__container__topBanner__back">
-          <Link to="/admin/tournaments">
-            <p>Torna alle leghe</p>
-          </Link>
-        </div>
         <div className="Competition__container__topBanner__left">
           <div className="Competition__container__topBanner__left__icon">
             {
