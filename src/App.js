@@ -113,6 +113,7 @@ function App() {
           <Route path="/fotogallery">
             <Header />
             <PublicFoto />
+            <Footer />
           </Route>
           <Route path="/">
             <Header />

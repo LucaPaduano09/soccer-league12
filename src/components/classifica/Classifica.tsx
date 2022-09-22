@@ -41,6 +41,19 @@ const Classifica = () => {
       return goals
     }
   }
+  const getTeamLogo = (teamId) => {
+    if(teams !== null && teams !== undefined && teams.length > 0){
+      let searchedTeam = teams.filter((team: any) => team._id === teamId);
+      return searchedTeam[0].logo
+    }
+  }
+  const getTeamName = (teamId) => {
+    if(teams !== null && teams !== undefined && teams.length > 0){
+      let searchedTeam = teams.filter((team: any) => team._id === teamId);
+      return searchedTeam[0].name
+    }
+  }
+
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
@@ -105,7 +118,9 @@ const Classifica = () => {
               }
               onClick={() => handleTeamsActiveClick()}
             >
+              <p>
               Classifica Squadre
+              </p>
             </button>
             <button
               className={
@@ -114,7 +129,9 @@ const Classifica = () => {
               }
               onClick={() => handlePlayersActiveClick()}
             >
+              <p>
               Classifica Marcatori
+              </p>
             </button>
           </div>
           <table>
@@ -171,18 +188,35 @@ const Classifica = () => {
             </button>
           </div>
           <table>
+          <thead>
+              <tr>
+                <th style={{width: "40%"}}>Giocatore</th>
+                <th style={{width:"40%"}}>Squadra</th>
+                <th style={{width:"20%"}}>Goal</th>
+              </tr>
+            </thead>
             <tbody>
               {teams !== null &&
                 teams !== undefined &&
                 sortedPlayers.map((player, index) => (
                   <tr>
-                    <td>{index + 1}</td>
-                    <td>
-                      {" "}
+                    <td style={{width:"40%"}}>
                       <Image publicId={player.logo} cloudName="dhadbk8ko" />
+                      <p>
+                      {player.first_name + " " + player.last_name}
+                      </p>
                     </td>
-                    <td>{player.first_name + " " + player.last_name}</td>
-                    <td>{player.scores}</td>
+                    <td style={{width: "40%"}}>
+                    <Image publicId={getTeamLogo(player.teamId)} cloudName="dhadbk8ko" />
+                      <p style={{textAlign: "center"}}>
+                      {getTeamName(player.teamId)}
+                      </p>
+                    </td>
+                    <td style={{width:"20%"}}>
+                      <p style={{textAlign: "center"}}>
+                      {player.scores}
+                      </p>
+                    </td>
                   </tr>
                 ))}
             </tbody>

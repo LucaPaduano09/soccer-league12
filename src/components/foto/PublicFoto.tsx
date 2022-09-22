@@ -107,7 +107,13 @@ const PublicFoto = () => {
                 onClick={() => handleDotClicked3()}
               />
             </div>
-            <h2>Tutte Le Foto</h2>
+            {
+              foto !== null &&
+              foto !== undefined &&
+              foto.length > 3 && (
+                <h2>Tutte Le Foto</h2>
+              )
+            }
             {foto !== null &&
               foto !== undefined &&
               foto.length > 3 &&

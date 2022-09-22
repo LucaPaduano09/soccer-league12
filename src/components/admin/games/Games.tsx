@@ -144,6 +144,7 @@ const Games = () => {
             type="submit"
             value="Aggiungi"
             onClick={(e) => handleSubmit(e)}
+            style={{borderRadius: "5px"}}
           />
         </div>
       </div>

@@ -54,7 +54,7 @@ const PublicHome = () => {
       </div>
       <div className="PublicHome__container__rightItemDesc">
         <h2 style={{width: "90%", textAlign:"center"}}>BeFootballStar</h2>
-        <p style={{width: "90%", textAlign:"center"}}>E' il primo toreno di calciotto al Vomero! Le iscrizioni sono aperte, per info e contatti: <a href="https://wa.me/3312147601" target={"blank"}>3312147601</a></p>
+        <p style={{width: "90%", textAlign:"center"}}>E' il primo toreno di calciotto al Vomero! Per info e contatti: <a href="https://wa.me/3312147601" target={"blank"}>3312147601</a></p>
         <h2 style={{width: "90%", textAlign:"center"}}>Dove ci troviamo</h2>
         <iframe  id="gmap_canvas" src="https://maps.google.com/maps?q=campetti%20marasca%20napoli&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
         </iframe>

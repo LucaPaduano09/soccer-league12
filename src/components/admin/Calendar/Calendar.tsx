@@ -130,7 +130,8 @@ const Calendar = () => {
     if (!response.ok) {
       window.alert("Something went wrong creating new calendar day");
     } else {
-      window.alert("Giornata creata correttamente: " + (await response.json()));
+      dispatch(closeAddDayModal());
+      window.location.reload()
     }
   };
   const filterTeams = (teamId) => {

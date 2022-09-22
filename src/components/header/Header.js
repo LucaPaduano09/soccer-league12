@@ -44,7 +44,10 @@ const Header = () => {
                   </a>
                 </Link>
                 <Link to={"/fotogallery"}>
-                  <a className="Header__container__mobileMenu__option">FOTO</a>
+                  <a 
+                  className="Header__container__mobileMenu__option"
+                  onClick={() => setOpenMenu(false)}
+                  >FOTO</a>
                 </Link>
                 <Link>
                   <a className="Header__container__mobileMenu__option">ABOUT</a>

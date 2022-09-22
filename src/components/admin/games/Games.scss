@@ -59,13 +59,14 @@
           border: 1px solid black;
           border-radius: 5px;
           text-align: center;
+          color: black;
         }
         & input[type=submit]{
           background-color: $full-yellow-color;
           border: none; 
           color: white;
           text-transform: uppercase;
-          border-radius: 5px;
+          border-radius: 5px !important;
         }
       }
     }

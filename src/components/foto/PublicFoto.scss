@@ -16,6 +16,7 @@
       margin-top: 50px;
       @media screen and (max-width: $main-mobile-brp) {
         margin-top: 20px;
+        height: 20px;
       }
     }
     &__gallery {
@@ -38,11 +39,11 @@
         & img {
           width: 80%;
           height: 80%;
-          background-color: white;
           object-fit: contain;
           @media screen and (max-width: $main-mobile-brp) {
             width: 95%;
             height: 95%;
+            object-fit: fill;
           }
         }
       }

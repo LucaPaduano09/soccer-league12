@@ -18,7 +18,7 @@
     }
       &__slider{
         margin-top: 50px;
-        width: 940px;
+        width: 1000px;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -26,10 +26,12 @@
         border-radius: 5px;
         transition: all 0.3s ease-in-out;
         @media screen and (max-width: $main-mobile-brp) {
-          width: 100vw;
+          width: 95vw;
         }
         & button{
+          position: relative;
           width: 50%;
+          font-size: 18px;
           height: 40px;
           border: none;
           background-color: white;
@@ -38,8 +40,12 @@
           &:hover{
             cursor: pointer;
           }
+          & p{
+            margin: 0px;
+          }
           @media screen and (max-width: $main-mobile-brp) {
-            height: 25px;
+            font-size: 10px;
+            height: 35px;
           }
         }
         &__active{
@@ -49,6 +55,7 @@
           border: 1px solid $full-yellow-color !important;
         }
         &__noActive{
+          color: black;
           transition: all 0.3s ease-in-out;
         }
       }
@@ -61,16 +68,31 @@
       & table {
         border-collapse: separate;
         border-spacing: 0 20px;
+        min-width: 1000px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        margin-top: 50px;
+        &:hover{
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        @media screen and (max-width: $main-mobile-brp) {
+          min-width: 95vw;
+          padding-left: 5px;
+        }
         & thead{
           & tr{
             width: 100% !important;
             height: 30px !important;
-            border: none !important;
             padding: 0px !important;
             margin: 0px !important;
           }
           & th{
-            width: 50px;
+            // border-bottom: 1px solid black;
+            height: 100%;
+            @media screen and (max-width: $main-mobile-brp) {
+              width: 40px;
+            }
+            width: 12.5%;
             font-style: italic;
           }
         }
@@ -81,12 +103,16 @@
           justify-content: flex-start;
           transition: all 0.2s ease-in-out;
           border-bottom: 1px solid black;
-          padding: 5px;
+          width: 100%;
+          &:last-child{
+            border: none;
+          }
           @media screen and (max-width: $main-mobile-brp) {
             width: 95vw;
+            padding: 5px 0px;
           }
           & td {
-            width: 235px;
+            width: 12.5%;
             text-align: center;
             font-size: 15px;
             font-weight: 500;
@@ -95,14 +121,29 @@
             align-items: center;
             justify-content: center;
             @media screen and (max-width: $main-mobile-brp) {
-              width: 50px;
               font-size: 12px;
               text-align: center;
+              &:nth-child(2){
+                & img{
+                  margin-left: 10px;
+                }
+              }
             }
             & img{
               @media screen and (max-width: $main-mobile-brp) {
-                width: 60px;
-                height: 60px;
+                width: 50px;
+                height: 50px;
+              }
+            }
+            & p{
+              margin: 0 10px;
+              width: 150px;
+              text-align: left;
+              @media screen and (max-width: $main-mobile-brp) {
+                width: 100px;
+                &:last-child{
+                  margin-right: 20px;
+                }
               }
             }
           }
