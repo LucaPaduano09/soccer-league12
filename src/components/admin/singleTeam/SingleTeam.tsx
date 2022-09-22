@@ -345,8 +345,8 @@ const SingleTeam = () => {
       </div>
       <div className="SingleTeam__container__topBanner">
         <div className="SingleTeam__container__topBanner__image">
-          {specificPublicId.length > 0 && (
-            <Image publicId={specificPublicId[0]} cloudName="dhadbk8ko"></Image>
+          {team !== null && team !== undefined && (
+            <Image publicId={team.logo} cloudName="dhadbk8ko"></Image>
           )}
         </div>
         <div className="SingleTeam__container__topBanner__desc">

@@ -46,13 +46,10 @@ const Players = () => {
       return;
     }
     uploadImage(previewSource, fileName);
-    createPlayer(fileName, name, surname, teamId, captain);
     dispatch(closeAddPlayerModal());
-    window.location.reload();
   };
 
   const uploadImage = async (base64EncondedImage, filename) => {
-    // console.log(base64EncondedImage)
     try {
       await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
         method: "POST",
@@ -63,7 +60,7 @@ const Players = () => {
         headers: {
           "Content-type": "application/json",
         },
-      });
+      }).then(()=>createPlayer(fileName, name, surname, teamId, captain)).then(()=>dispatch(closeAddPlayerModal())).then(() => window.location.reload())
     } catch (error) {
       console.log(error);
     }
