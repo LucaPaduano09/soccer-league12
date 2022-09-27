@@ -14,6 +14,12 @@ import {
   closeUpdateTeamGoalSubitiModal,
   openChangeGironeModal,
   closeChangeGironeModal,
+  openUpdateTeamVittorieModal,
+  closeUpdateTeamVittorieModal,
+  openUpdateTeamSconfitteModal,
+  closeUpdateTeamSconfitteModal,
+  openUpdateTeamPareggiModal,
+  closeUpdateTeamPareggiModal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
@@ -31,6 +37,9 @@ const SingleTeam = () => {
   const [publicIds, setPublicIds] = useState([]);
   const [specificPublicId, setSpecificPublicId] = useState("c");
   const [girone, setGirone] = useState("");
+  const [vittorie, setVittorie] = useState(0);
+  const [pareggi, setPareggi] = useState(0);
+  const [sconfitte, setSconfitte] = useState(0);
   const sortedTeams = allTeams
     .sort((a, b) => (a.points > b.points ? 1 : b.points > a.points ? -1 : 0))
     .reverse();
@@ -51,6 +60,15 @@ const SingleTeam = () => {
   );
   const changeGironeModal = useSelector(
     (state: any) => state.addModal.changeGironeModal
+  );
+  const updateTeamVittorieModal = useSelector(
+    (state: any) => state.addModal.updateTeamVittorieModal
+  );
+  const updateTeamPareggiModal = useSelector(
+    (state: any) => state.addModal.updateTeamPareggiModal
+  );
+  const updateTeamSconfitteModal = useSelector(
+    (state: any) => state.addModal.updateTeamSconfitteModal
   );
   const dispatch = useDispatch();
   const history = useHistory();
@@ -143,24 +161,93 @@ const SingleTeam = () => {
   };
   const handleChangeGirone = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://soccer-league12.herokuapp.com/teams-girone/'+ id,{
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({girone: girone}),
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers:{
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-girone/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ girone: girone }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
+    );
+    if (!response.ok) {
       window.alert("Something went wrong updating girone...");
     } else {
       window.alert("Girone cambiato");
       dispatch(closeChangeGironeModal());
       window.location.reload();
     }
-  }
+  };
+  const handleUpdateTeamVittorie = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-vittorie/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ vittorie: vittorie }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating vittorie");
+    } else {
+      dispatch(closeUpdateTeamVittorieModal());
+      window.location.reload();
+    }
+  };
+  const handleUpdateTeamPareggi = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-pareggi/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ pareggi: pareggi }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating vittorie");
+    } else {
+      dispatch(closeUpdateTeamPareggiModal());
+      window.location.reload();
+    }
+  };
+  const handleUpdateTeamSconfitte = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-sconfitte/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ sconfitte: sconfitte }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating vittorie");
+    } else {
+      dispatch(closeUpdateTeamPareggiModal());
+      window.location.reload();
+    }
+  };
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
@@ -378,12 +465,90 @@ const SingleTeam = () => {
             </button>
             <h2>Modifica Girone</h2>
             <select onChange={(e) => setGirone(e.target.value)}>
-              <option disabled selected> - </option>
+              <option disabled selected>
+                {" "}
+                -{" "}
+              </option>
               <option value="A">A</option>
               <option value="B">B</option>
               <option value="C">C</option>
             </select>
-            <input type="submit" onClick={(e) => handleChangeGirone(e)}/>
+            <input type="submit" onClick={(e) => handleChangeGirone(e)} />
+          </div>
+        </>
+      )}
+      {updateTeamVittorieModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamVittorieModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Vittorie</h2>
+            <input
+              type="number"
+              onChange={(e) => setVittorie(e.target.valueAsNumber)}
+              placeholder="vittorie"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamVittorie(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
+      {updateTeamPareggiModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamPareggiModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Pareggi</h2>
+            <input
+              type="number"
+              onChange={(e) => setPareggi(e.target.valueAsNumber)}
+              placeholder="Goal subiti"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamPareggi(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
+      {updateTeamSconfitteModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamSconfitteModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Sconfitte</h2>
+            <input
+              type="number"
+              onChange={(e) => setSconfitte(e.target.valueAsNumber)}
+              placeholder="Goal subiti"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamSconfitte(e)}
+            >
+              Modifica
+            </button>
           </div>
         </>
       )}
@@ -455,39 +620,6 @@ const SingleTeam = () => {
               ))}
           </tbody>
         </table>
-        <h2>Classifica</h2>
-        <table>
-          <thead>
-            <th>
-              <td>posizione</td>
-              <td>Nome</td>
-              <td>Logo</td>
-              <td>Punti</td>
-            </th>
-          </thead>
-          <tbody>
-            {allTeams !== null &&
-              allTeams !== undefined &&
-              sortedTeams.map((st, index) => (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td
-                    className={
-                      st.name === team.name
-                        ? "SingleTeam__container__middleBanner__yellow"
-                        : ""
-                    }
-                  >
-                    {st.name}
-                  </td>
-                  <td>
-                    <Image publicId={st.logo} cloudName="dhadbk8ko" />
-                  </td>
-                  <td>{st.points}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
       </div>
       <div className="SingleTeam__container__bottomBanner">
         <div>
@@ -509,6 +641,17 @@ const SingleTeam = () => {
         <div>
           <button onClick={() => dispatch(openChangeGironeModal())}>
             Modifica Girone
+          </button>
+          <button onClick={() => dispatch(openUpdateTeamVittorieModal())}>
+            Aggiungi Vittoria
+          </button>
+        </div>
+        <div>
+          <button onClick={() => dispatch(openUpdateTeamSconfitteModal())}>
+            Aggiungi Sconfitta
+          </button>
+          <button onClick={() => dispatch(openUpdateTeamPareggiModal())}>
+            Aggiungi Pareggio
           </button>
         </div>
       </div>

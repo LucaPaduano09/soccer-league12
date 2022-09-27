@@ -11,6 +11,9 @@ export const ModalSlice = createSlice({
     updateTeamPointsModal: false,
     updateTeamLogoModal: false,
     updateTeamGoalSubitiModal: false,
+    updateTeamVittorieModal: false,
+    updateTeamSconfitteModal: false,
+    updateTeamPareggiModal: false,
     changeGironeModal: false,
     changeMatchStatusModal: false,
     addPlayerModal: false,
@@ -77,6 +80,24 @@ export const ModalSlice = createSlice({
     },
     closeUpdateTeamGoalSubitiModal: (state) => {
       state.updateTeamGoalSubitiModal = false;
+    },
+    openUpdateTeamVittorieModal: (state) => {
+      state.updateTeamVittorieModal = true;
+    },
+    closeUpdateTeamVittorieModal: (state) => {
+      state.updateTeamVittorieModal = false;
+    },
+    openUpdateTeamSconfitteModal: (state) => {
+      state.updateTeamSconfitteModal = true;
+    },
+    closeUpdateTeamSconfitteModal: (state) => {
+      state.updateTeamSconfitteModal = false;
+    },
+    openUpdateTeamPareggiModal: (state) => {
+      state.updateTeamPareggiModal = true;
+    },
+    closeUpdateTeamPareggiModal: (state) => {
+      state.updateTeamPareggiModal =false;
     },
     openChangeMatchStatusModal: (state) => {
       state.changeMatchStatusModal = true;
@@ -200,6 +221,12 @@ export const {
   closeUpdateTeamLogoModal,
   openUpdateTeamGoalSubitiModal,
   closeUpdateTeamGoalSubitiModal,
+  openUpdateTeamPareggiModal,
+  closeUpdateTeamPareggiModal,
+  openUpdateTeamSconfitteModal,
+  closeUpdateTeamSconfitteModal,
+  openUpdateTeamVittorieModal,
+  closeUpdateTeamVittorieModal,
   openChangeGironeModal,
   closeChangeGironeModal,
   openChangeMatchStatusModal,

@@ -216,6 +216,8 @@
       // min-height: 50vh;
       & table {
         width: 73vw;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        margin-bottom: 20px;
         @media screen and (max-width: $main-mobile-brp) {
           width: 90vw;
         }
