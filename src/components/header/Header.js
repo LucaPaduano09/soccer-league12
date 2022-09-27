@@ -35,14 +35,6 @@ const Header = () => {
                     Home
                   </a>
                 </Link>
-                <Link to={"/mvp"}>
-                  <a
-                    className="Header__container__mobileMenu__option"
-                    onClick={() => setOpenMenu(false)}
-                  >
-                    MVP
-                  </a>
-                </Link>
                 <Link to={"/fotogallery"}>
                   <a 
                   className="Header__container__mobileMenu__option"
@@ -91,9 +83,6 @@ const Header = () => {
           <div className="Header__container__menu">
             <Link to={"/"}>
               <li className="Header__container__menu__option">Home</li>
-            </Link>
-            <Link to={"/mvp"}>
-              <li className="Header__container__menu__option">MVP</li>
             </Link>
             <Link to={"/fotogallery"}>
               <li className="Header__container__menu__option">Foto</li>

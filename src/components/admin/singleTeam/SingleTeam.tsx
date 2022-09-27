@@ -12,6 +12,8 @@ import {
   closeUpdateTeamLogoModal,
   openUpdateTeamGoalSubitiModal,
   closeUpdateTeamGoalSubitiModal,
+  openChangeGironeModal,
+  closeChangeGironeModal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
@@ -28,6 +30,7 @@ const SingleTeam = () => {
   const [goalSubiti, setGoalSubiti] = useState(0);
   const [publicIds, setPublicIds] = useState([]);
   const [specificPublicId, setSpecificPublicId] = useState("c");
+  const [girone, setGirone] = useState("");
   const sortedTeams = allTeams
     .sort((a, b) => (a.points > b.points ? 1 : b.points > a.points ? -1 : 0))
     .reverse();
@@ -45,6 +48,9 @@ const SingleTeam = () => {
   );
   const updateTeamGoalSubitiModal = useSelector(
     (state: any) => state.addModal.updateTeamGoalSubitiModal
+  );
+  const changeGironeModal = useSelector(
+    (state: any) => state.addModal.changeGironeModal
   );
   const dispatch = useDispatch();
   const history = useHistory();
@@ -135,6 +141,26 @@ const SingleTeam = () => {
       window.location.reload();
     }
   };
+  const handleChangeGirone = async (e) => {
+    e.preventDefault();
+    const response = await fetch('https://soccer-league12.herokuapp.com/teams-girone/'+ id,{
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify({girone: girone}),
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers:{
+        "Content-Type" : "application/json"
+      }
+    });
+    if(!response.ok){
+      window.alert("Something went wrong updating girone...");
+    } else {
+      window.alert("Girone cambiato");
+      dispatch(closeChangeGironeModal());
+      window.location.reload();
+    }
+  }
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
@@ -339,6 +365,28 @@ const SingleTeam = () => {
           </div>
         </>
       )}
+      {changeGironeModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeChangeGironeModal())}
+            >
+              {" "}
+              X{" "}
+            </button>
+            <h2>Modifica Girone</h2>
+            <select onChange={(e) => setGirone(e.target.value)}>
+              <option disabled selected> - </option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+            </select>
+            <input type="submit" onClick={(e) => handleChangeGirone(e)}/>
+          </div>
+        </>
+      )}
       <div className="Foto__container__topBanner">
         <Link to="/admin/teams">indietro</Link>
         <h3>Squadra</h3>
@@ -362,6 +410,10 @@ const SingleTeam = () => {
             <tr>
               <th>Id Squadra</th>
               <td>{team._id}</td>
+            </tr>
+            <tr>
+              <th>Girone</th>
+              <td>{team.girone}</td>
             </tr>
           </table>
         </div>
@@ -452,6 +504,11 @@ const SingleTeam = () => {
           </button>
           <button onClick={() => dispatch(openDeleteTeamModal())}>
             Elimina
+          </button>
+        </div>
+        <div>
+          <button onClick={() => dispatch(openChangeGironeModal())}>
+            Modifica Girone
           </button>
         </div>
       </div>

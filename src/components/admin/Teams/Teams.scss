@@ -38,7 +38,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      top: 80px;
+      top: 30px;
       right: 100px;
       &:hover {
         cursor: pointer;
@@ -143,10 +143,10 @@
       justify-content: space-evenly;
       flex-direction: column;
       @media screen and (max-width: $main-mobile-brp){
-        top: 30%;
+        top: 20%;
         left: 18%;
         width: 80vw;
-        height: 350px;
+        height: 380px;
         & h2{
           width: 90%;
           text-align: center;
@@ -160,7 +160,7 @@
             font-size: 12px;
             text-align: center;
           }
-          & input {
+          & input,select,option {
             width: 200px !important;
             text-align: center;
           }
@@ -175,8 +175,14 @@
           width: 200px;
           text-align: left;
         }
-        & input {
+        & input,select,option {
           width: 300px;
+          text-align: center;
+          color: black;
+          border-radius: 5px;
+          &:focus{
+            outline: black;
+          }
         }
         & input[type=submit] {
           height: 30px;

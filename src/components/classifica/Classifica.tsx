@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./Classifica.scss";
 import { Image } from "cloudinary-react";
 const Classifica = () => {
+  const queryString = window.location.pathname;
+  const girone = queryString.replace("/classifica-torneo/","");
+  console.log(girone)
   const [teams, setTeams] = useState([{}]);
-  const [teamsRankActive, setTeamsRankActive] = useState(true);
+  const [teamsFiltered, setTeamsFiltered] = useState([{}]);
   const [playersRankActive, setPlayersRankActive] = useState(false);
   const [players, setPlayers] = useState([{}]);
   const sorted =
-    teams !== undefined && teams !== null
-      ? teams
+    teamsFiltered !== undefined && teamsFiltered !== null
+      ? teamsFiltered
           .sort((a, b) =>
             a.points > b.points ? 1 : b.points > a.points ? -1 : 0
           )
@@ -23,14 +26,6 @@ const Classifica = () => {
           .reverse()
       : "";
 
-  const handleTeamsActiveClick = () => {
-    setTeamsRankActive(true);
-    setPlayersRankActive(false);
-  }
-  const handlePlayersActiveClick = () => {
-    setTeamsRankActive(false);
-    setPlayersRankActive(true);
-  }
   const getTeamGoal = (teamId) => {
     if(players !== null && players !== undefined && players.length > 0){
       let correctPlayers = players.filter((player: any) => player.teamId === teamId);
@@ -100,6 +95,14 @@ const Classifica = () => {
     getPlayers();
   }, [players.length]);
 
+  useEffect(() => {
+    let filteredGirone = [{}];
+    if(teams !== null && teams !== undefined && teams.length > 0){
+      filteredGirone = teams.filter((team: any) => team.girone === girone);
+      setTeamsFiltered(filteredGirone);
+    }
+  },[teams.length]);
+
   return (
     <div className="Classifica__container">
       {teams.length === 0 && (
@@ -108,32 +111,8 @@ const Classifica = () => {
           by BeFootballStar
         </p>
       )}
-      {teams.length > 0 && teamsRankActive && (
+      {teams.length > 0 && (
         <>
-          <div className="Classifica__container__slider">
-            <button
-              className={
-                "Classifica__container__slider" +
-                (teamsRankActive ? "__active" : "__noActive")
-              }
-              onClick={() => handleTeamsActiveClick()}
-            >
-              <p>
-              Classifica Squadre
-              </p>
-            </button>
-            <button
-              className={
-                "Classifica__container__slider" +
-                (playersRankActive ? "__active" : "__noActive")
-              }
-              onClick={() => handlePlayersActiveClick()}
-            >
-              <p>
-              Classifica Marcatori
-              </p>
-            </button>
-          </div>
           <table>
             <thead>
               <tr>
@@ -153,7 +132,9 @@ const Classifica = () => {
                     <td style={{width: "50%", justifyContent:"space-evenly"}}>
                     {index + 1}
                       <Image publicId={team.logo} cloudName="dhadbk8ko" style={{marginLeft:"5px"}}/>
+                      <p>
                       {team.name}
+                      </p>
                     </td>
                     <td>{team.points}</td>
                     <td>{getTeamGoal(team._id)}</td>
@@ -165,7 +146,7 @@ const Classifica = () => {
           </table>
         </>
       )}
-      {players.length > 0 && playersRankActive && (
+      {/* {players.length > 0 && playersRankActive && (
         <>
           <div className="Classifica__container__slider">
             <button
@@ -222,7 +203,7 @@ const Classifica = () => {
             </tbody>
           </table>
         </>
-      )}
+      )} */}
     </div>
   );
 };

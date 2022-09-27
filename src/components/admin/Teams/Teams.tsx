@@ -14,7 +14,8 @@ const Teams = () => {
   const [fileInputState, setFileInputState] = useState();
   const [teamName, setTeamName] = useState("");
   const [teamId, setTeamId] = useState("");
-  const [tournamentId, setTournamentId] = useState("")
+  const [tournamentId, setTournamentId] = useState("");
+  const [girone, setGirone] = useState("");
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     previewFile(file);
@@ -24,6 +25,7 @@ const Teams = () => {
       let fileWithNoExtension = file.name
       fileWithNoExtension = fileWithNoExtension.replace(".png","");
       fileWithNoExtension = fileWithNoExtension.replace(".jpg","");
+      fileWithNoExtension = fileWithNoExtension.replace(".jpeg","");
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -75,6 +77,7 @@ const Teams = () => {
               logo: "soccerManage12/" + fileName,
               name: teamName,
               tournamentId: tournamentId,
+              girone: girone
             }),
             mode: "cors",
             cache: "no-cache",
@@ -187,6 +190,15 @@ const Teams = () => {
                 placeholder="logo squadra"
                 onChange={(e) => handleFileInputChange(e)}
               />
+            </div>
+            <div>
+              <label>Inserisci il girone</label>
+              <select onChange={(e) => setGirone(e.target.value)}>
+                <option disabled selected value="">-</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+              </select>
             </div>
             <div>
               <label>Inserisci id torneo</label>

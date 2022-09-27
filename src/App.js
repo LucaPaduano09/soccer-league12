@@ -23,6 +23,7 @@ import Games from "./components/admin/games/Games.tsx";
 import PublicCalendar from "./components/publicCalendar/PublicCalendar.tsx";
 import Foto from "./components/admin/foto/Foto.tsx";
 import PublicFoto from "./components/foto/PublicFoto.tsx";
+import ClassificaMarcatori from "./components/classifica/ClassificaMarcatori.tsx";
 
 // const express = require("express")
 // const app = express();
@@ -83,9 +84,14 @@ function App() {
           <Route path="/admin/foto">
             <Foto />
           </Route>
-          <Route path="/classifica-torneo">
+          <Route path="/classifica-torneo/:id">
             <Header />
             <Classifica />
+            <Footer />
+          </Route>
+          <Route path="/classifica-marcatori">
+            <Header />
+            <ClassificaMarcatori />
             <Footer />
           </Route>
           <Route path="/calendario">
