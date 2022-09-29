@@ -9,6 +9,8 @@ const Classifica = () => {
   const [teamsFiltered, setTeamsFiltered] = useState([{}]);
   const [playersRankActive, setPlayersRankActive] = useState(false);
   const [players, setPlayers] = useState([{}]);
+  const [goalActive, setGoalActive] = useState(false);
+  const [scoreActive, setScoreActive] = useState(true);
   const sorted =
     teamsFiltered !== undefined && teamsFiltered !== null
       ? teamsFiltered
@@ -47,6 +49,15 @@ const Classifica = () => {
       let searchedTeam = teams.filter((team: any) => team._id === teamId);
       return searchedTeam[0].name
     }
+  }
+  const handleScoreActive = () => {
+    setGoalActive(false);
+    setScoreActive(true);
+  }
+  const handleGoalActive = () => {
+    console.log("goal active cliccked")
+    setGoalActive(true);
+    setScoreActive(false);
   }
 
   useEffect(() => {
@@ -104,20 +115,25 @@ const Classifica = () => {
   },[teams.length]);
 
   return (
+    <>
     <div className="Classifica__container">
+      <div className="Classifica__container__slider">
+        <button className={"Classifica__container__slider" + (scoreActive ? "__active" : "__noActive")} onClick={() => handleScoreActive()}>Vittorie</button>
+        <button className={"Classifica__container__slider" + (goalActive ? "__active" : "__noActive")} onClick={() => handleGoalActive()}>Goal</button>
+      </div>
       {teams.length === 0 && (
         <p>
           In questa sezione potrai vedere la classifica aggiornata di Qatar 2022
           by BeFootballStar
         </p>
       )}
-      {teams.length > 0 && (
+      {teams?.length > 0 && goalActive && (
         <>
           <table>
             <thead>
               <tr>
                 <th colSpan={2} style={{width: "50%"}}>Squadra</th>
-                <th>P</th>
+                <th>PT</th>
                 <th>GF</th>
                 <th>GS</th>
                 <th>+/-</th>
@@ -126,7 +142,7 @@ const Classifica = () => {
             <tbody>
               {teams !== null &&
                 teams !== undefined &&
-                sorted.map((team, index) => (
+                sorted?.map((team, index) => (
                   <tr>
                     {/* <td style={{width: "20px"}}>{index + 1}</td> */}
                     <td style={{width: "50%", justifyContent:"space-evenly"}}>
@@ -146,65 +162,43 @@ const Classifica = () => {
           </table>
         </>
       )}
-      {/* {players.length > 0 && playersRankActive && (
+      {teams?.length > 0 && scoreActive && (
         <>
-          <div className="Classifica__container__slider">
-            <button
-              className={
-                "Classifica__container__slider" +
-                (teamsRankActive ? "__active" : "__noActive")
-              }
-              onClick={() => handleTeamsActiveClick()}
-            >
-              Classifica Squadre
-            </button>
-            <button
-              className={
-                "Classifica__container__slider" +
-                (playersRankActive ? "__active" : "__noActive")
-              }
-              onClick={() => handlePlayersActiveClick()}
-            >
-              Classifica Marcatori
-            </button>
-          </div>
           <table>
-          <thead>
+            <thead>
               <tr>
-                <th style={{width: "40%"}}>Giocatore</th>
-                <th style={{width:"40%"}}>Squadra</th>
-                <th style={{width:"20%"}}>Goal</th>
+                <th colSpan={2} style={{width: "50%"}}>Squadra</th>
+                <th>PT</th>
+                <th>V</th>
+                <th>P</th>
+                <th>S</th>
               </tr>
             </thead>
             <tbody>
               {teams !== null &&
                 teams !== undefined &&
-                sortedPlayers.map((player, index) => (
+                sorted?.map((team, index) => (
                   <tr>
-                    <td style={{width:"40%"}}>
-                      <Image publicId={player.logo} cloudName="dhadbk8ko" />
+                    {/* <td style={{width: "20px"}}>{index + 1}</td> */}
+                    <td style={{width: "50%", justifyContent:"space-evenly"}}>
+                    {index + 1}
+                      <Image publicId={team.logo} cloudName="dhadbk8ko" style={{marginLeft:"5px"}}/>
                       <p>
-                      {player.first_name + " " + player.last_name}
+                      {team.name}
                       </p>
                     </td>
-                    <td style={{width: "40%"}}>
-                    <Image publicId={getTeamLogo(player.teamId)} cloudName="dhadbk8ko" />
-                      <p style={{textAlign: "center"}}>
-                      {getTeamName(player.teamId)}
-                      </p>
-                    </td>
-                    <td style={{width:"20%"}}>
-                      <p style={{textAlign: "center"}}>
-                      {player.scores}
-                      </p>
-                    </td>
+                    <td>{team.points}</td>
+                    <td>{team.vittorie ? team.vittorie : 0}</td>
+                    <td>{team.pareggi ? team.pareggi : 0}</td>
+                    <td>{team.sconfitte ? team.sconfitte : 0}</td>
                   </tr>
                 ))}
             </tbody>
           </table>
         </>
-      )} */}
+      )}
     </div>
+    </>
   );
 };
 

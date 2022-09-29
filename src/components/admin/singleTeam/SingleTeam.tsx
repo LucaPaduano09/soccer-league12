@@ -491,7 +491,7 @@ const SingleTeam = () => {
             <input
               type="number"
               onChange={(e) => setVittorie(e.target.valueAsNumber)}
-              placeholder="vittorie"
+              placeholder="vittorie da aggiungere"
             />
             <button
               className="SingleTeam__container__modal__container__submit"
@@ -516,7 +516,7 @@ const SingleTeam = () => {
             <input
               type="number"
               onChange={(e) => setPareggi(e.target.valueAsNumber)}
-              placeholder="Goal subiti"
+              placeholder="pareggi da aggiungere"
             />
             <button
               className="SingleTeam__container__modal__container__submit"
@@ -541,7 +541,7 @@ const SingleTeam = () => {
             <input
               type="number"
               onChange={(e) => setSconfitte(e.target.valueAsNumber)}
-              placeholder="Goal subiti"
+              placeholder="Sconfitte da aggiungere"
             />
             <button
               className="SingleTeam__container__modal__container__submit"

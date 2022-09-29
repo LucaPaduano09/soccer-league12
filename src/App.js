@@ -24,6 +24,7 @@ import PublicCalendar from "./components/publicCalendar/PublicCalendar.tsx";
 import Foto from "./components/admin/foto/Foto.tsx";
 import PublicFoto from "./components/foto/PublicFoto.tsx";
 import ClassificaMarcatori from "./components/classifica/ClassificaMarcatori.tsx";
+import Live from "./components/live/Live.tsx";
 
 // const express = require("express")
 // const app = express();
@@ -106,6 +107,11 @@ function App() {
           <Route path="/fotogallery">
             <Header />
             <PublicFoto />
+            <Footer />
+          </Route>
+          <Route path="/live">
+            <Header />
+            <Live />
             <Footer />
           </Route>
           <Route path="/">

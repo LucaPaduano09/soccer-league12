@@ -87,6 +87,9 @@ const Header = () => {
             <Link to={"/fotogallery"}>
               <li className="Header__container__menu__option">Foto</li>
             </Link>
+            <Link to={"/live"}>
+              <li className="Header__container__menu__option">Live</li>
+            </Link>
             <li className="Header__container__menu__option">About</li>
           </div>
           <div className="Header__container__social">

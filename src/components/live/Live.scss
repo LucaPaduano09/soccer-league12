@@ -1,0 +1,128 @@
+@import "../../mixins/global.scss";
+
+.Live{
+    &__container{
+        height: calc(100vh - 80px);
+        width: 80vw;
+        margin: 0 auto;
+        margin-top: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        @media screen and (max-width: $main-mobile-brp) {
+            width: 95vw;
+        }
+        &__topBanner{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            &__firstTeam,&__secondTeam{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                & img{
+                    height: 300px;
+                    width: 300px;
+                    @media screen and (max-width: $main-mobile-brp) {
+                        height: 150px;
+                        width: 150px;
+                    }
+                }
+                & p{
+                    font-size: 20px;
+                    text-transform: capitalize;
+                    font-weight: 700;
+                }
+            }
+            &__result{
+                position: relative;
+                width: 250px;
+                height: 50px;
+                background-color: rgb(214, 214, 214);
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @media screen and (max-width: $main-mobile-brp) {
+                    width: 60px;
+                    height: 25px;
+                }
+                &__date{
+                    position: absolute;
+                    top: -35px;
+                    display: flex;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: center;
+                    & p{
+                        font-weight: 400 !important;
+                        font-size: 15px !important;
+                        width: 40% !important;
+                        text-align: center;
+                        @media screen and (max-width:$main-mobile-brp){
+                            font-size: 10px !important;
+                            width: 50% !important;
+                        }
+                    }
+                }
+                & p{
+                    width: 100%;
+                    margin: 0px;
+                    text-align: center;
+                    font-weight: 700;
+                    font-size: 20px;
+                }
+            }
+        }
+        &__middleBanner{
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-evenly;
+            position: relative;
+            width: 100%;
+            &__left, &__right{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 40%;
+                & div{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    width: 100%;
+                    padding: 10px;
+                    margin-left: 10px;
+                    & p{
+                        width: 150px;
+                        @media screen and (max-width: $main-mobile-brp) {
+                            font-size: 12px;
+                        }
+                    }
+                }
+                & img{
+                    height: 30px;
+                    width: 30px;
+                    margin-right: 20px;
+                }
+            }
+            &__right{
+                & div{
+                    &:first-child{
+                        display: none;
+                    }
+                }
+            }
+            &__separator{
+                width: 1px;
+                height: 100%;
+                background-color: black;
+            }
+        }
+    }
+}
