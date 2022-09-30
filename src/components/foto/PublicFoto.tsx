@@ -70,7 +70,6 @@ const PublicFoto = () => {
         galleryFoto !== undefined &&
         galleryFoto.length > 2 && (
           <>
-          <h2>Ultime Foto</h2>
             <div
               className={"PublicFoto__container__gallery" + translateGallery}
             >
@@ -107,31 +106,6 @@ const PublicFoto = () => {
                 onClick={() => handleDotClicked3()}
               />
             </div>
-            {
-              foto !== null &&
-              foto !== undefined &&
-              foto.length > 3 && (
-                <h2>Tutte Le Foto</h2>
-              )
-            }
-            {foto !== null &&
-              foto !== undefined &&
-              foto.length > 3 &&
-              foto.map((ft: any, index) => (
-                <div className="PublicFoto__container__othersFoto">
-                  {foto !== null &&
-                    foto !== undefined && (
-                      <Image
-                        public_id={
-                          foto[index] !== null &&
-                          foto[index] !== undefined &&
-                          foto[index].name
-                        }
-                        cloudName="dhadbk8ko"
-                      />
-                    )}
-                </div>
-              ))}
           </>
         )}
     </div>

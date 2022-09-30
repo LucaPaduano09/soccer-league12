@@ -26,6 +26,7 @@ export const ModalSlice = createSlice({
     addGameModal: false,
     addGameToDayModal: false,
     removeGameFromDayModal: false,
+    updateGameStatusModal: false,
     updateResultModal: false,
     updateDateModal: false,
     updateTimeModal: false,
@@ -201,6 +202,12 @@ export const ModalSlice = createSlice({
     closeAddFotoModal: (state) => {
       state.addFotoModal = false;
     },
+    openUpdateGameStatusModal: (state) => {
+      state.updateGameStatusModal = true;
+    },
+    closeUpdateGameStatusModal: (state) => {
+      state.updateGameStatusModal = false;
+    }
   },
 });
 
@@ -261,6 +268,8 @@ export const {
   openUpdateScorerModal,
   closeUpdateScorerModal,
   openAddFotoModal,
-  closeAddFotoModal
+  closeAddFotoModal,
+  openUpdateGameStatusModal,
+  closeUpdateGameStatusModal
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

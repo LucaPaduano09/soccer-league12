@@ -155,7 +155,7 @@ const Foto = () => {
         <Link to="/admin/dashboard">indietro</Link>
         <h3>Elenco Foto</h3>
         {
-          fotos.length > 0 && (
+          fotos?.length > 0 && fotos?.length < 3 && (
             <button className="Foto__container__topBanner__addFoto"onClick={() => dispatch(openAddFotoModal())}><p>+</p></button>
           )
         }

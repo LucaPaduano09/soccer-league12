@@ -75,9 +75,10 @@ const Live = () => {
       }
       const result = await response.json();
       setGames(result);
+      console.log(games)
     };
     getGames();
-  }, [games.length]);
+  }, [games?.length]);
 
   useEffect(() => {
     const getLiveMatch = () => {

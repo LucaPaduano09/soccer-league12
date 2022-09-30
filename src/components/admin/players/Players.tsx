@@ -28,9 +28,9 @@ const Players = () => {
     previewFile(file);
   };
   const previewFile = (file: any) => {
-    let fileWithNoExtension = file.name.replace(".png","");
-    fileWithNoExtension = fileWithNoExtension.replace(".jpg","");
-    fileWithNoExtension = fileWithNoExtension.replace(".jpeg","");
+    let fileWithNoExtension = file.name.replace(".png", "");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpg", "");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpeg", "");
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
@@ -60,45 +60,52 @@ const Players = () => {
         headers: {
           "Content-type": "application/json",
         },
-      }).then(()=>createPlayer(fileName, name, surname, teamId, captain)).then(()=>dispatch(closeAddPlayerModal())).then(() => window.location.reload())
+      })
+        .then(() => createPlayer(fileName, name, surname, teamId, captain))
+        .then(() => dispatch(closeAddPlayerModal()))
+        .then(() => window.location.reload());
     } catch (error) {
       console.log(error);
     }
   };
   const createPlayer = async (logo, name, surname, teamId, captain) => {
-    if(players !== null && players !== undefined && players.length > 0){
-      let searchedPlayerId =  [{}];
-      searchedPlayerId = players.filter((game: any) => game._id === id);
-      if(searchedPlayerId.length === 0){
-        const response = await fetch(
-          "https://soccer-league12.herokuapp.com/players/add",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              id: id,
-              logo: "soccerManage12/" + logo,
-              first_name: name,
-              last_name: surname,
-              scores: 0,
-              teamId: teamId,
-              capitain: captain,
-            }),
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-              "Content-type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          window.alert("Something went wrong creating player...");
-        } else {
-          window.alert("player created successfully");
+    let searchedPlayerId = [{}];
+    searchedPlayerId = players.filter((game: any) => game._id === id);
+    if (searchedPlayerId.length === 0) {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/players/add",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            id: id,
+            logo: "soccerManage12/" + logo,
+            first_name: name,
+            last_name: surname,
+            scores: 0,
+            teamId: teamId,
+            capitain: captain,
+          }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-type": "application/json",
+          },
         }
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong creating player...");
       } else {
-        window.alert(`Esiste gia un giocatore con id: ${id}\ngiocatore: ${(searchedPlayerId[0] as any).first_name + " " + (searchedPlayerId[0] as any).last_name }`)
+        window.alert("player created successfully");
       }
+    } else {
+      window.alert(
+        `Esiste gia un giocatore con id: ${id}\ngiocatore: ${
+          (searchedPlayerId[0] as any).first_name +
+          " " +
+          (searchedPlayerId[0] as any).last_name
+        }`
+      );
     }
   };
 

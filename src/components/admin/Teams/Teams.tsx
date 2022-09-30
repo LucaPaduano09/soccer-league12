@@ -22,10 +22,10 @@ const Teams = () => {
   };
   const previewFile = (file) => {
     if (file) {
-      let fileWithNoExtension = file.name
-      fileWithNoExtension = fileWithNoExtension.replace(".png","");
-      fileWithNoExtension = fileWithNoExtension.replace(".jpg","");
-      fileWithNoExtension = fileWithNoExtension.replace(".jpeg","");
+      let fileWithNoExtension = file.name;
+      fileWithNoExtension = fileWithNoExtension.replace(".png", "");
+      fileWithNoExtension = fileWithNoExtension.replace(".jpg", "");
+      fileWithNoExtension = fileWithNoExtension.replace(".jpeg", "");
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -64,34 +64,36 @@ const Teams = () => {
     }
   };
   const createTeam = async () => {
-    if(teams !== null && teams !== undefined && teams.length > 0){
-      let searchedTeamId =  [{}];
-      searchedTeamId = teams.filter((game: any) => game._id === teamId);
-      if(searchedTeamId.length === 0){
-        const response = await fetch(
-          "https://soccer-league12.herokuapp.com/teams/add",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              _id: teamId,
-              logo: "soccerManage12/" + fileName,
-              name: teamName,
-              tournamentId: tournamentId,
-              girone: girone
-            }),
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          window.alert("Something went wrong creating Team");
+    let searchedTeamId = [{}];
+    searchedTeamId = teams.filter((game: any) => game._id === teamId);
+    if (searchedTeamId.length === 0) {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/teams/add",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            _id: teamId,
+            logo: "soccerManage12/" + fileName,
+            name: teamName,
+            tournamentId: tournamentId,
+            girone: girone,
+          }),
+          mode: "cors",
+          cache: "no-cache",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } else {
-        window.alert(`Esiste gia una squadra con id ${teamId} => ${(searchedTeamId[0] as any).name}`)
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong creating Team");
       }
+    } else {
+      window.alert(
+        `Esiste gia una squadra con id ${teamId} => ${
+          (searchedTeamId[0] as any).name
+        }`
+      );
     }
   };
 
@@ -119,11 +121,6 @@ const Teams = () => {
 
   return (
     <div className="Teams__container">
-      {
-        teams.length === 0 && (
-          <h3>Non ci sono squadre in database</h3>
-        )
-      }
       <h2>Squadre</h2>
       <div
         className="Teams__container__addTeam"
@@ -141,7 +138,7 @@ const Teams = () => {
             </th>
           </thead>
           <tbody>
-            {teams.map((team: any) => (
+            {teams?.map((team: any) => (
               <tr>
                 <td>
                   <Image public_id={team.logo} cloud_name="dhadbk8ko" />
@@ -194,7 +191,9 @@ const Teams = () => {
             <div>
               <label>Inserisci il girone</label>
               <select onChange={(e) => setGirone(e.target.value)}>
-                <option disabled selected value="">-</option>
+                <option disabled selected value="">
+                  -
+                </option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
@@ -202,7 +201,11 @@ const Teams = () => {
             </div>
             <div>
               <label>Inserisci id torneo</label>
-              <input type="text" placeholder="id torneo" onChange={(e) => setTournamentId(e.target.value)}/>
+              <input
+                type="text"
+                placeholder="id torneo"
+                onChange={(e) => setTournamentId(e.target.value)}
+              />
             </div>
             <div>
               <input type="submit" onClick={(e) => handleSubmit(e, fileName)} />

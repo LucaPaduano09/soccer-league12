@@ -60,7 +60,6 @@ const Games = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(games !== null && games !== undefined && games.length > 0){
       let searchedGameId =  [{}];
       searchedGameId = games.filter((game: any) => game._id === id)
       if(searchedGameId.length === 0){
@@ -82,9 +81,6 @@ const Games = () => {
       } else {
         window.alert("Esiste gia una partita con questo id")
       }
-    } else {
-      window.alert("Something went wrong fetching teams...")
-    }
   };
 
 

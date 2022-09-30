@@ -12,6 +12,8 @@ import {
   closeUpdateTimeModal,
   openUpdateScorerModal,
   closeUpdateScorerModal,
+  openUpdateGameStatusModal,
+  closeUpdateGameStatusModal,
 } from "../../../redux/modals";
 
 const SingleMatch = () => {
@@ -35,11 +37,15 @@ const SingleMatch = () => {
   const updateScorerModal = useSelector(
     (state: any) => state.addModal.updateScorerModal
   );
+  const updateGameStatusModal = useSelector(
+    (state: any) => state.addModal.updateGameStatusModal
+  );
   const [resultTeam1, setResultTeam1] = useState("");
   const [resultTeam2, setResultTeam2] = useState("");
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
   const [marcatore, setMarcatore] = useState("");
+  const [newStatus, setNewStatus] = useState("");
 
   useEffect(() => {
     const getPartita = async () => {
@@ -259,6 +265,26 @@ const SingleMatch = () => {
       }
     ).then(()=> handleUpdatePlayerScorer())
   };
+  const handleUpdateGameStatus = async (e) => {
+    e.preventDefault();
+    const response = await fetch('https://soccer-league12.herokuapp.com/games-update-status/' + id,{
+      method: "POST",
+      body: JSON.stringify({status: newStatus}),
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers:{
+        "Content-Type" : "application/json"
+      }
+    });
+    if(!response.ok){
+      window.alert("something went wrong updating game status")
+    } else {
+      window.alert("Stato partita cambiato")
+      dispatch(closeUpdateGameStatusModal());
+      window.location.reload()
+    }
+  }
 
   return (
     <div className="SingleMatch__container">
@@ -356,6 +382,30 @@ const SingleMatch = () => {
           </div>
         </>
       )}
+      {updateGameStatusModal && (
+        <>
+          <div className="SingleMatch__container__overlay" />
+          <div className="SingleMatch__container__modal">
+            <button
+              className="SingleMatch__container__modal__close"
+              onClick={() => dispatch(closeUpdateGameStatusModal())}
+            >
+              {" "}
+              X{" "}
+            </button>
+            <h2>Aggiorna Stato</h2>
+            <div>
+              <select onChange={(e) => setNewStatus(e.target.value)}>
+                <option disabled selected> - </option>
+                <option value="da giocare">da giocare</option>
+                <option value="live">live</option>
+                <option value="conclusa">conclusa</option>
+              </select>
+            </div>
+            <button onClick={(e) => handleUpdateGameStatus(e)}>Aggiorna</button>
+          </div>
+        </>
+      )}
       <div className="SingleMatch__container__topBanner">
         <Link to="/admin/dashboard">indietro</Link>
         <h3>Partita</h3>
@@ -386,6 +436,11 @@ const SingleMatch = () => {
         </div>
       </div>
       <div className="SingleMatch__container__lowerBanner">
+        <div>
+          <button onClick={() => dispatch(openUpdateGameStatusModal())}>
+            Aggiorna Stato
+          </button>
+        </div>
         <div>
           <button onClick={() => dispatch(openUpdateResultModal())}>
             Aggiorna Risultato
