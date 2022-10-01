@@ -133,6 +133,7 @@
         height: 500px;
         width: 300px;
         left: 3%;
+        top: 5%;
       }
       &__close {
         position: absolute;
@@ -173,15 +174,17 @@
         @media screen and (max-width: $main-mobile-brp) {
           height: 10%;
           flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
           margin: 10px 0px;
         }
         & label {
           width: 200px;
           text-align: left;
           @media screen and (max-width: $main-mobile-brp) {
-            width: 150px;
+            width: 98%;
             font-size: 12px;
-            text-align: center;
+            text-align: left;
           }
         }
         & input {
