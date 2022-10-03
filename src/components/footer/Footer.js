@@ -10,9 +10,6 @@ const Footer = () => {
             <img src="/images/whatsapp-128.png" alt="whatsapplogo"/>
             <a href="https://wa.me/3312147601" target={"blank"}>3312147601</a>
         </div>
-        <Link to="/admin/dashboard">
-          admin
-        </Link>
     </div>
   )
 }
