@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Image } from "cloudinary-react";
 
-
 const PublicCalendar = () => {
   const [calendar, setCalendar] = useState([{}]);
   const [teams, setTeams] = useState([{}]);
@@ -86,12 +85,7 @@ const PublicCalendar = () => {
       filteredTeamM !== undefined &&
       filteredTeamM.length > 0
     ) {
-      return (
-        <Image
-          public_id={filteredTeamM[0].logo }
-          cloudName="dhadbk8ko"
-        />
-      );
+      return <Image public_id={filteredTeamM[0].logo} cloudName="dhadbk8ko" />;
     }
   };
   const filterGames = (partita) => {
@@ -136,10 +130,21 @@ const PublicCalendar = () => {
       return filteredTeamM[0].name;
     }
   };
+  const getDateTime = (partita: any) => {
+    const filteredGame: any = games.filter((game: any) => game._id === partita);
+    if (filteredGame[0] !== null && filteredGame[0] !== undefined) {
+      return (
+        <>
+          <p>{filteredGame[0].date}</p>
+          <p>{filteredGame[0].time}</p>
+        </>
+      );
+    }
+  };
 
   return (
     <div className="PublicCalendar">
-      <div className="PublicCalendar__container">   
+      <div className="PublicCalendar__container">
         <div className="PublicCalendar__container__daysContainer">
           {calendar !== null &&
             calendar !== undefined &&
@@ -196,6 +201,9 @@ const PublicCalendar = () => {
                           </div>
                           <div className="PublicCalendar__container__middleBanner__gameContainer__result">
                             {getResult(partita)}
+                            <div className="Calendar__container__middleBanner__gameContainer__result__dateTime">
+                              {getDateTime(partita)}
+                            </div>
                           </div>
                           <div className="PublicCalendar__container__middleBanner__gameContainer__secondTeam">
                             <div className="PublicCalendar__container__middleBanner__gameContainer__secondTeam__name">
@@ -219,7 +227,6 @@ const PublicCalendar = () => {
                 </>
               )
             )}
-            
         </div>
       </div>
     </div>
