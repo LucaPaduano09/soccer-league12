@@ -70,7 +70,7 @@ const PublicHome = () => {
           <h2>Calendario</h2>
           <img
             className="PublicHome__container__image"
-            src="/images/squadra3.jpg"
+            src="/images/marasca.jpeg"
             alt="squadre"
           />
         </Link>

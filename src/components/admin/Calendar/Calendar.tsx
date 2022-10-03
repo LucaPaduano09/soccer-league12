@@ -12,6 +12,8 @@ import {
   closeAddGameToDayModal,
   openRemoveGameFromDayModal,
   closeRemoveGameFromDayModal,
+  openRemoveDayModal,
+  closeRemoveDayModal,
 } from "../../../redux/modals";
 import { Image } from "cloudinary-react";
 
@@ -33,6 +35,7 @@ const Calendar = () => {
   const [selectedDayGames, setSelectedDayGames] = useState([{}]);
   const [gameToAddId, setGameToAddId] = useState("");
   const [gameToRemoveId, setGameToRemoveId] = useState("");
+  const [dayToRemove, setDayToRemove] = useState("");
   const changeMatchStatusModal = useSelector(
     (state: any) => state.addModal.changeMatchStatusModal
   );
@@ -43,6 +46,9 @@ const Calendar = () => {
   );
   const removeGameFromDayModal = useSelector(
     (state: any) => state.addModal.removeGameFromDayModal
+  );
+  const removeDayModal = useSelector(
+    (state: any) => state.addModal.removeDayModal
   );
   var x = [{}];
   var y = [{}];
@@ -171,8 +177,7 @@ const Calendar = () => {
     }
   };
   const handleAddGameToDay = async (gameId) => {
-    if(selectedDayGames?.length > 0){
-
+    if (selectedDayGames?.length > 0) {
       let add: any = calendar.filter(
         (c: any) => c.giornata === selectedDayGames[0].giornata
       );
@@ -292,6 +297,37 @@ const Calendar = () => {
       return filteredTeamM[0].name;
     }
   };
+  const handleRemoveDay = async (e) => {
+    e.preventDefault();
+    if (calendar?.length > 0) {
+      let searchedDay = calendar.filter(
+        (cl: any) => cl.giornata === dayToRemove
+      );
+      if (searchedDay?.length > 0) {
+        const response = await fetch(
+          "https://soccer-league12.herokuapp.com/calendar-remove-day",
+          {
+            method: "DELETE",
+            mode: "cors",
+            body: JSON.stringify({ giornata: dayToRemove }),
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!response.ok) {
+          window.alert("Something went wrong deleting day...");
+        } else {
+          dispatch(closeRemoveDayModal());
+          window.location.reload();
+        }
+      } else {
+        window.alert(`Non esiste nessuna giornata numero: ${dayToRemove}`);
+      }
+    }
+  };
 
   return (
     <div className="Calendar">
@@ -299,11 +335,10 @@ const Calendar = () => {
         {addDayModal && (
           <>
             <div className="Calendar__container__overlay" />
-            <div className="Calendar__container__modal">
+            <div className="Calendar__container__gameModal">
               <button onClick={() => dispatch(closeAddDayModal())}> X </button>
               <h3>Aggiungi Giornata</h3>
               <div>
-                <label>numero giornata:</label>
                 <input
                   type="number"
                   placeholder="0"
@@ -423,6 +458,36 @@ const Calendar = () => {
             </div>
           </>
         )}
+        {removeDayModal && (
+          <>
+            <div className="Calendar__container__overlay" />
+            <div className="Calendar__container__gameModal">
+              <button
+                className="Calendar__container__gameModal__close"
+                onClick={() => dispatch(closeRemoveDayModal())}
+              >
+                X
+              </button>
+              <h2>Rimuovi Giornata</h2>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyItems: "space-evenly",
+                  flexDirection: "column",
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="giornata"
+                  onChange={(e) => setDayToRemove(e.target.value)}
+                  style={{ textAlign: "center", fontStyle: "italic" }}
+                />
+              </div>
+              <input type="submit" onClick={(e) => handleRemoveDay(e)} />
+            </div>
+          </>
+        )}
         <div className="Calendar__container__topBanner">
           <Link to="/admin/dashboard">indietro</Link>
           <h3>Calendario</h3>
@@ -434,6 +499,20 @@ const Calendar = () => {
           <div className="Calendar__container__subTopBanner__name">
             <h3>be football star qatar 2022</h3>
             <p>Calcio a 8</p>
+          </div>
+          <div className="Calendar__container__subTopBanner__actionContainer">
+            <button
+              className="Calendar__container__close"
+              onClick={() => dispatch(openAddDayModal())}
+            >
+              +
+            </button>
+            <button
+              className="Calendar__container__close"
+              onClick={() => dispatch(openRemoveDayModal())}
+            >
+              -
+            </button>
           </div>
         </div>
         <div className="Calendar__container__daysContainer">
@@ -464,12 +543,6 @@ const Calendar = () => {
               </>
             ))}
         </div>
-        <button
-          className="Calendar__container__close"
-          onClick={() => dispatch(openAddDayModal())}
-        >
-          +
-        </button>
         <div className="Calendar__container__middleBanner">
           {calendar !== null &&
             calendar !== undefined &&
