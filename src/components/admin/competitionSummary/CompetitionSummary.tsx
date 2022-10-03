@@ -231,7 +231,7 @@ const CompetitionSummary = () => {
           {competitions.map((comp: any) => {
             //@ts-ignore
             teamsNumber = teams.filter(
-              (team) => team.tournamentId.toString() === comp.tournamentId
+              (team) => team.tournamentId === comp.tournamentId
             );
             return (
               <tr>

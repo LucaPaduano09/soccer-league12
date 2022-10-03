@@ -287,6 +287,17 @@ const Calendar = () => {
       return filteredGame[0].result !== null ? filteredGame[0].result : "0 - 0";
     }
   };
+  const getDateTime = (partita: any) => {
+    const filteredGame: any = games.filter((game: any) => game._id === partita);
+    if (filteredGame[0] !== null && filteredGame[0] !== undefined) {
+      return (
+        <>
+          <p >{filteredGame[0].date}</p>
+          <p >{filteredGame[0].time}</p>
+        </>
+      );
+    }
+  };
   const getTeamName = (teamId: any) => {
     const filteredTeamM = teams.filter((team: any) => team._id == teamId);
     if (
@@ -576,6 +587,9 @@ const Calendar = () => {
                             </div>
                             <div className="Calendar__container__middleBanner__gameContainer__result">
                               {getResult(partita)}
+                              <div className="Calendar__container__middleBanner__gameContainer__result__dateTime">
+                                {getDateTime(partita)}
+                              </div>
                             </div>
                             <div className="Calendar__container__middleBanner__gameContainer__secondTeam">
                               <div className="Calendar__container__middleBanner__gameContainer__secondTeam__name">

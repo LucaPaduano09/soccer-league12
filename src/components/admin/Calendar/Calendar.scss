@@ -320,7 +320,6 @@
             & img{
               height: 40px;
               width: 40px;
-              clip-path: circle();
               margin: 0px 10px 0px 10px;
             }
             &__name{
@@ -331,6 +330,7 @@
             }
         }
         &__result{
+          position: relative;
           width: 20%;
           text-align: center;
           background-color: $main-grey-color;
@@ -340,6 +340,15 @@
           align-items: center;
           justify-content: center;
           flex-direction: column;
+          &__dateTime{
+            position: absolute;
+            bottom: -35px;
+            & p{
+              margin: 0px;
+              font-size: 10px;
+              letter-spacing: 0.01px;
+            }
+          }
         }
         &__secondTeam{
           width: 40%;
@@ -349,7 +358,6 @@
           & img{
             height: 40px;
             width: 40px;
-            clip-path: circle();
             margin-right: 10px;
           }
           &__name{

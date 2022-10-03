@@ -16,7 +16,7 @@ const Competition = () => {
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/admin/leghe/", "");
   const correctTeams = teams.filter(
-    (elem) => elem.tournamentId.toString() === competition._id
+    (elem) => elem.tournamentId === competition._id
   );
   const showDeleteModal = useSelector(
     (state) => state.addModal.deleteTeamModal
