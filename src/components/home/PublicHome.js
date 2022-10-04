@@ -78,7 +78,7 @@ const PublicHome = () => {
       <div className="PublicHome__container__rightItemDesc">
         <h2 style={{ width: "90%", textAlign: "center" }}>BeFootballStar</h2>
         <p style={{ width: "90%", textAlign: "center" }}>
-          E' il primo toreno di calciotto al Vomero! Per info e contatti:{" "}
+          E' il primo torneo di calciotto al Vomero! Per info e contatti:{" "}
           <a href="https://wa.me/3312147601" target={"blank"}>
             3312147601
           </a>
