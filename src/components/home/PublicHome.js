@@ -65,12 +65,22 @@ const PublicHome = () => {
           alt="squadre"
         />
       </div>
-      <div className="PublicHome__container__rightItem">
+      <div className="PublicHome__container__rightItem" style={{marginBottom: "0px"}}>
         <Link to="/calendario">
           <h2>Calendario</h2>
           <img
             className="PublicHome__container__image"
             src="/images/squadra3.jpg"
+            alt="squadre"
+          />
+        </Link>
+      </div>
+      <div className="PublicHome__container__rightItem">
+        <Link to="/squadre">
+          <h2>Squadre</h2>
+          <img
+            className="PublicHome__container__image"
+            src="/images/team-public.jpg"
             alt="squadre"
           />
         </Link>

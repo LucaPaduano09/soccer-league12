@@ -25,11 +25,8 @@ import Foto from "./components/admin/foto/Foto.tsx";
 import PublicFoto from "./components/foto/PublicFoto.tsx";
 import ClassificaMarcatori from "./components/classifica/ClassificaMarcatori.tsx";
 import Live from "./components/live/Live.tsx";
-
-// const express = require("express")
-// const app = express();
-// const cors = require("cors");
-// app.use(cors());
+import PublicSquadre from "./components/publicSquadre/PublicSquadre.tsx";
+import SinglePublicSquadra from "./components/publicSquadre/SinglePublicSquadra.tsx";
 
 function App() {
   return (
@@ -112,6 +109,16 @@ function App() {
           <Route path="/live">
             <Header />
             <Live />
+            <Footer />
+          </Route>
+          <Route path="/squadre">
+            <Header />
+            <PublicSquadre />
+            <Footer />
+          </Route>
+          <Route path="/squadra/:id">
+            <Header />
+            <SinglePublicSquadra />
             <Footer />
           </Route>
           <Route path="/">
