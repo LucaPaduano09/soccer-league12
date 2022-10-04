@@ -80,7 +80,7 @@ const PublicHome = () => {
           <h2>Squadre</h2>
           <img
             className="PublicHome__container__image"
-            src="/images/team-public.jpg"
+            src="/images/team2-res.jpg"
             alt="squadre"
           />
         </Link>
