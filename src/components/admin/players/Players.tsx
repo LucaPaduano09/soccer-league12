@@ -5,9 +5,10 @@ import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
 import "./Players.scss";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Player } from "../../../types/Player"
 
 const Players = () => {
-  const [players, setPlayers] = useState([{}]);
+  const [players, setPlayers] = useState<[Player]>();
   const dispatch = useDispatch();
   const history = useHistory();
   const addPlayerModal = useSelector(
@@ -21,7 +22,7 @@ const Players = () => {
   const [previewSource, setPreviewSource] = useState();
   const [fileInputState, setFileInputState] = useState();
   const [id, setId] = useState("");
-
+  const [sorted, setSorted] = useState<[Player]>();
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     console.log(file);
@@ -70,7 +71,7 @@ const Players = () => {
   };
   const createPlayer = async (logo, name, surname, teamId, captain) => {
     let searchedPlayerId = [{}];
-    searchedPlayerId = players.filter((game: any) => game._id === id);
+    searchedPlayerId = players?.filter((game: any) => game._id === id) as [Player];
     if (searchedPlayerId.length === 0) {
       const response = await fetch(
         "https://soccer-league12.herokuapp.com/players/add",
@@ -126,15 +127,26 @@ const Players = () => {
         window.alert("Something went wrong fetching playes...");
       }
       const result = await response.json();
-      setPlayers(result);
+      let filteredPlayers= result?.sort((a, b) => (a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0))
+      setPlayers(filteredPlayers);
     };
     getPlayers();
-  }, [players.length]);
+  }, [players?.length]);
+
 
   return (
     <div className="Players__container">
       <h1>Giocatori</h1>
-      {players.length == 0 && (
+          {/* <div className="Players__container__filter">
+            <label>Filtra per </label>
+            <select onChange={(e) => handleFilter(e.target.value)}>
+                <option disabled selected>-</option>
+                <option value="name">nome</option>
+                <option value="team">squadra</option>
+                <option value="goal">goal</option>
+            </select>
+          </div> */}
+      {players !== null && players !== undefined && players?.length === 0 && (
         <>
           <p>Non ci sono giocatori in database</p>
         </>
@@ -215,9 +227,8 @@ const Players = () => {
           </th>
         </thead>
         <tbody>
-          {players !== null &&
-            players !== undefined &&
-            players.map((player: any) => (
+          {
+            players?.map((player: any) => (
               <Link to={"/admin/giocatore/" + player._id}>
                 <tr className="Players__container__playerContainer">
                   <td>

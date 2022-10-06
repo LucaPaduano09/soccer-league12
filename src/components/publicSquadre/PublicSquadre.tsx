@@ -32,6 +32,11 @@ const PublicSquadre = () => {
 
   return (
     <div className="PublicSquadre__container">
+      {
+        squadre !== undefined && squadre?.length <= 1 && (
+          <p>Stiamo caricando le squadre . . .</p>
+        )
+      }
       <table>
         <thead>
           <tr>

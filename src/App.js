@@ -16,7 +16,6 @@ import UpdateGiornata from "./components/admin/Calendar/UpdateGiornata.tsx";
 import SingleMatch from "./components/admin/Calendar/SingleMatch.tsx";
 import Footer from "./components/footer/Footer";
 import Classifica from "./components/classifica/Classifica.tsx";
-import Mvp from "./components/mvp/Mvp.tsx";
 import Players from "./components/admin/players/Players.tsx";
 import SinglePlayer from "./components/admin/players/SinglePlayer.tsx";
 import Games from "./components/admin/games/Games.tsx";
@@ -95,11 +94,6 @@ function App() {
           <Route path="/calendario">
             <Header />
             <PublicCalendar />
-          </Route>
-          <Route path="/mvp">
-            <Header />
-            <Mvp />
-            <Footer />
           </Route>
           <Route path="/fotogallery">
             <Header />
