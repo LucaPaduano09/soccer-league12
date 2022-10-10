@@ -141,7 +141,7 @@ const SingleTeam = () => {
     e.preventDefault();
     if(goalSubiti !== null){
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams-subiti/" + id,
+        "https://soccer-league12.herokuapp.com/teams-goal-subiti/" + id,
         {
           method: "POST",
           body: JSON.stringify({ subiti: goalSubiti }),
