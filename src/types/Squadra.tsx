@@ -4,6 +4,7 @@ export type Squadra= {
     name: string,
     points: number,
     goal_subiti: number,
+    goal_fatti: number,
     tournamentId: string,
     girone: string,
     vittore: number,

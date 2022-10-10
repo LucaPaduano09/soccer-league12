@@ -153,7 +153,7 @@ const Classifica = () => {
                       </p>
                     </td>
                     <td>{team.points}</td>
-                    <td>{getTeamGoal(team._id)}</td>
+                    <td>{getTeamGoal(team._id) + team.goal_fatti}</td>
                     <td>{team.goal_subiti}</td>
                     <td>{getTeamGoal(team._id) - team.goal_subiti}</td>
                   </tr>

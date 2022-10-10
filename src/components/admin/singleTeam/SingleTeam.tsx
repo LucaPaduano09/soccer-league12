@@ -20,6 +20,8 @@ import {
   closeUpdateTeamSconfitteModal,
   openUpdateTeamPareggiModal,
   closeUpdateTeamPareggiModal,
+  closeAddTeamGoal,
+  openAddTeamGoal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
@@ -34,6 +36,7 @@ const SingleTeam = () => {
   const [newTeamName, setNewTeamName] = useState("");
   const [teamPointsToAdd, setTeamPointsToAdd] = useState(0);
   const [goalSubiti, setGoalSubiti] = useState<number>(0) ;
+  const [goalFatti, setGoalFatti] = useState<number>(0) ;
   const [publicIds, setPublicIds] = useState([]);
   const [specificPublicId, setSpecificPublicId] = useState("c");
   const [girone, setGirone] = useState("");
@@ -69,6 +72,9 @@ const SingleTeam = () => {
   );
   const updateTeamSconfitteModal = useSelector(
     (state: any) => state.addModal.updateTeamSconfitteModal
+  );
+  const addTeamGoal = useSelector(
+    (state: any) => state.addModal.addTeamGoal
   );
   const dispatch = useDispatch();
   const history = useHistory();
@@ -252,6 +258,28 @@ const SingleTeam = () => {
       window.location.reload();
     }
   };
+  const handleUpdateTeamGoalFatti = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-goal-fatti/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ goal_fatti: goalFatti }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating vittorie");
+    } else {
+      dispatch(closeAddTeamGoal());
+      window.location.reload();
+    }
+  }
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
@@ -450,6 +478,31 @@ const SingleTeam = () => {
             <button
               className="SingleTeam__container__modal__container__submit"
               onClick={(e) => handleUpdateGoalSubiti(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
+      {addTeamGoal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeAddTeamGoal())}
+            >
+              X
+            </button>
+            <h2>Modifica Goal Fatti</h2>
+            <input
+              type="number"
+              onChange={(e) => setGoalFatti(e.target.valueAsNumber)}
+              placeholder="Goal fatti"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamGoalFatti(e)}
             >
               Modifica
             </button>
@@ -657,6 +710,9 @@ const SingleTeam = () => {
           <button onClick={() => dispatch(openUpdateTeamPareggiModal())}>
             Aggiungi Pareggio
           </button>
+        </div>
+        <div>
+          <button onClick={() => dispatch(openAddTeamGoal())}>Aggiungi Goal</button>
         </div>
       </div>
     </div>
