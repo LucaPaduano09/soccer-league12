@@ -144,7 +144,7 @@ const SingleTeam = () => {
         "https://soccer-league12.herokuapp.com/teams-goal-subiti/" + id,
         {
           method: "POST",
-          body: JSON.stringify({ subiti: goalSubiti }),
+          body: JSON.stringify({ goal_subiti: goalSubiti }),
           mode: "cors",
           cache: "no-cache",
           credentials: "same-origin",
