@@ -33,7 +33,7 @@ const SingleTeam = () => {
   const [allTeams, setAllTeams] = useState([{}]);
   const [newTeamName, setNewTeamName] = useState("");
   const [teamPointsToAdd, setTeamPointsToAdd] = useState(0);
-  const [goalSubiti, setGoalSubiti] = useState(0);
+  const [goalSubiti, setGoalSubiti] = useState<number>(0) ;
   const [publicIds, setPublicIds] = useState([]);
   const [specificPublicId, setSpecificPublicId] = useState("c");
   const [girone, setGirone] = useState("");
@@ -139,24 +139,28 @@ const SingleTeam = () => {
   };
   const handleUpdateGoalSubiti = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-goal-subiti/" + id,
-      {
-        method: "POST",
-        body: JSON.stringify({ goal_subiti: goalSubiti }),
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "applcation/json",
-        },
+    if(goalSubiti !== null){
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/teams-subiti/" + id,
+        {
+          method: "POST",
+          body: JSON.stringify({ subiti: goalSubiti }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong updating goal subiti...");
+      } else {
+        dispatch(closeUpdateTeamGoalSubitiModal());
+        window.location.reload();
       }
-    );
-    if (!response.ok) {
-      window.alert("Something went wrong updating goal subiti...");
     } else {
-      dispatch(closeUpdateTeamGoalSubitiModal());
-      window.location.reload();
+      window.alert("not a number")
     }
   };
   const handleChangeGirone = async (e) => {
