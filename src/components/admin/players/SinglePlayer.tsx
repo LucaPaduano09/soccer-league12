@@ -25,6 +25,9 @@ const SinglePlayer = () => {
   const [previewSource, setPreviewSource] = useState();
   const queryUrl = window.location.pathname;
   const id = queryUrl.replace("/admin/giocatore/", "");
+  if(id.indexOf(" ") !== -1) {
+    id.replace(" ","")
+  }
   const dispatch = useDispatch();
   const deletePlayerModal = useSelector(
     (state: any) => state.addModal.deletePlayerModal

@@ -15,11 +15,13 @@ import {
   openUpdateGameStatusModal,
   closeUpdateGameStatusModal,
 } from "../../../redux/modals";
+import {Player} from "../../../types/Player"
 
 const SingleMatch = () => {
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/admin/calendario/partita/", "");
   const [partita, setPartita] = useState();
+  const [teams, setTeams] = useState([{}]);
   const [team1, setTeam1] = useState();
   const [team2, setTeam2] = useState();
   const [players, setPlayers] = useState([{}]);
@@ -94,12 +96,35 @@ const SingleMatch = () => {
   }, [players.length]);
 
   useEffect(() => {
+    const getTeams = async () => {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/teams",
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong fetching teams...");
+      } else {
+        const result = await response.json();
+        setTeams(result);
+      }
+    };
+    getTeams();
+  }, [teams.length]);
+
+  useEffect(() => {
     const filterPlayersForTeams = (players: any, team1: any, team2: any) => {
       let filteredPlayers = players.filter(
         (player: any) =>
           player.teamId === team1._id || player.teamId === team2._id
       );
-      console.log(filteredPlayers);
       setFilteredPlayers(filteredPlayers);
     };
     if (
@@ -285,6 +310,24 @@ const SingleMatch = () => {
       window.location.reload()
     }
   }
+  const getMarcatore = (marcatore) => {
+    if(players?.length > 0){
+      let fp = players?.filter((player: any) => player._id === marcatore);
+      return (
+        <p>{(fp[0]?.first_name) + " " + (fp[0]?.last_name)}</p>
+        )
+    }
+  }
+  const getCorrectTeam = (marcatore) => {
+    if(teams?.length > 0 && players?.length > 0) {
+      // console.log(teams)
+      let fp = players.filter((player: any) => player._id === marcatore);
+      let ft = teams.filter((tm: any) => tm._id === fp[0]?.teamId);
+      return(
+        <p>{ft[0]?.name}</p>
+      )
+    }
+  }
 
   return (
     <div className="SingleMatch__container">
@@ -435,13 +478,24 @@ const SingleMatch = () => {
           <p>{team2 !== null && team2 !== undefined && team2.name}</p>
         </div>
       </div>
+      {
+        partita !== null &&
+        partita !== undefined && 
+        partita.marcatori !== null &&
+        partita.marcatori !== undefined && 
+        partita.marcatori.map((marc: any) => (
+          <div style={{display: "flex", justifyContent: "space-evenly"}}>
+          {getMarcatore(marc)}
+          {getCorrectTeam(marc)}
+          </div>
+        )
+        )
+      }
       <div className="SingleMatch__container__lowerBanner">
         <div>
           <button onClick={() => dispatch(openUpdateGameStatusModal())}>
             Aggiorna Stato
           </button>
-        </div>
-        <div>
           <button onClick={() => dispatch(openUpdateResultModal())}>
             Aggiorna Risultato
           </button>
@@ -450,8 +504,6 @@ const SingleMatch = () => {
           <button onClick={() => dispatch(openUpdateScorerModal())}>
             Aggiorna Marcatori
           </button>
-        </div>
-        <div>
           <button onClick={() => dispatch(openUpdateDateModal())}>
             Aggiorna Data
           </button>
