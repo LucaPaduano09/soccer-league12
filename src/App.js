@@ -26,6 +26,11 @@ import ClassificaMarcatori from "./components/classifica/ClassificaMarcatori.tsx
 import Live from "./components/live/Live.tsx";
 import PublicSquadre from "./components/publicSquadre/PublicSquadre.tsx";
 import SinglePublicSquadra from "./components/publicSquadre/SinglePublicSquadra.tsx";
+import CalendarioScelta from "./components/admin/Calendar/CalendarioScelta.tsx";
+import CalendarFinal from "./components/admin/Calendar/CalendarFinal.tsx";
+import SingleMatchFinal from "./components/admin/Calendar/SingleMatchFinal.tsx"
+import PublicFinalCalendar from "./components/publicCalendar/publicFinalCalendar.tsx";
+import PublicSingleMatchFinal from "./components/PublicSingleMatchFinal/PublicSingleMatchFinal.tsx"
 
 function App() {
   return (
@@ -38,6 +43,9 @@ function App() {
           <Route path="/admin/calendario/partita/:id">
             <SingleMatch />
           </Route>
+          <Route path="/admin/calendario/partita-final/:id">
+            <SingleMatchFinal />
+          </Route>
           <Route path={"/admin/calendario/update-gioranata/:id"}>
             <Sidebar />
             <UpdateGiornata />
@@ -49,6 +57,13 @@ function App() {
           </Route>
           <Route path="/admin/calendario">
             <Calendar />
+          </Route>
+          <Route path="/admin/calendario-scelta">
+              <Sidebar />
+              <CalendarioScelta />
+          </Route>
+          <Route path="/admin/calendario-finale">
+              <CalendarFinal />
           </Route>
           <Route path={"/admin/giocatori"}>
             <Sidebar />
@@ -94,6 +109,14 @@ function App() {
           <Route path="/calendario">
             <Header />
             <PublicCalendar />
+          </Route>
+          <Route path="/calendario-final">
+            <Header />
+            <PublicFinalCalendar />
+          </Route>
+          <Route path="/partita-final/:id">
+            <Header />
+            <PublicSingleMatchFinal />
           </Route>
           <Route path="/fotogallery">
             <Header />

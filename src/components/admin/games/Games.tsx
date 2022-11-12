@@ -9,6 +9,7 @@ const Games = () => {
   const [team2, setTeam2] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [gameFase, setGameFase] = useState("");
   const [teams, setTeams] = useState([{}]);
   const [games, setGames] = useState([{}]);
   const history = useHistory();
@@ -65,7 +66,7 @@ const Games = () => {
       if(searchedGameId.length === 0){
         const response = await fetch('https://soccer-league12.herokuapp.com/games/add',{
           method: "POST",
-          body: JSON.stringify({_id: id, team1: team1, team2: team2, date: date, time: time}),
+          body: JSON.stringify({_id: id, team1: team1, team2: team2, date: date, time: time, fase: gameFase}),
           mode: "cors",
           cache: "no-cache",
           credentials: "same-origin",
@@ -121,10 +122,10 @@ const Games = () => {
         </div>
         <div>
           <label>Fase:</label>
-          <select>
+          <select onChange={(e) => setGameFase(e.target.value)}>
             <option value="-"disabled>-</option>
             <option value="girone">girone</option>
-            <option value="fase-finale">fase finale</option>
+            <option value="finale">fase finale</option>
           </select>
         </div>
         <div>

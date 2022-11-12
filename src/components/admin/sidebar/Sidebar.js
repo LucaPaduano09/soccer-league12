@@ -132,10 +132,10 @@ const Sidebar = () => {
             ( urlQueryString.indexOf("calendario") !== -1 ? "__withActive" : "")
           }
         >
-          <Link to="/admin/calendario">
+          <Link to="/admin/calendario-scelta">
           <img src="/images/calendar1.png" alt="" />
           </Link>
-          <Link to="/admin/calendario"onClick={()=>handleCalendarClick()}>
+          <Link to="/admin/calendario-scelta"onClick={()=>handleCalendarClick()}>
             <p>Calendario</p>
           </Link>
         </div>

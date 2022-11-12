@@ -279,7 +279,38 @@ const SingleTeam = () => {
       dispatch(closeAddTeamGoal());
       window.location.reload();
     }
-  }
+  };
+  const handleToggleFinal = async () => {
+    if(team !== null && team !== undefined && (team.final === false || team.final === null || team.final === undefined)){
+      const response = await fetch('https://soccer-league12.herokuapp.com/teams-final-yes/'+ id , {
+        method: "POST",
+        cache: "no-cache",
+        mode: "cors",
+        credentials: "same-origin",
+        headers:{
+          "Content-Type": "application/json"
+        }
+      })
+      if(!response.ok){
+        window.alert("something went wrong updating team to final stage")
+      }
+      window.alert(`Hai abilitato la squadra ${team.name} alla fase finale`)
+    } else if( team !== null && team !== undefined && team.final === true){
+      const response = await fetch('https://soccer-league12.herokuapp.com/teams-final-no/'+ id , {
+        method: "POST",
+        cache: "no-cache",
+        mode: "cors",
+        credentials: "same-origin",
+        headers:{
+          "Content-Type": "application/json"
+        }
+      })
+      if(!response.ok){
+        window.alert("something went wrong updating team to final stage")
+      }
+      window.alert(`Hai disabilitato la squadra ${team.name} alla fase finale`)
+    }
+  };
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
@@ -713,6 +744,7 @@ const SingleTeam = () => {
         </div>
         <div>
           <button onClick={() => dispatch(openAddTeamGoal())}>Aggiungi Goal</button>
+          <button onClick={() => handleToggleFinal()}>Fase finale si/no</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,18 @@
+.CalendarioScelta{
+    &__container{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-left: 15vw;
+        & h1{
+            font-size: 20px;
+        }
+        & a{
+            font-size: 20px;
+            width: 150px;
+            text-align: left;
+            margin: 10px 0px;
+        }
+    }
+}

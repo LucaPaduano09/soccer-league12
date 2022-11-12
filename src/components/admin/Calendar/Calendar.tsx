@@ -500,7 +500,7 @@ const Calendar = () => {
           </>
         )}
         <div className="Calendar__container__topBanner">
-          <Link to="/admin/dashboard">indietro</Link>
+          <Link to="/admin/calendario-scelta">indietro</Link>
           <h3>Calendario</h3>
         </div>
         <div className="Calendar__container__subTopBanner">

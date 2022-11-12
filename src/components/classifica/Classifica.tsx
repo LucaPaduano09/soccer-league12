@@ -19,6 +19,14 @@ const Classifica = () => {
           )
           .reverse()
       : "";
+      const sortedFinale =
+    teamsFiltered !== undefined && teamsFiltered !== null
+      ? teamsFiltered
+          .sort((a, b) =>
+            a.points_final > b.points_final ? 1 : b.points_final > a.points_final ? -1 : 0
+          )
+          .reverse()
+      : "";
   const sortedPlayers =
     players !== undefined && players !== null
       ? players
@@ -30,12 +38,22 @@ const Classifica = () => {
 
   const getTeamGoal = (teamId) => {
     if(players !== null && players !== undefined && players.length > 0){
-      let correctPlayers = players.filter((player: any) => player.teamId === teamId);
-      let goals = 0;
-      correctPlayers.forEach((cp: any) => {
-        goals += cp.scores
-      })
-      return goals
+      if(girone !== "Finale"){
+        let correctPlayers = players.filter((player: any) => player.teamId === teamId);
+        let goals = 0;
+        correctPlayers.forEach((cp: any) => {
+          goals += cp.scores
+        })
+        return goals
+      } else {
+        let correctPlayers = players.filter((player: any) => player.teamId === teamId);
+        let goals = 0;
+        correctPlayers.forEach((cp: any) => {
+          let scoresFinal = (cp.scores_final !== null && cp.scores_final !== undefined) ?  cp.scores_final : 0
+          goals += scoresFinal;
+        })
+        return goals
+      }
     }
   }
   const getTeamLogo = (teamId) => {
@@ -109,8 +127,13 @@ const Classifica = () => {
   useEffect(() => {
     let filteredGirone = [{}];
     if(teams !== null && teams !== undefined && teams.length > 0){
-      filteredGirone = teams.filter((team: any) => team.girone === girone);
-      setTeamsFiltered(filteredGirone);
+      if(girone !== "Finale"){
+        filteredGirone = teams.filter((team: any) => team.girone === girone);
+        setTeamsFiltered(filteredGirone);
+      } else {
+        filteredGirone = teams.filter((team: any) => team.final === true);
+        setTeamsFiltered(filteredGirone);
+      }
     }
   },[teams.length]);
 
@@ -141,6 +164,7 @@ const Classifica = () => {
             </thead>
             <tbody>
               {teams !== null &&
+              girone !== "Finale" &&
                 teams !== undefined &&
                 sorted?.map((team, index) => (
                   <tr>
@@ -152,10 +176,29 @@ const Classifica = () => {
                       {team.name}
                       </p>
                     </td>
-                    <td>{team.points}</td>
+                    <td>{girone !== "Finale" ? team.points : team.points_final}</td>
                     <td>{getTeamGoal(team._id) + team.goal_fatti}</td>
                     <td>{team.goal_subiti}</td>
                     <td>{getTeamGoal(team._id) - team.goal_subiti}</td>
+                  </tr>
+                ))}
+                {teams !== null &&
+                girone === "Finale" &&
+                teams !== undefined &&
+                sortedFinale?.map((team, index) => (
+                  <tr>
+                    {/* <td style={{width: "20px"}}>{index + 1}</td> */}
+                    <td style={{width: "50%", justifyContent:"space-evenly"}}>
+                    {index + 1}
+                      <Image publicId={team.logo} cloudName="dhadbk8ko" style={{marginLeft:"5px"}}/>
+                      <p>
+                      {team.name}
+                      </p>
+                    </td>
+                    <td>{girone !== "Finale" ? team.points : team.points_final}</td>
+                    <td>{getTeamGoal(team._id) + ((team.goal_fatti_final !== null && team.goal_fatti_final !== undefined) ? team.goal_fatti_final : 0) }</td>
+                    <td>{(team.goal_subiti_final !== null && team.goal_subiti_final !== undefined) ? team.goal_subiti_final : 0}</td>
+                    <td>{getTeamGoal(team._id) - ((team.goal_subiti_final !== null && team.goal_subiti_final !== undefined) ? team.goal_subiti_final : 0)}</td>
                   </tr>
                 ))}
             </tbody>
@@ -176,6 +219,7 @@ const Classifica = () => {
             </thead>
             <tbody>
               {teams !== null &&
+                girone !== "Finale" &&
                 teams !== undefined &&
                 sorted?.map((team, index) => (
                   <tr>
@@ -191,6 +235,25 @@ const Classifica = () => {
                     <td>{team.vittorie ? team.vittorie : 0}</td>
                     <td>{team.pareggi ? team.pareggi : 0}</td>
                     <td>{team.sconfitte ? team.sconfitte : 0}</td>
+                  </tr>
+                ))}
+                {teams !== null &&
+                girone === "Finale" &&
+                teams !== undefined &&
+                sortedFinale?.map((team, index) => (
+                  <tr>
+                    {/* <td style={{width: "20px"}}>{index + 1}</td> */}
+                    <td style={{width: "50%", justifyContent:"space-evenly"}}>
+                    {index + 1}
+                      <Image publicId={team.logo} cloudName="dhadbk8ko" style={{marginLeft:"5px"}}/>
+                      <p>
+                      {team.name}
+                      </p>
+                    </td>
+                    <td>{team.points_final}</td>
+                    <td>{team.vittorie_final ? team.vittorie_final : 0}</td>
+                    <td>{team.pareggi_final ? team.pareggi_final : 0}</td>
+                    <td>{team.sconfitte_final ? team.sconfitte_final : 0}</td>
                   </tr>
                 ))}
             </tbody>

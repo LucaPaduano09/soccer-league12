@@ -19,7 +19,7 @@ import {Player} from "../../../types/Player"
 
 const SingleMatch = () => {
   const urlQueryString = window.location.pathname;
-  const id = urlQueryString.replace("/admin/calendario/partita/", "");
+  const id = urlQueryString.replace("/admin/calendario/partita-final/", "");
   const [partita, setPartita] = useState();
   const [teams, setTeams] = useState([{}]);
   const [team1, setTeam1] = useState();
@@ -255,7 +255,7 @@ const SingleMatch = () => {
   const handleUpdatePlayerScorer = async () => {
     let id = marcatore
     const response2 = await fetch(
-      "https://soccer-league12.herokuapp.com/players-goal/" + id,
+      "https://soccer-league12.herokuapp.com/players-goal-final/" + id,
       {
         method: "POST",
         body: JSON.stringify({scores: 1}),
@@ -540,16 +540,16 @@ const SingleMatch = () => {
           </button>
         </div>
         <div>
-          <button onClick={() => dispatch(openUpdateScorerModal())}>
-            Aggiorna Marcatori
-          </button>
           <button onClick={() => dispatch(openUpdateDateModal())}>
             Aggiorna Data
           </button>
-        </div>
-        <div>
           <button onClick={() => dispatch(openUpdateTimeModal())}>
             Aggiorna Ora
+          </button>
+        </div>
+        <div>
+        <button onClick={() => dispatch(openUpdateScorerModal())}>
+            Aggiorna Marcatori
           </button>
         </div>
       </div>

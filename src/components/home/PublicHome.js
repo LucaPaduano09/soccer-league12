@@ -7,6 +7,7 @@ import { update } from "../../redux/loader";
 const PublicHome = () => {
   const [loading, setLoading] = useState(true);
   const [classificheActive, setClassificheActive] = useState(false);
+  const [calendarioActive, setCalendarioActive] = useState(false);
   const loader = useSelector((state) => state.loader.loading);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -49,11 +50,35 @@ const PublicHome = () => {
           <Link to={"/classifica-torneo/C"}>
             <h2>Girone C</h2>
           </Link>
+          <Link to={"/classifica-torneo/Finale"}>
+            <h2>Fase Finale</h2>
+          </Link>
           <Link to={"/classifica-Marcatori"}>
             <h2>Marcatori</h2>
           </Link>
         </div>
       )}
+      {
+        calendarioActive && (
+          <div
+          className="PublicHome__container__blackContainer"
+          style={calendarioActive ? { width: "100vw" } : { width: "0vw" }}
+        >
+          <button onClick={() => setCalendarioActive(false)}>
+            <img
+              src="/images/close1.png"
+              alt=""
+            />
+          </button>
+          <Link to={"/calendario"}>
+            <h2>Calendario Gironi</h2>
+          </Link>
+          <Link to={"/calendario-final"}>
+            <h2>Calendario Finale</h2>
+          </Link>
+          </div>
+        )
+      }
       <div
         className="PublicHome__container__leftItem"
         onClick={() => setClassificheActive(true)}
@@ -65,15 +90,15 @@ const PublicHome = () => {
           alt="squadre"
         />
       </div>
-      <div className="PublicHome__container__rightItem" style={{marginBottom: "0px"}}>
-        <Link to="/calendario">
+      <div className="PublicHome__container__rightItem" onClick={() => setCalendarioActive(true)} style={{marginBottom: "0px"}}>
+        {/* <Link to="/calendario"> */}
           <h2>Calendario</h2>
           <img
             className="PublicHome__container__image"
             src="/images/squadra3.jpg"
             alt="squadre"
           />
-        </Link>
+        {/* </Link> */}
       </div>
       <div className="PublicHome__container__rightItem">
         <Link to="/squadre">

@@ -85,6 +85,25 @@
                 }
             }
         }
+        &__midlowerBanner{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            position: relative;
+            &__team1,&__team2{
+                width: 45%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            &__separator{
+                width: 1px;
+                height: 100%;
+                background-color: black;
+                min-height: 50px;
+            }
+        }
         &__lowerBanner{
             width: 100vw;
             display: flex;
