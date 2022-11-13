@@ -12,15 +12,16 @@ const ClassificaMarcatori = () => {
           .sort((a: any, b: any) =>
             (a.scores > b.scores) ? 1 : (b.scores > a.scores) ? -1 : 0
           )
+          .reverse()
       : "";
-      const sortedPlayersFinal =
-      (players !== undefined && players !== null)
-        ? players
-            .sort((a: any, b: any) =>
-              (a.scores_final!== null && a.scores_final !== undefined) ? a.scores_final : 0 > ((b.scores_final !== null && b.scores_final !== undefined ) ?  b.scores_final : 0) ? 1 : ((b.scores_final !== null && b.scores_final !== undefined) ? b.scores_final : 0) > ((a.scores_final !== null && a.scores_final !== undefined) ? a.scores_final : 0) ? -1 : 0
-            )
-            .reverse()
-        : "";
+      // const sortedPlayersFinal =
+      // (players !== undefined && players !== null)
+      //   ? players
+      //       .sort((a: any, b: any) =>
+      //         (a.scores_final!== null && a.scores_final !== undefined) ? a.scores_final : 0 > ((b.scores_final !== null && b.scores_final !== undefined ) ?  b.scores_final : 0) ? 1 : ((b.scores_final !== null && b.scores_final !== undefined) ? b.scores_final : 0) > ((a.scores_final !== null && a.scores_final !== undefined) ? a.scores_final : 0) ? -1 : 0
+      //       )
+      //       .reverse()
+      //   : "";
 
   const getTeamLogo = (teamId) => {
     if(teams !== null && teams !== undefined && teams.length > 0){
@@ -92,10 +93,10 @@ const ClassificaMarcatori = () => {
 
   return (
     <div className="Classifica__container">
-      <div className="Classifica__container__slider">
+      {/* <div className="Classifica__container__slider">
         <button className={"Classifica__container__slider" + (gironeActive ? "__active" : "__noActive")} onClick={() => handleGironeActive()}>Gironi</button>
         <button className={"Classifica__container__slider" + (finaleActive ? "__active" : "__noActive")} onClick={() => handleFinaleActive()}>Finale</button>
-      </div>
+      </div> */}
       {players.length > 0  && gironeActive && (
         <>
           <table>
@@ -135,7 +136,7 @@ const ClassificaMarcatori = () => {
           </table>
         </>
       )}
-      {players.length > 0  && finaleActive && (
+      {/* {players.length > 0  && finaleActive && (
         <>
           <table>
           <thead>
@@ -173,7 +174,7 @@ const ClassificaMarcatori = () => {
             </tbody>
           </table>
         </>
-      )}
+      )} */}
     </div>
   );
 };

@@ -12,6 +12,8 @@ const SingleMatch = () => {
   const [team2, setTeam2] = useState();
   const [players, setPlayers] = useState([{}]);
   const [filteredPlayers, setFilteredPlayers] = useState([{}]);
+  const [goalActive, setGoalActive] = useState(true);
+  const [ammonizioniActive, setAmmonizioniActive] = useState(false);
 
   useEffect(() => {
     const getPartita = async () => {
@@ -160,9 +162,10 @@ const SingleMatch = () => {
           if(team1){
             if(fp[0].teamId === team1._id){
               return (
-              <>
-                <p>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
-              </>
+              <div style={{display: "flex", alignItems: "center",justifyContent: "flex-start"}}>
+              <img src="/images/ball.png" alt="ball"  style={{width: "30px",height:"30px"}}/>
+                <p style={{width: "150px", marginLeft:"5px", fontSize: "15px"}}>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
+              </div>
               )
             }
           }
@@ -216,6 +219,10 @@ const SingleMatch = () => {
           />
           <p>{team2 !== null && team2 !== undefined && team2.name}</p>
         </div>
+      </div>
+      <div className="SingleMatch__container__slider">
+        <button className={"SingleMatch__container__slider" + (goalActive ? "__active" : "__noActive")}>Goal</button>
+        <button className={"SingleMatch__container__slider" + (ammonizioniActive ? "__active" : "__noActive")}>Ammonizioni</button>
       </div>
       <div className="SingleMatch__container__midlowerBanner">
         <div className="SingleMatch__container__midlowerBanner__team1">

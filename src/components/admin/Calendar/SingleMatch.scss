@@ -90,6 +90,7 @@
             align-items: center;
             justify-content: space-evenly;
             position: relative;
+            margin-top: 15px;
             &__team1,&__team2{
                 width: 45%;
                 display: flex;
@@ -189,5 +190,48 @@
             margin-top: 30px;
            }
         }
+        &__slider{
+            margin-top: 50px;
+            width: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            border: 1px solid $full-yellow-color;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            @media screen and (max-width: $main-mobile-brp) {
+              width: 95vw;
+            }
+            & button{
+              position: relative;
+              width: 50%;
+              font-size: 18px;
+              height: 40px;
+              border: none;
+              background-color: white;
+              transition: all 0.3s ease-in-out;
+              text-transform: uppercase;
+              &:hover{
+                cursor: pointer;
+              }
+              & p{
+                margin: 0px;
+              }
+              @media screen and (max-width: $main-mobile-brp) {
+                font-size: 10px;
+                height: 35px;
+              }
+            }
+            &__active{
+              transition: all 0.3s ease-in-out;
+              background-color: $full-yellow-color !important;
+              color: white;
+              border: 1px solid $full-yellow-color !important;
+            }
+            &__noActive{
+              color: black;
+              transition: all 0.3s ease-in-out;
+            }
+          }
     }
 }

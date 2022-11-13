@@ -4,34 +4,23 @@ import { Image } from "cloudinary-react";
 const Classifica = () => {
   const queryString = window.location.pathname;
   const girone = queryString.replace("/classifica-torneo/","");
-  console.log(girone)
   const [teams, setTeams] = useState([{}]);
   const [teamsFiltered, setTeamsFiltered] = useState([{}]);
-  const [playersRankActive, setPlayersRankActive] = useState(false);
   const [players, setPlayers] = useState([{}]);
   const [goalActive, setGoalActive] = useState(false);
   const [scoreActive, setScoreActive] = useState(true);
   const sorted =
-    teamsFiltered !== undefined && teamsFiltered !== null
+    (teamsFiltered !== undefined && teamsFiltered !== null)
       ? teamsFiltered
           .sort((a, b) =>
-            a.points > b.points ? 1 : b.points > a.points ? -1 : 0
+            (a.points > b.points) ? 1 : (b.points > a.points) ? -1 : 0
           )
-          .reverse()
       : "";
       const sortedFinale =
-    teamsFiltered !== undefined && teamsFiltered !== null
+    (teamsFiltered !== undefined && teamsFiltered !== null)
       ? teamsFiltered
           .sort((a, b) =>
             a.points_final > b.points_final ? 1 : b.points_final > a.points_final ? -1 : 0
-          )
-          .reverse()
-      : "";
-  const sortedPlayers =
-    players !== undefined && players !== null
-      ? players
-          .sort((a: any, b: any) =>
-            a.scores > b.scores ? 1 : b.scores > a.scores ? -1 : 0
           )
           .reverse()
       : "";
@@ -54,18 +43,6 @@ const Classifica = () => {
         })
         return goals
       }
-    }
-  }
-  const getTeamLogo = (teamId) => {
-    if(teams !== null && teams !== undefined && teams.length > 0){
-      let searchedTeam = teams.filter((team: any) => team._id === teamId);
-      return searchedTeam[0].logo
-    }
-  }
-  const getTeamName = (teamId) => {
-    if(teams !== null && teams !== undefined && teams.length > 0){
-      let searchedTeam = teams.filter((team: any) => team._id === teamId);
-      return searchedTeam[0].name
     }
   }
   const handleScoreActive = () => {
