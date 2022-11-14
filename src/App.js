@@ -31,6 +31,7 @@ import CalendarFinal from "./components/admin/Calendar/CalendarFinal.tsx";
 import SingleMatchFinal from "./components/admin/Calendar/SingleMatchFinal.tsx"
 import PublicFinalCalendar from "./components/publicCalendar/publicFinalCalendar.tsx";
 import PublicSingleMatchFinal from "./components/PublicSingleMatchFinal/PublicSingleMatchFinal.tsx"
+import ClassificaMarcatoriFinal from "./components/classifica/ClassificaMarcatoriFinal.tsx";
 
 function App() {
   return (
@@ -104,6 +105,11 @@ function App() {
           <Route path="/classifica-marcatori">
             <Header />
             <ClassificaMarcatori />
+            <Footer />
+          </Route>
+          <Route path="/classifica-marcatori-finale">
+            <Header />
+            <ClassificaMarcatoriFinal />
             <Footer />
           </Route>
           <Route path="/calendario">

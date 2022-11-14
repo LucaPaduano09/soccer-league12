@@ -8,6 +8,7 @@ const PublicHome = () => {
   const [loading, setLoading] = useState(true);
   const [classificheActive, setClassificheActive] = useState(false);
   const [calendarioActive, setCalendarioActive] = useState(false);
+  const [classificaMarcatori, setClassificaMarcatori] = useState(false);
   const loader = useSelector((state) => state.loader.loading);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,11 +54,36 @@ const PublicHome = () => {
           <Link to={"/classifica-torneo/Finale"}>
             <h2>Fase Finale</h2>
           </Link>
-          <Link to={"/classifica-Marcatori"}>
-            <h2>Marcatori</h2>
-          </Link>
+            <h2
+            onClick={() => setClassificaMarcatori(true)}
+            >
+              Marcatori
+            </h2>
         </div>
       )}
+      {
+        classificaMarcatori && (
+          <div
+          className="PublicHome__container__blackContainer"
+          style={classificheActive ? { width: "100vw" } : { width: "0vw" }}
+        >
+          <button onClick={() => setClassificaMarcatori(false)}>
+            <img
+              src="/images/close1.png"
+              alt=""
+              // className="Header__container__mobileMenu__close"
+              // onClick={() => setOpenMenu(false)}
+            />
+          </button>
+          <Link to={"/classifica-marcatori"}>
+            <h2>Marcatori Gironi</h2>
+          </Link>
+          <Link to={"/classifica-marcatori-finale"}>
+            <h2>Marcatori Finale</h2>
+          </Link>
+        </div>
+        )
+      }
       {
         calendarioActive && (
           <div
