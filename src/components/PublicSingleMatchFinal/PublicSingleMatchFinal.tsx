@@ -192,6 +192,16 @@ const SingleMatch = () => {
       }
     }
   }
+  const handleSlider = () => {
+    if(goalActive){
+      setGoalActive(false);
+      setAmmonizioniActive(true);
+    }
+    if(ammonizioniActive){
+      setAmmonizioniActive(false);
+      setGoalActive(true);
+    }
+  }
 
   return (
     <div className="SingleMatch__container">
@@ -221,13 +231,13 @@ const SingleMatch = () => {
         </div>
       </div>
       <div className="SingleMatch__container__slider">
-        <button className={"SingleMatch__container__slider" + (goalActive ? "__active" : "__noActive")}>Goal</button>
-        <button className={"SingleMatch__container__slider" + (ammonizioniActive ? "__active" : "__noActive")}>Ammonizioni</button>
+        <button className={"SingleMatch__container__slider" + (goalActive ? "__active" : "__noActive")} onClick={() => handleSlider()}>Goal</button>
+        <button className={"SingleMatch__container__slider" + (ammonizioniActive ? "__active" : "__noActive")} onClick={() => handleSlider()}>Ammonizioni</button>
       </div>
       <div className="SingleMatch__container__midlowerBanner">
         <div className="SingleMatch__container__midlowerBanner__team1">
           {
-            partita !== null && partita !== undefined && partita.marcatori.map((marc: any) => (
+            partita !== null && partita !== undefined && partita.marcatori?.map((marc: any) => (
               getMarcatore(marc)
             ))
           }
@@ -235,7 +245,7 @@ const SingleMatch = () => {
         <div className="SingleMatch__container__midlowerBanner__separator" />
         <div className="SingleMatch__container__midlowerBanner__team2">
         {
-            partita !== null && partita !== undefined && partita.marcatori.map((marc: any) => (
+            partita !== null && partita !== undefined && partita.marcatori?.map((marc: any) => (
               getMarcatore2(marc)
             ))
           }
