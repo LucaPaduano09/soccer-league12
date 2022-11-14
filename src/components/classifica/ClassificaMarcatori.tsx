@@ -4,7 +4,7 @@ import { Image } from "cloudinary-react";
 const ClassificaMarcatori = () => {
   const [teams, setTeams] = useState([{}]);
   const [players, setPlayers] = useState([{}]);
-  const [gironeActive, setGironeActive] = useState(false);
+  const [gironeActive, setGironeActive] = useState(true);
   const [finaleActive, setFinaleActive] = useState(true);
   const sortedPlayers =
     players !== undefined && players !== null
