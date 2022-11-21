@@ -209,9 +209,9 @@ const Classifica = () => {
                       </p>
                     </td>
                     <td>{team.points}</td>
-                    <td>{team.vittorie ? team.vittorie : 0}</td>
-                    <td>{team.pareggi ? team.pareggi : 0}</td>
-                    <td>{team.sconfitte ? team.sconfitte : 0}</td>
+                    <td>{team.vittorie_final ? team.vittorie_final : 0}</td>
+                    <td>{team.pareggi_final ? team.pareggi_final : 0}</td>
+                    <td>{team.sconfitte_final ? team.sconfitte_final : 0}</td>
                   </tr>
                 ))}
                 {teams !== null &&

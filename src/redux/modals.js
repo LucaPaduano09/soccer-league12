@@ -36,6 +36,9 @@ export const ModalSlice = createSlice({
     addTeamGoal: false,
     addAmmonizioneModal: false,
     addEspulsioneModal: false,
+    addVittorieFinalModal: false,
+    addPareggiFinalModal: false,
+    addSconfitteFinalModal: false,
   },
   reducers: {
     openAdminFotoModal: (state) => {
@@ -236,6 +239,24 @@ export const ModalSlice = createSlice({
     closeAddEspulsioneModal: (state) => {
       state.addEspulsioneModal = false;
     },
+    openAddVittorieFinalModal: (state) => {
+      state.addVittorieFinalModal = true;
+    },
+    closeAddVittorieFinalModal: (state) => {
+      state.addVittorieFinalModal = false;
+    },
+    openAddPareggiFinalModal: (state) => {
+      state.addPareggiFinalModal = true;
+    },
+    closeAddPareggiFinalModal: (state) => {
+      state.addPareggiFinalModal = false;
+    },
+    openAddSconfitteFinalModal: (state) => {
+      state.addSconfitteFinalModal = true;
+    },
+    closeAddSconfitteFinalModal: (state) => {
+      state.addSconfitteFinalModal = false;
+    }
   },
 });
 
@@ -307,5 +328,11 @@ export const {
   closeAddAmmonizioneModal,
   openAddEspulsioneModal,
   closeAddEspulsioneModal,
+  openAddSconfitteFinalModal,
+  closeAddSconfitteFinalModal,
+  openAddPareggiFinalModal,
+  closeAddPareggiFinalModal,
+  openAddVittorieFinalModal,
+  closeAddVittorieFinalModal,
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

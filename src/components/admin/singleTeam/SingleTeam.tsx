@@ -22,6 +22,12 @@ import {
   closeUpdateTeamPareggiModal,
   closeAddTeamGoal,
   openAddTeamGoal,
+  openAddVittorieFinalModal,
+  closeAddVittorieFinalModal,
+  openAddPareggiFinalModal,
+  closeAddPareggiFinalModal,
+  openAddSconfitteFinalModal,
+  closeAddSconfitteFinalModal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
@@ -41,8 +47,11 @@ const SingleTeam = () => {
   const [specificPublicId, setSpecificPublicId] = useState("c");
   const [girone, setGirone] = useState("");
   const [vittorie, setVittorie] = useState(0);
+  const [vittorieFinal, setVittorieFinal] = useState(0);
   const [pareggi, setPareggi] = useState(0);
   const [sconfitte, setSconfitte] = useState(0);
+  const [pareggiFinal, setPareggiFinal] = useState(0);
+  const [sconfitteFinal, setSconfitteFinal] = useState(0);
   const sortedTeams = allTeams
     .sort((a, b) => (a.points > b.points ? 1 : b.points > a.points ? -1 : 0))
     .reverse();
@@ -75,6 +84,15 @@ const SingleTeam = () => {
   );
   const addTeamGoal = useSelector(
     (state: any) => state.addModal.addTeamGoal
+  );
+  const updateTeamVittorieFinalModal = useSelector(
+    (state: any) => state.addModal.addVittorieFinalModal
+  );
+  const updateTeamPareggiFinalModal = useSelector(
+    (state: any) => state.addModal.addPareggiFinalModal
+  );
+  const updateTeamSconfitteFinalModal = useSelector(
+    (state: any) => state.addModal.addSconfitteFinalModal
   );
   const dispatch = useDispatch();
   const history = useHistory();
@@ -214,6 +232,29 @@ const SingleTeam = () => {
       window.location.reload();
     }
   };
+  const handleUpdateTeamVittorieFinal = async (e) => {
+    e.preventDefault();
+    console.log(vittorieFinal);
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-vittorie-final/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ vittorie: vittorieFinal }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating vittorie");
+    } else {
+      dispatch(closeUpdateTeamVittorieModal());
+      window.location.reload();
+    }
+  };
   const handleUpdateTeamPareggi = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -236,14 +277,58 @@ const SingleTeam = () => {
       window.location.reload();
     }
   };
+  const handleUpdateTeamPareggiFinal = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-pareggi-final/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ pareggi: pareggiFinal }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating vittorie");
+    } else {
+      dispatch(closeUpdateTeamPareggiModal());
+      window.location.reload();
+    }
+  };
   const handleUpdateTeamSconfitte = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-sconfitte/" + id,
+      "https://soccer-league12.herokuapp.com/teams-sconfitte-final/" + id,
       {
         method: "POST",
         mode: "cors",
         body: JSON.stringify({ sconfitte: sconfitte }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating vittorie");
+    } else {
+      dispatch(closeUpdateTeamPareggiModal());
+      window.location.reload();
+    }
+  };
+  const handleUpdateTeamSconfitteFinal = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      "https://soccer-league12.herokuapp.com/teams-sconfitte-final/" + id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ sconfitte: sconfitteFinal }),
         cache: "no-cache",
         credentials: "same-origin",
         headers: {
@@ -590,6 +675,31 @@ const SingleTeam = () => {
           </div>
         </>
       )}
+      {updateTeamVittorieFinalModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeAddVittorieFinalModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Vittorie Final</h2>
+            <input
+              type="number"
+              onChange={(e) => setVittorieFinal(e.target.valueAsNumber)}
+              placeholder="vittorie da aggiungere"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamVittorieFinal(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
       {updateTeamPareggiModal && (
         <>
           <div className="SingleTeam__container__modal__overlay" />
@@ -615,13 +725,38 @@ const SingleTeam = () => {
           </div>
         </>
       )}
+      {updateTeamPareggiFinalModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeAddPareggiFinalModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Pareggi Final</h2>
+            <input
+              type="number"
+              onChange={(e) => setPareggiFinal(e.target.valueAsNumber)}
+              placeholder="pareggi da aggiungere"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamPareggiFinal(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
       {updateTeamSconfitteModal && (
         <>
           <div className="SingleTeam__container__modal__overlay" />
           <div className="SingleTeam__container__modal__container">
             <button
               className="SingleTeam__container__modal__container__close"
-              onClick={() => dispatch(closeUpdateTeamSconfitteModal())}
+              onClick={() => dispatch(closeAddSconfitteFinalModal())}
             >
               X
             </button>
@@ -634,6 +769,31 @@ const SingleTeam = () => {
             <button
               className="SingleTeam__container__modal__container__submit"
               onClick={(e) => handleUpdateTeamSconfitte(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
+      {updateTeamSconfitteFinalModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamSconfitteModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Sconfitte Final</h2>
+            <input
+              type="number"
+              onChange={(e) => setSconfitteFinal(e.target.valueAsNumber)}
+              placeholder="Sconfitte da aggiungere"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdateTeamSconfitteFinal(e)}
             >
               Modifica
             </button>
@@ -745,6 +905,13 @@ const SingleTeam = () => {
         <div>
           <button onClick={() => dispatch(openAddTeamGoal())}>Aggiungi Goal</button>
           <button onClick={() => handleToggleFinal()}>Fase finale si/no</button>
+        </div>
+        <div>
+        <button onClick={() => dispatch(openAddVittorieFinalModal())}>Vittorie Final</button>
+          <button onClick={() => dispatch(openAddSconfitteFinalModal())}>Sconfitte Final</button>
+        </div>
+        <div>
+        <button onClick={() => dispatch(openAddPareggiFinalModal())}>Pareggi Final</button>
         </div>
       </div>
     </div>
