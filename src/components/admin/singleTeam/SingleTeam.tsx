@@ -235,26 +235,65 @@ const SingleTeam = () => {
   const handleUpdateTeamVittorieFinal = async (e) => {
     e.preventDefault();
     console.log(vittorieFinal);
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-vittorie-final/" + id,
-      {
+    try {
+      await fetch(
+        "https://soccer-league12.herokuapp.com/teams-vittorie-final/" + id,
+        {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify({ vittorie: vittorieFinal }),
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(() => handleUpdatePuntiFinal(vittorieFinal, 3));
+    } catch (error) {
+      console.log(error)
+    }
+    // const response = await fetch(
+    //   "https://soccer-league12.herokuapp.com/teams-vittorie-final/" + id,
+    //   {
+    //     method: "POST",
+    //     mode: "cors",
+    //     body: JSON.stringify({ vittorie: vittorieFinal }),
+    //     cache: "no-cache",
+    //     credentials: "same-origin",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // if (!response.ok) {
+    //   window.alert("something went wrong updating vittorie");
+    // } else {
+    //   handleUpdatePuntiFinal(3);
+    //   dispatch(closeUpdateTeamVittorieModal());
+    //   window.location.reload();
+    // }
+  };
+  //https://soccer-league12.herokuapp.com/teams-points-final/
+  const handleUpdatePuntiFinal = async (vittorie, punti) => {
+    if(vittorie > 0) {
+      const response1 = await fetch ("http://localhost:5000/teams-points-final/" + id ,{
         method: "POST",
         mode: "cors",
-        body: JSON.stringify({ vittorie: vittorieFinal }),
+        body: JSON.stringify({ points : punti}),
         cache: "no-cache",
         credentials: "same-origin",
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type" : "application/json"
+        }
+      })
+      if(!response1.ok){
+        window.alert("something went wrong updating points final");
+      } else {
+        dispatch(closeAddVittorieFinalModal());
+        window.location.reload();
       }
-    );
-    if (!response.ok) {
-      window.alert("something went wrong updating vittorie");
-    } else {
-      dispatch(closeUpdateTeamVittorieModal());
-      window.location.reload();
     }
-  };
+  }
   const handleUpdateTeamPareggi = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -279,24 +318,22 @@ const SingleTeam = () => {
   };
   const handleUpdateTeamPareggiFinal = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-pareggi-final/" + id,
-      {
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify({ pareggi: pareggiFinal }),
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (!response.ok) {
-      window.alert("something went wrong updating vittorie");
-    } else {
-      dispatch(closeUpdateTeamPareggiModal());
-      window.location.reload();
+    try {
+      await fetch(
+        "https://soccer-league12.herokuapp.com/teams-pareggi-final/" + id,
+        {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify({ pareggi: pareggiFinal }),
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(() => handleUpdatePuntiFinal(pareggiFinal, 1));
+    } catch (error) {
+      console.log(error)
     }
   };
   const handleUpdateTeamSconfitte = async (e) => {
@@ -887,9 +924,7 @@ const SingleTeam = () => {
           </button>
         </div>
         <div>
-          <button onClick={() => dispatch(openChangeGironeModal())}>
-            Modifica Girone
-          </button>
+          <button onClick={() => dispatch(openAddVittorieFinalModal())}>Vittorie Final</button>
           <button onClick={() => dispatch(openUpdateTeamVittorieModal())}>
             Aggiungi Vittoria
           </button>
@@ -898,6 +933,10 @@ const SingleTeam = () => {
           <button onClick={() => dispatch(openUpdateTeamSconfitteModal())}>
             Aggiungi Sconfitta
           </button>
+          <button onClick={() => dispatch(openAddSconfitteFinalModal())}>Sconfitte Final</button>
+        </div>
+        <div>
+          <button onClick={() => dispatch(openAddPareggiFinalModal())}>Pareggi Final</button>
           <button onClick={() => dispatch(openUpdateTeamPareggiModal())}>
             Aggiungi Pareggio
           </button>
@@ -907,11 +946,9 @@ const SingleTeam = () => {
           <button onClick={() => handleToggleFinal()}>Fase finale si/no</button>
         </div>
         <div>
-        <button onClick={() => dispatch(openAddVittorieFinalModal())}>Vittorie Final</button>
-          <button onClick={() => dispatch(openAddSconfitteFinalModal())}>Sconfitte Final</button>
-        </div>
-        <div>
-        <button onClick={() => dispatch(openAddPareggiFinalModal())}>Pareggi Final</button>
+        <button onClick={() => dispatch(openChangeGironeModal())}>
+            Modifica Girone
+          </button>
         </div>
       </div>
     </div>
