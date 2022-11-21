@@ -252,28 +252,7 @@ const SingleTeam = () => {
     } catch (error) {
       console.log(error)
     }
-    // const response = await fetch(
-    //   "https://soccer-league12.herokuapp.com/teams-vittorie-final/" + id,
-    //   {
-    //     method: "POST",
-    //     mode: "cors",
-    //     body: JSON.stringify({ vittorie: vittorieFinal }),
-    //     cache: "no-cache",
-    //     credentials: "same-origin",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // );
-    // if (!response.ok) {
-    //   window.alert("something went wrong updating vittorie");
-    // } else {
-    //   handleUpdatePuntiFinal(3);
-    //   dispatch(closeUpdateTeamVittorieModal());
-    //   window.location.reload();
-    // }
-  };
-  //https://soccer-league12.herokuapp.com/teams-points-final/
+  }
   const handleUpdatePuntiFinal = async (vittorie, punti) => {
     if(vittorie > 0) {
       const response1 = await fetch ("http://localhost:5000/teams-points-final/" + id ,{
