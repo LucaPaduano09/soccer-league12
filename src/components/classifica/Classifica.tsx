@@ -13,16 +13,15 @@ const Classifica = () => {
     (teamsFiltered !== undefined && teamsFiltered !== null)
       ? teamsFiltered
           .sort((a, b) =>
-            (a.points > b.points) ? 1 : (b.points > a.points) ? -1 : 0
+            (a.points > b.points) ? -1 : 1
           )
       : "";
-      const sortedFinale =
+  const sortedFinale =
     (teamsFiltered !== undefined && teamsFiltered !== null)
       ? teamsFiltered
           .sort((a, b) =>
-            (a.points_final >= b.points_final && a.scores_final > b.scores_final) ? 1 : (b.points_final >= a.points_final && b.scores_final > a.scores_final) ? -1 : 0
+            (a.points_final >= b.points_final) ? -1 : 1
           )
-          .reverse()
       : "";
 
   const getTeamGoal = (teamId) => {
