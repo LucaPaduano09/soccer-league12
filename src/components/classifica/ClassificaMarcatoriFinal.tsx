@@ -11,9 +11,8 @@ const ClassificaMarcatoriFinal = () => {
     players !== undefined && players !== null
       ? players
           .sort((a: any, b: any) =>
-            (a.scores_final > b.scores_final) ? 1 : (b.scores_final > a.scores_final) ? -1 : 0
+            (a.scores_final > b.scores_final) ? -1 : 1
           )
-          .reverse()
       : "";
 
   const getTeamLogo = (teamId) => {
