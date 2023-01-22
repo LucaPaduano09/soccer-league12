@@ -5,5 +5,7 @@ export type Player = {
     last_name: string,
     scores: number,
     teamId: string,
-    capitain: boolean
+    capitain: boolean,
+    ammonizione: number,
+    scores_final: number
 }
