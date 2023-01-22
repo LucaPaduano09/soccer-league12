@@ -20,7 +20,7 @@ const Classifica = () => {
     (teamsFiltered !== undefined && teamsFiltered !== null)
       ? teamsFiltered
           .sort((a, b) =>
-            a.points_final > b.points_final ? 1 : b.points_final > a.points_final ? -1 : 0
+            (a.points_final >= b.points_final && a.scores_final > b.scores_final) ? 1 : (b.points_final >= a.points_final && b.scores_final > a.scores_final) ? -1 : 0
           )
           .reverse()
       : "";
