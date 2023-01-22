@@ -20,6 +20,7 @@
             justify-content: space-evenly;
             width: 100%;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding-top: 15px;
             &__firstTeam,&__secondTeam{
                 display: flex;
                 align-items: center;
@@ -121,7 +122,7 @@
             &__separator{
                 width: 1px;
                 height: 100%;
-                background-color: black;
+                background-color: #00000049;
             }
         }
     }

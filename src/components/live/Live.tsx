@@ -173,7 +173,9 @@ const Live = () => {
         </div>
         <div className="Live__container__middleBanner">
             <div className="Live__container__middleBanner__left">
-                {
+                { 
+                    liveMatch?.length > 0 &&
+                    liveMatch[0] &&
                     marcatoriTeam1?.length > 0 && 
                     marcatoriTeam1?.map((marcatore) => (
                         <div>
@@ -186,6 +188,8 @@ const Live = () => {
             <div className="Live__container__middleBanner__separator"></div>
             <div className="Live__container__middleBanner__right">
                 {
+                    liveMatch?.length > 0 &&
+                    liveMatch[0] &&
                     marcatoriTeam2?.length > 0 &&
                     marcatoriTeam2?.map((marcatore) => (
                         <div>
