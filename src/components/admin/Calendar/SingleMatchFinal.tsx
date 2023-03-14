@@ -281,14 +281,25 @@ const SingleMatchFinal = () => {
           "Content-Type": "application/json",
         },
       }
-    );
-    if(!response2.ok){
-      window.alert("Something went wrong updating player...");
+    ).then(() => handleUpdateGoalFinal())
+  }
+  const handleUpdateGoalFinal = async () => {
+    const response3 = await fetch("https://soccer-league12.herokuapp.com/teams-goal-fatti-final/" + team1._id,{
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      body: JSON.stringify(1),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    if(!response3.ok){
+      window.alert("Something went wrong updating team goal final")
     } else {
       dispatch(closeUpdateScorerModal());
       window.location.reload()
     }
-  }
+  };
   const handleUpdateScorer = async (e) => {
     e.preventDefault();
     const response = await fetch(

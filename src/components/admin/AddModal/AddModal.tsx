@@ -28,7 +28,7 @@ const AddModal = () => {
     previewFile(file);
   };
   const previewFile = (file: any) => {
-    const reader = new FileReader();
+     
     let fileWithNoExtension = file.name.replace(".png","");
     fileWithNoExtension = fileWithNoExtension.replace(".jpg","");
     fileWithNoExtension = fileWithNoExtension.replace(".jpeg","");
