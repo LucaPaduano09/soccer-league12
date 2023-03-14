@@ -284,20 +284,24 @@ const SingleMatchFinal = () => {
     ).then(() => handleUpdateGoalFinal())
   }
   const handleUpdateGoalFinal = async () => {
-    const response3 = await fetch("https://soccer-league12.herokuapp.com/teams-goal-fatti-final/" + team1._id,{
-      method: "POST",
-      cache: "no-cache",
-      credentials: "same-origin",
-      body: JSON.stringify(1),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    if(!response3.ok){
-      window.alert("Something went wrong updating team goal final")
+    if(marcatore){
+      let correctTeam = filteredPlayers.filter((player: any) => player._id === marcatore);
+      const response3 = await fetch("https://soccer-league12.herokuapp.com/teams-goal-fatti-final/" + correctTeam[0].teamId,{
+        method: "POST",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      if(!response3.ok){
+        window.alert("Something went wrong updating team goal final")
+      } else {
+        dispatch(closeUpdateScorerModal());
+        window.location.reload()
+      }
     } else {
-      dispatch(closeUpdateScorerModal());
-      window.location.reload()
+      window.alert("no team1");
     }
   };
   const handleUpdateScorer = async (e) => {

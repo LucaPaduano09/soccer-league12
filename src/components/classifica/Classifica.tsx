@@ -173,9 +173,9 @@ const Classifica = () => {
                       </p>
                     </td>
                     <td>{girone !== "Finale" ? team.points : team.points_final}</td>
-                    <td>{getTeamGoal(team._id) + ((team.goal_fatti_final !== null && team.goal_fatti_final !== undefined) ? team.goal_fatti_final : 0) }</td>
+                    <td>{((team.goal_fatti_final !== null && team.goal_fatti_final !== undefined) ? team.goal_fatti_final : 0) }</td>
                     <td>{(team.goal_subiti_final !== null && team.goal_subiti_final !== undefined) ? team.goal_subiti_final : 0}</td>
-                    <td>{getTeamGoal(team._id) - ((team.goal_subiti_final !== null && team.goal_subiti_final !== undefined) ? team.goal_subiti_final : 0)}</td>
+                    <td>{((team.goal_subiti_final !== null && team.goal_subiti_final !== undefined) ? team.goal_fatti_final - team.goal_subiti_final : 0)}</td>
                   </tr>
                 ))}
             </tbody>
