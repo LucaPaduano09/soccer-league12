@@ -118,7 +118,7 @@ const Competition = () => {
             {
               //@ts-ignore
               <Image
-                public_id={competition.logo + ".jpg"}
+                public_id={"https://res.cloudinary.com/dhadbk8ko/image/upload/v1664618826/soccerManage12/logo%203000x3000.png"}
                 cloudName="dhadbk8ko"
               ></Image>
             }
