@@ -41,6 +41,7 @@ export const ModalSlice = createSlice({
     addSconfitteFinalModal: false,
     addGoalFattiFinal: false,
     addGoalSubitiFinal: false,
+    updateTeamPointsFinalModal: false,
   },
   reducers: {
     openAdminFotoModal: (state) => {
@@ -74,18 +75,18 @@ export const ModalSlice = createSlice({
       state.updateTeamNameModal = false;
     },
     openUpdateTeamPointsModal: (state) => {
-      state.updateTeamPointsModal = true
+      state.updateTeamPointsModal = true;
     },
     closeUpdateTeamPointsModal: (state) => {
-      state.updateTeamPointsModal = false
+      state.updateTeamPointsModal = false;
     },
     openUpdateTeamLogoModal: (state) => {
-      state.updateTeamLogoModal = true
+      state.updateTeamLogoModal = true;
     },
     closeUpdateTeamLogoModal: (state) => {
-      state.updateTeamLogoModal = false
+      state.updateTeamLogoModal = false;
     },
-    openUpdateTeamGoalSubitiModal : (state) => {
+    openUpdateTeamGoalSubitiModal: (state) => {
       state.updateTeamGoalSubitiModal = true;
     },
     closeUpdateTeamGoalSubitiModal: (state) => {
@@ -107,7 +108,7 @@ export const ModalSlice = createSlice({
       state.updateTeamPareggiModal = true;
     },
     closeUpdateTeamPareggiModal: (state) => {
-      state.updateTeamPareggiModal =false;
+      state.updateTeamPareggiModal = false;
     },
     openChangeMatchStatusModal: (state) => {
       state.changeMatchStatusModal = true;
@@ -118,7 +119,7 @@ export const ModalSlice = createSlice({
     openChangeGironeModal: (state) => {
       state.changeGironeModal = true;
     },
-    closeChangeGironeModal: (state)  => {
+    closeChangeGironeModal: (state) => {
       state.changeGironeModal = false;
     },
     openAddPlayerModal: (state) => {
@@ -137,19 +138,19 @@ export const ModalSlice = createSlice({
       state.updatePlayerNameModal = true;
     },
     closeUpdatePlayerNameModal: (state) => {
-      state.updatePlayerNameModal = false
+      state.updatePlayerNameModal = false;
     },
     openUpdatePlayerGoalModal: (state) => {
-      state.updatePlayerGoalModal = true
+      state.updatePlayerGoalModal = true;
     },
     closeUpdatePlayerGoalModal: (state) => {
-      state.updatePlayerGoalModal = false
+      state.updatePlayerGoalModal = false;
     },
     openUpdatePlayerLogoModal: (state) => {
-      state.updatePlayerLogoModal = true
+      state.updatePlayerLogoModal = true;
     },
     closeUpdatePlayerLogoModal: (state) => {
-      state.updatePlayerLogoModal = false
+      state.updatePlayerLogoModal = false;
     },
     openUpdatePlayerLastNameModal: (state) => {
       state.updatePlayerLastNameModal = true;
@@ -271,6 +272,12 @@ export const ModalSlice = createSlice({
     closeAddGoalSubitiFinal: (state) => {
       state.addGoalSubitiFinal = false;
     },
+    openUpdateTeamPointsFinalModal: (state) => {
+      state.updateTeamPointsFinalModal = true;
+    },
+    closeUpdateTeamPointsFinalModal: (state) => {
+      state.updateTeamPointsFinalModal = false;
+    },
   },
 });
 
@@ -352,5 +359,7 @@ export const {
   closeAddGoalFattiFinal,
   openAddGoalSubitiFinal,
   closeAddGoalSubitiFinal,
+  openUpdateTeamPointsFinalModal,
+  closeUpdateTeamPointsFinalModal,
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

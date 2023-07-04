@@ -32,6 +32,8 @@ import {
   closeAddGoalFattiFinal,
   openAddGoalSubitiFinal,
   closeAddGoalSubitiFinal,
+  openUpdateTeamPointsFinalModal,
+  closeUpdateTeamPointsFinalModal,
 } from "../../../redux/modals";
 import "./SingleTeam.scss";
 import { Image } from "cloudinary-react";
@@ -45,9 +47,9 @@ const SingleTeam = () => {
   const [allTeams, setAllTeams] = useState([{}]);
   const [newTeamName, setNewTeamName] = useState("");
   const [teamPointsToAdd, setTeamPointsToAdd] = useState(0);
-  const [goalSubiti, setGoalSubiti] = useState<number>(0) ;
+  const [goalSubiti, setGoalSubiti] = useState<number>(0);
   const [goalSubitiFinal, setGoalSubitiFinal] = useState<number>(0);
-  const [goalFatti, setGoalFatti] = useState<number>(0) ;
+  const [goalFatti, setGoalFatti] = useState<number>(0);
   const [goalFattiFinal, setGoalFattiFinal] = useState<number>(0);
   const [publicIds, setPublicIds] = useState([]);
   const [specificPublicId, setSpecificPublicId] = useState("c");
@@ -73,6 +75,9 @@ const SingleTeam = () => {
   const updateTeamPointsModal = useSelector(
     (state: any) => state.addModal.updateTeamPointsModal
   );
+  const updateTeamPointsFinalModal = useSelector(
+    (state: any) => state.addModal.updateTeamPointsFinalModal
+  );
   const updateTeamGoalSubitiModal = useSelector(
     (state: any) => state.addModal.updateTeamGoalSubitiModal
   );
@@ -88,9 +93,7 @@ const SingleTeam = () => {
   const updateTeamSconfitteModal = useSelector(
     (state: any) => state.addModal.updateTeamSconfitteModal
   );
-  const addTeamGoal = useSelector(
-    (state: any) => state.addModal.addTeamGoal
-  );
+  const addTeamGoal = useSelector((state: any) => state.addModal.addTeamGoal);
   const updateTeamVittorieFinalModal = useSelector(
     (state: any) => state.addModal.addVittorieFinalModal
   );
@@ -175,7 +178,7 @@ const SingleTeam = () => {
   };
   const handleUpdateGoalSubiti = async (e) => {
     e.preventDefault();
-    if(goalSubiti !== null){
+    if (goalSubiti !== null) {
       const response = await fetch(
         "https://soccer-league12.herokuapp.com/teams-goal-subiti/" + id,
         {
@@ -196,12 +199,12 @@ const SingleTeam = () => {
         window.location.reload();
       }
     } else {
-      window.alert("not a number")
+      window.alert("not a number");
     }
   };
   const handleUpdateGoalSubitiFinal = async (e) => {
     e.preventDefault();
-    if(goalSubiti !== null){
+    if (goalSubiti !== null) {
       const response = await fetch(
         "https://soccer-league12.herokuapp.com/teams-goal-subiti-final/" + id,
         {
@@ -221,7 +224,7 @@ const SingleTeam = () => {
         window.location.reload();
       }
     } else {
-      window.alert("not a number")
+      window.alert("not a number");
     }
   };
   const handleChangeGirone = async (e) => {
@@ -287,29 +290,32 @@ const SingleTeam = () => {
         }
       ).then(() => handleUpdatePuntiFinal(vittorieFinal, 3));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   const handleUpdatePuntiFinal = async (vittorie, punti) => {
-    if(vittorie > 0) {
-      const response1 = await fetch ("https://soccer-league12.herokuapp.com/teams-points-final/" + id ,{
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify({ points : punti}),
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type" : "application/json"
+    if (vittorie > 0) {
+      const response1 = await fetch(
+        "https://soccer-league12.herokuapp.com/teams-points-final/" + id,
+        {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify({ points: punti }),
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      if(!response1.ok){
+      );
+      if (!response1.ok) {
         window.alert("something went wrong updating points final");
       } else {
         dispatch(closeAddVittorieFinalModal());
         window.location.reload();
       }
     }
-  }
+  };
   const handleUpdateTeamPareggi = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -349,7 +355,7 @@ const SingleTeam = () => {
         }
       ).then(() => handleUpdatePuntiFinal(pareggiFinal, 1));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   const handleUpdateTeamSconfitte = async (e) => {
@@ -441,34 +447,44 @@ const SingleTeam = () => {
     }
   };
   const handleToggleFinal = async () => {
-    if(team !== null && team !== undefined && (team.final === false || team.final === null || team.final === undefined)){
-      const response = await fetch('https://soccer-league12.herokuapp.com/teams-final-yes/'+ id , {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-        credentials: "same-origin",
-        headers:{
-          "Content-Type": "application/json"
+    if (
+      team !== null &&
+      team !== undefined &&
+      (team.final === false || team.final === null || team.final === undefined)
+    ) {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/teams-final-yes/" + id,
+        {
+          method: "POST",
+          cache: "no-cache",
+          mode: "cors",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      if(!response.ok){
-        window.alert("something went wrong updating team to final stage")
+      );
+      if (!response.ok) {
+        window.alert("something went wrong updating team to final stage");
       }
-      window.alert(`Hai abilitato la squadra ${team.name} alla fase finale`)
-    } else if( team !== null && team !== undefined && team.final === true){
-      const response = await fetch('https://soccer-league12.herokuapp.com/teams-final-no/'+ id , {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-        credentials: "same-origin",
-        headers:{
-          "Content-Type": "application/json"
+      window.alert(`Hai abilitato la squadra ${team.name} alla fase finale`);
+    } else if (team !== null && team !== undefined && team.final === true) {
+      const response = await fetch(
+        "https://soccer-league12.herokuapp.com/teams-final-no/" + id,
+        {
+          method: "POST",
+          cache: "no-cache",
+          mode: "cors",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      if(!response.ok){
-        window.alert("something went wrong updating team to final stage")
+      );
+      if (!response.ok) {
+        window.alert("something went wrong updating team to final stage");
       }
-      window.alert(`Hai disabilitato la squadra ${team.name} alla fase finale`)
+      window.alert(`Hai disabilitato la squadra ${team.name} alla fase finale`);
     }
   };
   useEffect(() => {
@@ -644,6 +660,31 @@ const SingleTeam = () => {
             <button
               className="SingleTeam__container__modal__container__submit"
               onClick={(e) => handleUpdateTeamPoints(e)}
+            >
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
+      {updateTeamPointsFinalModal && (
+        <>
+          <div className="SingleTeam__container__modal__overlay" />
+          <div className="SingleTeam__container__modal__container">
+            <button
+              className="SingleTeam__container__modal__container__close"
+              onClick={() => dispatch(closeUpdateTeamPointsFinalModal())}
+            >
+              X
+            </button>
+            <h2>Modifica Punti Squadra Final</h2>
+            <input
+              type="number"
+              onChange={(e) => setTeamPointsToAdd(e.target.valueAsNumber)}
+              placeholder="Punti da aggiungere"
+            />
+            <button
+              className="SingleTeam__container__modal__container__submit"
+              onClick={(e) => handleUpdatePuntiFinal(1, teamPointsToAdd)}
             >
               Modifica
             </button>
@@ -946,6 +987,10 @@ const SingleTeam = () => {
               <td>{team.points}</td>
             </tr>
             <tr>
+              <th>Punti Final</th>
+              <td>{team.points_final}</td>
+            </tr>
+            <tr>
               <th>Id Squadra</th>
               <td>{team._id}</td>
             </tr>
@@ -964,7 +1009,7 @@ const SingleTeam = () => {
               <td>Nome</td>
               <td>Cognome</td>
               <td>Goal</td>
-              <td>Capitano</td>
+              <td>Goal Final</td>
             </th>
           </thead>
           <tbody>
@@ -987,7 +1032,7 @@ const SingleTeam = () => {
                     <td>{cp.first_name}</td>
                     <td>{cp.last_name}</td>
                     <td>{cp.scores ? cp.scores : "0"}</td>
-                    <td>{cp.capitain ? cp.capitain : "-"}</td>
+                    <td>{cp?.scores_final}</td>
                   </tr>
                 </Link>
               ))}
@@ -999,8 +1044,13 @@ const SingleTeam = () => {
           <button onClick={() => dispatch(openUpdateTeamNameModal())}>
             Modifica Nome
           </button>
+        </div>
+        <div>
           <button onClick={() => dispatch(openUpdateTeamPointsModal())}>
             Modifica Punti
+          </button>
+          <button onClick={() => dispatch(openUpdateTeamPointsFinalModal())}>
+            Modifica PuntiFin
           </button>
         </div>
         <div>
@@ -1012,7 +1062,9 @@ const SingleTeam = () => {
           </button>
         </div>
         <div>
-          <button onClick={() => dispatch(openAddVittorieFinalModal())}>Vittorie Final</button>
+          <button onClick={() => dispatch(openAddVittorieFinalModal())}>
+            Vittorie Final
+          </button>
           <button onClick={() => dispatch(openUpdateTeamVittorieModal())}>
             Aggiungi Vittoria
           </button>
@@ -1021,26 +1073,34 @@ const SingleTeam = () => {
           <button onClick={() => dispatch(openUpdateTeamSconfitteModal())}>
             Aggiungi Sconfitta
           </button>
-          <button onClick={() => dispatch(openAddSconfitteFinalModal())}>Sconfitte Final</button>
+          <button onClick={() => dispatch(openAddSconfitteFinalModal())}>
+            Sconfitte Final
+          </button>
         </div>
         <div>
-          <button onClick={() => dispatch(openAddPareggiFinalModal())}>Pareggi Final</button>
+          <button onClick={() => dispatch(openAddPareggiFinalModal())}>
+            Pareggi Final
+          </button>
           <button onClick={() => dispatch(openUpdateTeamPareggiModal())}>
             Aggiungi Pareggio
           </button>
         </div>
         <div>
-          <button onClick={() => dispatch(openAddTeamGoal())}>Aggiungi Goal</button>
-          <button onClick={() => dispatch(openAddGoalFattiFinal())}>Aggiungi Goal Fin</button>
+          <button onClick={() => dispatch(openAddTeamGoal())}>
+            Aggiungi Goal
+          </button>
+          <button onClick={() => dispatch(openAddGoalFattiFinal())}>
+            Aggiungi Goal Fin
+          </button>
         </div>
         <div>
-        <button onClick={() => dispatch(openChangeGironeModal())}>
+          <button onClick={() => dispatch(openChangeGironeModal())}>
             Modifica Girone
           </button>
           <button onClick={() => handleToggleFinal()}>Fase finale si/no</button>
         </div>
         <div>
-        <button onClick={() => dispatch(openDeleteTeamModal())}>
+          <button onClick={() => dispatch(openDeleteTeamModal())}>
             Elimina
           </button>
         </div>

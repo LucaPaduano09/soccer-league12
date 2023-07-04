@@ -10,28 +10,28 @@ const ClassificaMarcatori = () => {
     players !== undefined && players !== null
       ? players
           .sort((a: any, b: any) =>
-            (a.scores > b.scores) ? 1 : (b.scores > a.scores) ? -1 : 0
+            a.scores > b.scores ? 1 : b.scores > a.scores ? -1 : 0
           )
           .reverse()
       : "";
 
   const getTeamLogo = (teamId) => {
-    if(teams !== null && teams !== undefined && teams.length > 0){
+    if (teams !== null && teams !== undefined && teams.length > 0) {
       let searchedTeam = teams.filter((team: any) => team._id === teamId);
-      return searchedTeam[0].logo
+      return searchedTeam[0].logo;
     }
-  }
+  };
   const getTeamName = (teamId) => {
-    if(teams !== null && teams !== undefined && teams.length > 0){
+    if (teams !== null && teams !== undefined && teams.length > 0) {
       let searchedTeam = teams.filter((team: any) => team._id === teamId);
-      return searchedTeam[0].name
+      return searchedTeam[0].name;
     }
-  }
+  };
 
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://befootballstar.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -53,7 +53,7 @@ const ClassificaMarcatori = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://befootballstar.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -74,41 +74,39 @@ const ClassificaMarcatori = () => {
     getPlayers();
   }, [players.length]);
 
-
   return (
     <div className="Classifica__container">
-      {players.length > 0  && gironeActive && (
+      {players.length > 0 && gironeActive && (
         <>
           <table>
-          <thead>
+            <thead>
               <tr>
-                <th style={{width: "40%"}}>Giocatore</th>
-                <th style={{width:"40%"}}>Squadra</th>
-                <th style={{width:"20%"}}>Goal</th>
+                <th style={{ width: "40%" }}>Giocatore</th>
+                <th style={{ width: "40%" }}>Squadra</th>
+                <th style={{ width: "20%" }}>Goal</th>
               </tr>
             </thead>
             <tbody>
-              {
-                teams?.length > 1 && players?.length > 1 &&
+              {teams?.length > 1 &&
+                players?.length > 1 &&
                 gironeActive &&
                 sortedPlayers.map((player, index) => (
                   <tr>
-                    <td style={{width:"40%"}}>
+                    <td style={{ width: "40%" }}>
                       <Image publicId={player.logo} cloudName="dhadbk8ko" />
-                      <p>
-                      {player.first_name + " " + player.last_name}
+                      <p>{player.first_name + " " + player.last_name}</p>
+                    </td>
+                    <td style={{ width: "40%" }}>
+                      <Image
+                        publicId={getTeamLogo(player.teamId)}
+                        cloudName="dhadbk8ko"
+                      />
+                      <p style={{ textAlign: "center" }}>
+                        {getTeamName(player.teamId)}
                       </p>
                     </td>
-                    <td style={{width: "40%"}}>
-                    <Image publicId={getTeamLogo(player.teamId)} cloudName="dhadbk8ko" /> 
-                      <p style={{textAlign: "center"}}>
-                      {getTeamName(player.teamId)} 
-                      </p>
-                    </td>
-                    <td style={{width:"20%"}}>
-                      <p style={{textAlign: "center"}}>
-                      {player.scores}
-                      </p>
+                    <td style={{ width: "20%" }}>
+                      <p style={{ textAlign: "center" }}>{player.scores}</p>
                     </td>
                   </tr>
                 ))}
