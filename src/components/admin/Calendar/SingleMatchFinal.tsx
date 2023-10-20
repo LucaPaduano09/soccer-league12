@@ -17,9 +17,8 @@ import {
   openAddAmmonizioneModal,
   closeAddAmmonizioneModal,
   openAddEspulsioneModal,
-  closeAddEspulsioneModal
+  closeAddEspulsioneModal,
 } from "../../../redux/modals";
-
 
 const SingleMatchFinal = () => {
   const urlQueryString = window.location.pathname;
@@ -66,7 +65,7 @@ const SingleMatchFinal = () => {
   useEffect(() => {
     const getPartita = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -88,7 +87,7 @@ const SingleMatchFinal = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -112,7 +111,7 @@ const SingleMatchFinal = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -153,12 +152,13 @@ const SingleMatchFinal = () => {
       filterPlayersForTeams(players, team1, team2);
     }
   }, [players, team1, team2]);
- 
+
   useEffect(() => {
     if (partita !== null && partita !== undefined) {
       const getTeam1 = async () => {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/teams/" + partita.team1,
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" +
+            partita.team1,
           {
             method: "GET",
             mode: "cors",
@@ -182,7 +182,8 @@ const SingleMatchFinal = () => {
     if (partita !== null && partita !== undefined) {
       const getTeam2 = async () => {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/teams/" + partita.team2,
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" +
+            partita.team2,
           {
             method: "GET",
             mode: "cors",
@@ -205,7 +206,8 @@ const SingleMatchFinal = () => {
   const handleUpdateResult = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-result/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-result/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ result: resultTeam1 + " - " + resultTeam2 }),
@@ -226,7 +228,8 @@ const SingleMatchFinal = () => {
   const handleUpdateDate = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-date/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-date/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ date: newDate }),
@@ -248,7 +251,8 @@ const SingleMatchFinal = () => {
   const handleUpdateTime = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-time/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-time/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ time: newTime }),
@@ -268,12 +272,13 @@ const SingleMatchFinal = () => {
     }
   };
   const handleUpdatePlayerScorer = async () => {
-    let id = marcatore
+    let id = marcatore;
     const response2 = await fetch(
-      "https://soccer-league12.herokuapp.com/players-goal-final/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-goal-final/" +
+        id,
       {
         method: "POST",
-        body: JSON.stringify({scores: 1}),
+        body: JSON.stringify({ scores: 1 }),
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
@@ -281,24 +286,30 @@ const SingleMatchFinal = () => {
           "Content-Type": "application/json",
         },
       }
-    ).then(() => handleUpdateGoalFinal())
-  }
+    ).then(() => handleUpdateGoalFinal());
+  };
   const handleUpdateGoalFinal = async () => {
-    if(marcatore){
-      let correctTeam = filteredPlayers.filter((player: any) => player._id === marcatore);
-      const response3 = await fetch("https://soccer-league12.herokuapp.com/teams-goal-fatti-final/" + correctTeam[0].teamId,{
-        method: "POST",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      if(!response3.ok){
-        window.alert("Something went wrong updating team goal final")
+    if (marcatore) {
+      let correctTeam = filteredPlayers.filter(
+        (player: any) => player._id === marcatore
+      );
+      const response3 = await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-goal-fatti-final/" +
+          correctTeam[0].teamId,
+        {
+          method: "POST",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response3.ok) {
+        window.alert("Something went wrong updating team goal final");
       } else {
         dispatch(closeUpdateScorerModal());
-        window.location.reload()
+        window.location.reload();
       }
     } else {
       window.alert("no team1");
@@ -307,7 +318,8 @@ const SingleMatchFinal = () => {
   const handleUpdateScorer = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-marcatori/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-marcatori/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ marcatori: marcatore }),
@@ -318,171 +330,261 @@ const SingleMatchFinal = () => {
           "Content-Type": "application/json",
         },
       }
-    ).then(()=> handleUpdatePlayerScorer())
+    ).then(() => handleUpdatePlayerScorer());
   };
   const handleUpdateGameStatus = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://soccer-league12.herokuapp.com/games-update-status/' + id,{
-      method: "POST",
-      body: JSON.stringify({status: newStatus}),
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers:{
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-status/" +
+        id,
+      {
+        method: "POST",
+        body: JSON.stringify({ status: newStatus }),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
-      window.alert("something went wrong updating game status")
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating game status");
     } else {
-      window.alert("Stato partita cambiato")
+      window.alert("Stato partita cambiato");
       dispatch(closeUpdateGameStatusModal());
-      window.location.reload()
+      window.location.reload();
     }
-  }
+  };
   const handleAddAmmonito = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://soccer-league12.herokuapp.com/players-ammonito/" + ammonito, {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-ammonito/" +
+        ammonito,
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
- 
-    }).then(() => handleAddAmmonizioni(e))
-  }
+    ).then(() => handleAddAmmonizioni(e));
+  };
   const handleAddAmmonizioni = async (e) => {
-    const responseA = await fetch("https://soccer-league12.herokuapp.com/games-update-ammonizioni/" + id, {
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({ammonizioni: ammonito}),
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const responseA = await fetch(
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-ammonizioni/" +
+        id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ ammonizioni: ammonito }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-      })
-      if(!responseA.ok){
-        window.alert("something went wrong pushing ammonizioni");
-      } else {
-        let fp = filteredPlayers.filter((player: any) => player._id === ammonito)
-        window.alert(`ammonizione aggiunta al giocatore ${fp[0].first_name + " " + fp[0].last_name}`)
-        dispatch(closeAddAmmonizioneModal())
-        window.location.reload()
-      }
-  }
+    );
+    if (!responseA.ok) {
+      window.alert("something went wrong pushing ammonizioni");
+    } else {
+      let fp = filteredPlayers.filter((player: any) => player._id === ammonito);
+      window.alert(
+        `ammonizione aggiunta al giocatore ${
+          fp[0].first_name + " " + fp[0].last_name
+        }`
+      );
+      dispatch(closeAddAmmonizioneModal());
+      window.location.reload();
+    }
+  };
   const handleAddEspulso = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://soccer-league12.herokuapp.com/players-espulso/" + espulsione,{
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-espulso/" +
+        espulsione,
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    })
-    if(!response.ok){
-      window.alert("something went wrong updating espulsione")
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating espulsione");
     } else {
       window.alert("espulsione aggiunta");
       dispatch(closeAddEspulsioneModal());
       window.location.reload();
     }
-  }
+  };
   const getMarcatore = (marcatore) => {
-    if(players !== undefined && players !== null && players?.length > 0){
-    if(partita){
-        let fp = players.filter((player:any) => player._id === marcatore);
-        console.log(fp)
-        if(fp !== null && fp !== undefined && fp.length > 0){
-          if(team1){
-            if(fp[0].teamId === team1._id){
+    if (players !== undefined && players !== null && players?.length > 0) {
+      if (partita) {
+        let fp = players.filter((player: any) => player._id === marcatore);
+        console.log(fp);
+        if (fp !== null && fp !== undefined && fp.length > 0) {
+          if (team1) {
+            if (fp[0].teamId === team1._id) {
               return (
-                <div style={{display: "flex", alignItems: "center",justifyContent: "flex-start"}}>
-                <img src="/images/ball.png" alt="ball"  style={{width: "30px",height:"30px"}}/>
-                  <p style={{width: "150px", marginLeft:"5px", fontSize: "15px"}}>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <img
+                    src="/images/ball.png"
+                    alt="ball"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <p
+                    style={{
+                      width: "150px",
+                      marginLeft: "5px",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {(fp[0] as any).first_name + " " + (fp[0] as any).last_name}
+                  </p>
                 </div>
-              )
+              );
             }
           }
         }
       }
     }
-  }
+  };
   const getMarcatore2 = (marcatore) => {
-    if(players !== undefined && players !== null && players?.length > 0){
-    if(partita){
-        let fp = players.filter((player:any) => player._id === marcatore);
-        console.log(fp)
-        if(fp !== null && fp !== undefined && fp.length > 0){
-          if(team2){
-            if(fp[0].teamId === team2._id){
+    if (players !== undefined && players !== null && players?.length > 0) {
+      if (partita) {
+        let fp = players.filter((player: any) => player._id === marcatore);
+        console.log(fp);
+        if (fp !== null && fp !== undefined && fp.length > 0) {
+          if (team2) {
+            if (fp[0].teamId === team2._id) {
               return (
-                <div style={{display: "flex", alignItems: "center",justifyContent: "flex-start"}}>
-                <img src="/images/ball.png" alt="ball"  style={{width: "30px",height:"30px"}}/>
-                  <p style={{width: "150px", marginLeft:"5px", fontSize: "15px"}}>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <img
+                    src="/images/ball.png"
+                    alt="ball"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <p
+                    style={{
+                      width: "150px",
+                      marginLeft: "5px",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {(fp[0] as any).first_name + " " + (fp[0] as any).last_name}
+                  </p>
                 </div>
-              )
+              );
             }
           }
         }
       }
     }
-  }
+  };
   const toggleSlider = () => {
-    if(goalActive){
+    if (goalActive) {
       setGoalActive(false);
       setAmmonizioniActive(true);
     }
-    if(ammonizioniActive){
+    if (ammonizioniActive) {
       setAmmonizioniActive(false);
       setGoalActive(true);
     }
-  }
+  };
   const getAmmonito = (marcatore) => {
-    if(players !== undefined && players !== null && players?.length > 0){
-    if(partita){
-        let fp = players.filter((player:any) => player._id === marcatore);
-        console.log(fp)
-        if(fp !== null && fp !== undefined && fp.length > 0){
-          if(team1){
-            if(fp[0].teamId === team1._id){
+    if (players !== undefined && players !== null && players?.length > 0) {
+      if (partita) {
+        let fp = players.filter((player: any) => player._id === marcatore);
+        console.log(fp);
+        if (fp !== null && fp !== undefined && fp.length > 0) {
+          if (team1) {
+            if (fp[0].teamId === team1._id) {
               return (
-                <div style={{display: "flex", alignItems: "center",justifyContent: "flex-start"}}>
-                <img src="/images/yellow-card.png" alt="ball"  style={{width: "30px",height:"30px"}}/>
-                  <p style={{width: "150px", marginLeft:"5px", fontSize: "15px"}}>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <img
+                    src="/images/yellow-card.png"
+                    alt="ball"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <p
+                    style={{
+                      width: "150px",
+                      marginLeft: "5px",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {(fp[0] as any).first_name + " " + (fp[0] as any).last_name}
+                  </p>
                 </div>
-              )
+              );
             }
           }
         }
       }
     }
-  }
+  };
   const getAmmonito2 = (marcatore) => {
-    if(players !== undefined && players !== null && players?.length > 0){
-    if(partita){
-        let fp = players.filter((player:any) => player._id === marcatore);
-        console.log(fp)
-        if(fp !== null && fp !== undefined && fp.length > 0){
-          if(team2){
-            if(fp[0].teamId === team2._id){
+    if (players !== undefined && players !== null && players?.length > 0) {
+      if (partita) {
+        let fp = players.filter((player: any) => player._id === marcatore);
+        console.log(fp);
+        if (fp !== null && fp !== undefined && fp.length > 0) {
+          if (team2) {
+            if (fp[0].teamId === team2._id) {
               return (
-                <div style={{display: "flex", alignItems: "center",justifyContent: "flex-start"}}>
-                <img src="/images/yellow-card.png" alt="ball"  style={{width: "30px",height:"30px"}}/>
-                  <p style={{width: "150px", marginLeft:"5px", fontSize: "15px"}}>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <img
+                    src="/images/yellow-card.png"
+                    alt="ball"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <p
+                    style={{
+                      width: "150px",
+                      marginLeft: "5px",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {(fp[0] as any).first_name + " " + (fp[0] as any).last_name}
+                  </p>
                 </div>
-              )
+              );
             }
           }
         }
       }
     }
-  }
-
+  };
 
   return (
     <div className="SingleMatch__container">
@@ -565,7 +667,10 @@ const SingleMatchFinal = () => {
             <h2>Aggiorna Marcatori</h2>
             <div>
               <select onChange={(e) => setMarcatore(e.target.value)}>
-                <option disabled selected> - </option>
+                <option disabled selected>
+                  {" "}
+                  -{" "}
+                </option>
                 {filteredPlayers !== null &&
                   filteredPlayers !== undefined &&
                   filteredPlayers.length > 0 &&
@@ -594,7 +699,10 @@ const SingleMatchFinal = () => {
             <h2>Aggiorna Stato</h2>
             <div>
               <select onChange={(e) => setNewStatus(e.target.value)}>
-                <option disabled selected> - </option>
+                <option disabled selected>
+                  {" "}
+                  -{" "}
+                </option>
                 <option value="da giocare">da giocare</option>
                 <option value="live">live</option>
                 <option value="conclusa">conclusa</option>
@@ -618,13 +726,17 @@ const SingleMatchFinal = () => {
             <h2>Aggiungi ammonito</h2>
             <div>
               <select onChange={(e) => setAmmonito(e.target.value)}>
-                <option disabled selected> - </option>
-                {
-                  filteredPlayers?.length > 0 && 
-                  filteredPlayers.map((player:any) => (
-                    <option value={player._id}> {player.first_name + " " + player.last_name}</option>
-                  ))
-                }
+                <option disabled selected>
+                  {" "}
+                  -{" "}
+                </option>
+                {filteredPlayers?.length > 0 &&
+                  filteredPlayers.map((player: any) => (
+                    <option value={player._id}>
+                      {" "}
+                      {player.first_name + " " + player.last_name}
+                    </option>
+                  ))}
               </select>
             </div>
             <button onClick={(e) => handleAddAmmonito(e)}>Aggiorna</button>
@@ -645,13 +757,17 @@ const SingleMatchFinal = () => {
             <h2>Aggiungi espulso</h2>
             <div>
               <select onChange={(e) => setEspulsione(e.target.value)}>
-                <option disabled selected> - </option>
-                {
-                  filteredPlayers?.length > 0 && 
-                  filteredPlayers.map((player:any) => (
-                    <option value={player._id}> {player.first_name + " " + player.last_name}</option>
-                  ))
-                }
+                <option disabled selected>
+                  {" "}
+                  -{" "}
+                </option>
+                {filteredPlayers?.length > 0 &&
+                  filteredPlayers.map((player: any) => (
+                    <option value={player._id}>
+                      {" "}
+                      {player.first_name + " " + player.last_name}
+                    </option>
+                  ))}
               </select>
             </div>
             <button onClick={(e) => handleAddEspulso(e)}>Aggiorna</button>
@@ -687,53 +803,60 @@ const SingleMatchFinal = () => {
           <p>{team2 !== null && team2 !== undefined && team2.name}</p>
         </div>
       </div>
-      <div className="SingleMatch__container__slider" style={{marginTop: "15px", margin:"0 auto"}}>
-        <button className={"SingleMatch__container__slider" + (goalActive ? "__active" : "__noActive")} onClick={() => toggleSlider()}>Goal</button>
-        <button className={"SingleMatch__container__slider" + (ammonizioniActive ? "__active" : "__noActive")} onClick={() => toggleSlider()}>Ammonizioni</button>
+      <div
+        className="SingleMatch__container__slider"
+        style={{ marginTop: "15px", margin: "0 auto" }}
+      >
+        <button
+          className={
+            "SingleMatch__container__slider" +
+            (goalActive ? "__active" : "__noActive")
+          }
+          onClick={() => toggleSlider()}
+        >
+          Goal
+        </button>
+        <button
+          className={
+            "SingleMatch__container__slider" +
+            (ammonizioniActive ? "__active" : "__noActive")
+          }
+          onClick={() => toggleSlider()}
+        >
+          Ammonizioni
+        </button>
       </div>
       <div className="SingleMatch__container__midlowerBanner">
-        {
-          goalActive && (
-            <>
-              <div className="SingleMatch__container__midlowerBanner__team1">
-              {
-                  partita !== null && partita !== undefined && partita.marcatori?.map((marc: any) => (
-                    getMarcatore(marc)
-                  ))
-                }
-              </div>
-              <div className="SingleMatch__container__midlowerBanner__separator" />
-              <div className="SingleMatch__container__midlowerBanner__team2">
-              {
-                  partita !== null && partita !== undefined && partita.marcatori?.map((marc: any) => (
-                    getMarcatore2(marc)
-                  ))
-                }
-              </div>
-            </>
-          )
-        }
-        {
-          ammonizioniActive && (
-            <>
-              <div className="SingleMatch__container__midlowerBanner__team1">
-              {
-                  partita !== null && partita !== undefined && partita.ammonizioni?.map((marc: any) => (
-                    getAmmonito(marc)
-                  ))
-                }
-              </div>
-              <div className="SingleMatch__container__midlowerBanner__separator" />
-              <div className="SingleMatch__container__midlowerBanner__team2">
-              {
-                  partita !== null && partita !== undefined && partita.ammonizioni?.map((marc: any) => (
-                    getAmmonito2(marc)
-                  ))
-                }
-              </div>
-            </>
-          )
-        }
+        {goalActive && (
+          <>
+            <div className="SingleMatch__container__midlowerBanner__team1">
+              {partita !== null &&
+                partita !== undefined &&
+                partita.marcatori?.map((marc: any) => getMarcatore(marc))}
+            </div>
+            <div className="SingleMatch__container__midlowerBanner__separator" />
+            <div className="SingleMatch__container__midlowerBanner__team2">
+              {partita !== null &&
+                partita !== undefined &&
+                partita.marcatori?.map((marc: any) => getMarcatore2(marc))}
+            </div>
+          </>
+        )}
+        {ammonizioniActive && (
+          <>
+            <div className="SingleMatch__container__midlowerBanner__team1">
+              {partita !== null &&
+                partita !== undefined &&
+                partita.ammonizioni?.map((marc: any) => getAmmonito(marc))}
+            </div>
+            <div className="SingleMatch__container__midlowerBanner__separator" />
+            <div className="SingleMatch__container__midlowerBanner__team2">
+              {partita !== null &&
+                partita !== undefined &&
+                partita.ammonizioni?.map((marc: any) => getAmmonito2(marc))}
+            </div>
+          </>
+        )}
       </div>
       <div className="SingleMatch__container__lowerBanner">
         <div>
@@ -761,7 +884,7 @@ const SingleMatchFinal = () => {
           </button>
         </div>
         <div>
-        <button onClick={() => dispatch(openUpdateScorerModal())}>
+          <button onClick={() => dispatch(openUpdateScorerModal())}>
             Aggiorna Marcatori
           </button>
         </div>

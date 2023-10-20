@@ -28,10 +28,9 @@ const AddModal = () => {
     previewFile(file);
   };
   const previewFile = (file: any) => {
-     
-    let fileWithNoExtension = file.name.replace(".png","");
-    fileWithNoExtension = fileWithNoExtension.replace(".jpg","");
-    fileWithNoExtension = fileWithNoExtension.replace(".jpeg","");
+    let fileWithNoExtension = file.name.replace(".png", "");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpg", "");
+    fileWithNoExtension = fileWithNoExtension.replace(".jpeg", "");
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreviewSource(reader.result);
@@ -47,22 +46,25 @@ const AddModal = () => {
     }
     uploadImage(previewSource, fileName);
     dispatch(closeLeagueModal());
-   
+
     window.location.reload();
   };
   const uploadImage = async (base64EncondedImage, filename) => {
     // console.log(base64EncondedImage)
     try {
-      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        body: JSON.stringify({ data: base64EncondedImage, name: fileName }),
-        headers: {
-          "Content-type": "application/json",
-        },
-      }).then(() => createLeague(nameLeague, id, fileName));
+      await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/uploads",
+        {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          body: JSON.stringify({ data: base64EncondedImage, name: fileName }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      ).then(() => createLeague(nameLeague, id, fileName));
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +72,7 @@ const AddModal = () => {
 
   const createLeague = async (name, id, logo) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/competizione/add",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/competizione/add",
       {
         method: "POST",
         body: JSON.stringify({
@@ -85,11 +87,13 @@ const AddModal = () => {
           "Content-Type": "application/json",
         },
       }
-    )
+    );
     if (!response.ok) {
       window.alert("Something went wrong creating league...");
     } else {
-      window.alert("League created successfully\nresponse: " + await response.json())
+      window.alert(
+        "League created successfully\nresponse: " + (await response.json())
+      );
     }
   };
 

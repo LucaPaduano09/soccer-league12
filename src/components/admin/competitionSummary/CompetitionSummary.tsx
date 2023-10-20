@@ -54,7 +54,7 @@ const CompetitionSummary = () => {
   };
   const uploadImage = async (base64EncondedImage, filename) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/api/uploads",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/uploads",
       {
         method: "POST",
         mode: "cors",
@@ -74,7 +74,7 @@ const CompetitionSummary = () => {
   };
   const createLeague = async (name, id, logo) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/competizione/add",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/competizione/add",
       {
         method: "POST",
         body: JSON.stringify({
@@ -100,7 +100,7 @@ const CompetitionSummary = () => {
   useEffect(() => {
     const getCompetitions = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/competizione",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/competizione",
         {
           method: "GET",
           mode: "cors",
@@ -119,7 +119,7 @@ const CompetitionSummary = () => {
     };
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -208,16 +208,16 @@ const CompetitionSummary = () => {
         <h2 className="CompetitionSummary__container__menu__label">
           Competizioni
         </h2>
-        {
-          competitions !== null && competitions !== undefined && competitions.length === 0 && (
-        <div
-          className="CompetitionSummary__container__menu__add"
-          onClick={() => dispatch(openLeagueModal())}
-        >
-          +
-        </div>
-          )
-        }
+        {competitions !== null &&
+          competitions !== undefined &&
+          competitions.length === 0 && (
+            <div
+              className="CompetitionSummary__container__menu__add"
+              onClick={() => dispatch(openLeagueModal())}
+            >
+              +
+            </div>
+          )}
       </div>
       <table className="CompetitionSummary__container__table">
         <thead>

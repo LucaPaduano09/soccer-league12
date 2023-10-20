@@ -25,8 +25,8 @@ const SinglePlayer = () => {
   const [previewSource, setPreviewSource] = useState();
   const queryUrl = window.location.pathname;
   const id = queryUrl.replace("/admin/giocatore/", "");
-  if(id.indexOf(" ") !== -1) {
-    id.replace(" ","")
+  if (id.indexOf(" ") !== -1) {
+    id.replace(" ", "");
   }
   const dispatch = useDispatch();
   const deletePlayerModal = useSelector(
@@ -69,23 +69,26 @@ const SinglePlayer = () => {
   };
   const uploadImage = async (base64EncondedImage, name) => {
     try {
-      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
-        method: "POST",
-        body: JSON.stringify({ data: base64EncondedImage, name: name }),
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => uploadPlayerLogo());
+      await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/uploads",
+        {
+          method: "POST",
+          body: JSON.stringify({ data: base64EncondedImage, name: name }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(() => uploadPlayerLogo());
     } catch (error) {
       console.log(error);
     }
   };
   const uploadPlayerLogo = async () => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/players-logo/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-logo/" + id,
       {
         method: "POST",
         body: JSON.stringify({ logo: "soccerManage12/" + fileName }),
@@ -106,7 +109,7 @@ const SinglePlayer = () => {
   };
   const handleSubmitNewName = async (e) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/players-name/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-name/" + id,
       {
         method: "POST",
         mode: "cors",
@@ -127,7 +130,8 @@ const SinglePlayer = () => {
   };
   const handleUpdatePlayerLastName = async (e) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/players-last-name/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-last-name/" +
+        id,
       {
         method: "POST",
         mode: "cors",
@@ -148,7 +152,7 @@ const SinglePlayer = () => {
   };
   const handleUpdatePlayerGoal = async (e) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/players-goal/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-goal/" + id,
       {
         method: "POST",
         mode: "cors",
@@ -169,7 +173,7 @@ const SinglePlayer = () => {
   };
   const handleDeletePlayer = async () => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/players/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players/" + id,
       {
         method: "DELETE",
         mode: "cors",
@@ -195,7 +199,7 @@ const SinglePlayer = () => {
   useEffect(() => {
     const getPlayer = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -217,7 +221,7 @@ const SinglePlayer = () => {
   useEffect(() => {
     const getTeam = async (teamId) => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams/" + teamId,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" + teamId,
         {
           method: "GET",
           mode: "cors",
@@ -369,34 +373,26 @@ const SinglePlayer = () => {
           <>
             <div className="SinglePlayer__container__right__elem">
               <p>Nome: </p>
-              <p>
-              {player.first_name}
-              </p>
+              <p>{player.first_name}</p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Cognome: </p>
-              <p>
-              {player.last_name}
-              </p>
+              <p>{player.last_name}</p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Goal Fatti: </p>
-              <p>
-              {player.scores ? player.scores : "0"}
-              </p>
+              <p>{player.scores ? player.scores : "0"}</p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Capitano: </p>
-              <p>
-              {player.capitain ? player.capitain : "no"}
-              </p>
+              <p>{player.capitain ? player.capitain : "no"}</p>
             </div>
             <div className="SinglePlayer__container__right__elem">
               <p>Squadra: </p>
               <p>
-              <Link to={"/admin/team/" + player.teamId}>
-                {team !== null && team !== undefined && team.name}
-              </Link>
+                <Link to={"/admin/team/" + player.teamId}>
+                  {team !== null && team !== undefined && team.name}
+                </Link>
               </p>
             </div>
           </>

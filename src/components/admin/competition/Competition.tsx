@@ -32,7 +32,8 @@ const Competition = () => {
 
   const handleDeleteComp = async () => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/competizione/" + competition._id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/competizione/" +
+        competition._id,
       {
         method: "DELETE",
         mode: "cors",
@@ -48,7 +49,7 @@ const Competition = () => {
   useEffect(() => {
     const getCorrectComp = async () => {
       let response = await fetch(
-        "https://soccer-league12.herokuapp.com/competizione/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/competizione/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -67,7 +68,7 @@ const Competition = () => {
     };
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -104,13 +105,18 @@ const Competition = () => {
 
             <h2>Cancella Il Torneo</h2>
             <p>Sei sicuro di voler cancellare il Torneo ? </p>
-            <button className="Competition__container__modal__container__submit" onClick={() => handleDeleteComp()}>Elimina</button>
+            <button
+              className="Competition__container__modal__container__submit"
+              onClick={() => handleDeleteComp()}
+            >
+              Elimina
+            </button>
           </div>
         </>
       )}
       <div className="Foto__container__topBanner">
-      <Link to="/admin/tournaments">indietro</Link>
-      <h3>Torneo</h3>
+        <Link to="/admin/tournaments">indietro</Link>
+        <h3>Torneo</h3>
       </div>
       <div className="Competition__container__topBanner">
         <div className="Competition__container__topBanner__left">
@@ -118,7 +124,9 @@ const Competition = () => {
             {
               //@ts-ignore
               <Image
-                public_id={"https://res.cloudinary.com/dhadbk8ko/image/upload/v1664618826/soccerManage12/logo%203000x3000.png"}
+                public_id={
+                  "https://res.cloudinary.com/dhadbk8ko/image/upload/v1664618826/soccerManage12/logo%203000x3000.png"
+                }
                 cloudName="dhadbk8ko"
               ></Image>
             }

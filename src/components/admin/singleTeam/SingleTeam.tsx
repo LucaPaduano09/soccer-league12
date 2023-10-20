@@ -114,7 +114,7 @@ const SingleTeam = () => {
 
   const handleDeleteTeam = async () => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" + id,
       {
         method: "DELETE",
         mode: "cors",
@@ -135,7 +135,7 @@ const SingleTeam = () => {
   const handleUpdateTeamName = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-name/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-name/" + id,
       {
         method: "POST",
         body: JSON.stringify({ name: newTeamName }),
@@ -157,7 +157,7 @@ const SingleTeam = () => {
   const handleUpdateTeamPoints = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-points/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-points/" + id,
       {
         method: "POST",
         mode: "cors",
@@ -180,7 +180,8 @@ const SingleTeam = () => {
     e.preventDefault();
     if (goalSubiti !== null) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams-goal-subiti/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-goal-subiti/" +
+          id,
         {
           method: "POST",
           body: JSON.stringify({ goal_subiti: goalSubiti }),
@@ -206,7 +207,8 @@ const SingleTeam = () => {
     e.preventDefault();
     if (goalSubiti !== null) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams-goal-subiti-final/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-goal-subiti-final/" +
+          id,
         {
           method: "POST",
           body: JSON.stringify({ goal_subiti: goalSubitiFinal }),
@@ -230,7 +232,7 @@ const SingleTeam = () => {
   const handleChangeGirone = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-girone/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-girone/" + id,
       {
         method: "POST",
         mode: "cors",
@@ -253,7 +255,7 @@ const SingleTeam = () => {
   const handleUpdateTeamVittorie = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-vittorie/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-vittorie/" + id,
       {
         method: "POST",
         mode: "cors",
@@ -277,7 +279,8 @@ const SingleTeam = () => {
     console.log(vittorieFinal);
     try {
       await fetch(
-        "https://soccer-league12.herokuapp.com/teams-vittorie-final/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-vittorie-final/" +
+          id,
         {
           method: "POST",
           mode: "cors",
@@ -296,7 +299,8 @@ const SingleTeam = () => {
   const handleUpdatePuntiFinal = async (vittorie, punti) => {
     if (vittorie > 0) {
       const response1 = await fetch(
-        "https://soccer-league12.herokuapp.com/teams-points-final/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-points-final/" +
+          id,
         {
           method: "POST",
           mode: "cors",
@@ -319,7 +323,7 @@ const SingleTeam = () => {
   const handleUpdateTeamPareggi = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-pareggi/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-pareggi/" + id,
       {
         method: "POST",
         mode: "cors",
@@ -342,7 +346,8 @@ const SingleTeam = () => {
     e.preventDefault();
     try {
       await fetch(
-        "https://soccer-league12.herokuapp.com/teams-pareggi-final/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-pareggi-final/" +
+          id,
         {
           method: "POST",
           mode: "cors",
@@ -361,7 +366,8 @@ const SingleTeam = () => {
   const handleUpdateTeamSconfitte = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-sconfitte-final/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-sconfitte-final/" +
+        id,
       {
         method: "POST",
         mode: "cors",
@@ -383,7 +389,8 @@ const SingleTeam = () => {
   const handleUpdateTeamSconfitteFinal = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-sconfitte-final/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-sconfitte-final/" +
+        id,
       {
         method: "POST",
         mode: "cors",
@@ -405,7 +412,8 @@ const SingleTeam = () => {
   const handleUpdateTeamGoalFatti = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-goal-fatti/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-goal-fatti/" +
+        id,
       {
         method: "POST",
         mode: "cors",
@@ -427,7 +435,8 @@ const SingleTeam = () => {
   const handleUpdateTeamGoalFattiFinal = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/teams-goal-fatti-final/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-goal-fatti-final/" +
+        id,
       {
         method: "POST",
         mode: "cors",
@@ -453,7 +462,8 @@ const SingleTeam = () => {
       (team.final === false || team.final === null || team.final === undefined)
     ) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams-final-yes/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-final-yes/" +
+          id,
         {
           method: "POST",
           cache: "no-cache",
@@ -470,7 +480,8 @@ const SingleTeam = () => {
       window.alert(`Hai abilitato la squadra ${team.name} alla fase finale`);
     } else if (team !== null && team !== undefined && team.final === true) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams-final-no/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams-final-no/" +
+          id,
         {
           method: "POST",
           cache: "no-cache",
@@ -490,7 +501,7 @@ const SingleTeam = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -512,7 +523,7 @@ const SingleTeam = () => {
   useEffect(() => {
     const getCorrectTeam = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -535,7 +546,7 @@ const SingleTeam = () => {
   useEffect(() => {
     const getPublicIds = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/api/images",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/images",
         {
           method: "GET",
           mode: "cors",
@@ -567,7 +578,7 @@ const SingleTeam = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",

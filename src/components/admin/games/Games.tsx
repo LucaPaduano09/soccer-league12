@@ -17,7 +17,7 @@ const Games = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -39,7 +39,7 @@ const Games = () => {
   useEffect(() => {
     const getGames = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games",
         {
           method: "GET",
           mode: "cors",
@@ -61,29 +61,38 @@ const Games = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      let searchedGameId =  [{}];
-      searchedGameId = games.filter((game: any) => game._id === id)
-      if(searchedGameId.length === 0){
-        const response = await fetch('https://soccer-league12.herokuapp.com/games/add',{
+    let searchedGameId = [{}];
+    searchedGameId = games.filter((game: any) => game._id === id);
+    if (searchedGameId.length === 0) {
+      const response = await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games/add",
+        {
           method: "POST",
-          body: JSON.stringify({_id: id, team1: team1, team2: team2, date: date, time: time, fase: gameFase}),
+          body: JSON.stringify({
+            _id: id,
+            team1: team1,
+            team2: team2,
+            date: date,
+            time: time,
+            fase: gameFase,
+          }),
           mode: "cors",
           cache: "no-cache",
           credentials: "same-origin",
           headers: {
-            "Content-Type" : "application/json"
-          }
-        })
-        if(!response.ok){
-          window.alert("Something went wrong creating game...");
-        } else {
-          history.push("/admin/dashboard")
+            "Content-Type": "application/json",
+          },
         }
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong creating game...");
       } else {
-        window.alert("Esiste gia una partita con questo id")
+        history.push("/admin/dashboard");
       }
+    } else {
+      window.alert("Esiste gia una partita con questo id");
+    }
   };
-
 
   return (
     <div className="Games__container">
@@ -111,7 +120,7 @@ const Games = () => {
         <div>
           <label>Squadra 2</label>
           <select onChange={(e) => setTeam2(e.target.value)}>
-          <option> - </option>
+            <option> - </option>
             {teams !== null &&
               teams !== undefined &&
               teams.length > 0 &&
@@ -123,7 +132,9 @@ const Games = () => {
         <div>
           <label>Fase:</label>
           <select onChange={(e) => setGameFase(e.target.value)}>
-            <option value="-"disabled>-</option>
+            <option value="-" disabled>
+              -
+            </option>
             <option value="girone">girone</option>
             <option value="finale">fase finale</option>
           </select>
@@ -141,7 +152,7 @@ const Games = () => {
             type="submit"
             value="Aggiungi"
             onClick={(e) => handleSubmit(e)}
-            style={{borderRadius: "5px"}}
+            style={{ borderRadius: "5px" }}
           />
         </div>
       </div>

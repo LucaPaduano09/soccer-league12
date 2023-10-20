@@ -16,7 +16,7 @@ const PublicCalendar = () => {
   useEffect(() => {
     const getCalendar = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar",
         {
           method: "GET",
           mode: "cors",
@@ -38,7 +38,7 @@ const PublicCalendar = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -59,7 +59,7 @@ const PublicCalendar = () => {
   useEffect(() => {
     const getGames = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games",
         {
           method: "GET",
           mode: "cors",

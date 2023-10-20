@@ -5,7 +5,7 @@ import { Image } from "cloudinary-react";
 import { Link } from "react-router-dom";
 import "./Players.scss";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { Player } from "../../../types/Player"
+import { Player } from "../../../types/Player";
 
 const Players = () => {
   const [players, setPlayers] = useState<[Player]>();
@@ -52,16 +52,19 @@ const Players = () => {
 
   const uploadImage = async (base64EncondedImage, filename) => {
     try {
-      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        body: JSON.stringify({ data: base64EncondedImage, name: fileName }),
-        headers: {
-          "Content-type": "application/json",
-        },
-      })
+      await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/uploads",
+        {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          body: JSON.stringify({ data: base64EncondedImage, name: fileName }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      )
         .then(() => createPlayer(fileName, name, surname, teamId, captain))
         .then(() => dispatch(closeAddPlayerModal()))
         .then(() => window.location.reload());
@@ -71,10 +74,12 @@ const Players = () => {
   };
   const createPlayer = async (logo, name, surname, teamId, captain) => {
     let searchedPlayerId = [{}];
-    searchedPlayerId = players?.filter((game: any) => game._id === id) as [Player];
+    searchedPlayerId = players?.filter((game: any) => game._id === id) as [
+      Player
+    ];
     if (searchedPlayerId.length === 0) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players/add",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players/add",
         {
           method: "POST",
           body: JSON.stringify({
@@ -113,7 +118,7 @@ const Players = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -127,17 +132,18 @@ const Players = () => {
         window.alert("Something went wrong fetching playes...");
       }
       const result = await response.json();
-      let filteredPlayers= result?.sort((a, b) => (a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0))
+      let filteredPlayers = result?.sort((a, b) =>
+        a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0
+      );
       setPlayers(filteredPlayers);
     };
     getPlayers();
   }, [players?.length]);
 
-
   return (
     <div className="Players__container">
       <h1>Giocatori</h1>
-          {/* <div className="Players__container__filter">
+      {/* <div className="Players__container__filter">
             <label>Filtra per </label>
             <select onChange={(e) => handleFilter(e.target.value)}>
                 <option disabled selected>-</option>
@@ -227,38 +233,37 @@ const Players = () => {
           </th>
         </thead>
         <tbody>
-          {
-            players?.map((player: any) => (
-              <Link to={"/admin/giocatore/" + player._id}>
-                <tr className="Players__container__playerContainer">
-                  <td>
-                    {player !== null &&
-                    player !== undefined &&
-                    player.logo !== null &&
-                    player.logo !== undefined &&
-                    player.logo.indexOf(".jpeg") ? (
-                      <Image
-                        public_id={player.logo + ".jpeg"}
-                        cloudName="dhadbk8ko"
-                      />
-                    ) : (
-                      <Image public_id={player.logo} cloudName="dhadbk8ko" />
-                    )}
-                  </td>
-                  <td>{player.first_name}</td>
-                  <td>{player.last_name}</td>
-                  <td>{player.scores ? player.scores : "0"}</td>
-                  <td>
-                    <Link
-                      style={{ color: "red", textDecoration: "underline" }}
-                      to={"/admin/team/" + player.teamId}
-                    >
-                      {player.teamId}
-                    </Link>
-                  </td>
-                </tr>
-              </Link>
-            ))}
+          {players?.map((player: any) => (
+            <Link to={"/admin/giocatore/" + player._id}>
+              <tr className="Players__container__playerContainer">
+                <td>
+                  {player !== null &&
+                  player !== undefined &&
+                  player.logo !== null &&
+                  player.logo !== undefined &&
+                  player.logo.indexOf(".jpeg") ? (
+                    <Image
+                      public_id={player.logo + ".jpeg"}
+                      cloudName="dhadbk8ko"
+                    />
+                  ) : (
+                    <Image public_id={player.logo} cloudName="dhadbk8ko" />
+                  )}
+                </td>
+                <td>{player.first_name}</td>
+                <td>{player.last_name}</td>
+                <td>{player.scores ? player.scores : "0"}</td>
+                <td>
+                  <Link
+                    style={{ color: "red", textDecoration: "underline" }}
+                    to={"/admin/team/" + player.teamId}
+                  >
+                    {player.teamId}
+                  </Link>
+                </td>
+              </tr>
+            </Link>
+          ))}
         </tbody>
       </table>
     </div>

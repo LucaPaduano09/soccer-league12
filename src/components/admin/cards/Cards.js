@@ -11,7 +11,7 @@ const Cards = () => {
   useEffect(() => {
     const getCompetitions = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/competizione",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/competizione",
         {
           method: "GET",
           mode: "cors",
@@ -31,7 +31,7 @@ const Cards = () => {
     };
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -51,7 +51,7 @@ const Cards = () => {
     };
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -71,7 +71,7 @@ const Cards = () => {
     };
     const getGames = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games",
         {
           method: "GET",
           mode: "cors",
@@ -90,21 +90,24 @@ const Cards = () => {
       setGames(result.length);
     };
     const getDays = async () => {
-      const response = await fetch('https://soccer-league12.herokuapp.com/calendar',{
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers:{
-          "Content-Type" : "application/json"
+      const response = await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar",
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      if(!response.ok){
-        window.alert("Something went wrong fetching days...")
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong fetching days...");
       }
       const result = await response.json();
       setDays(result.length);
-    }
+    };
     getCompetitions();
     getTeams();
     getPlayers();
@@ -156,12 +159,8 @@ const Cards = () => {
           </p>
         </div>
         <div className="Cards__container__cardsContainer__card">
-          <p className="Cards__container__cardsContainer__card__number">
-            0
-          </p>
-          <p className="Cards__container__cardsContainer__card__label">
-            Foto
-          </p>
+          <p className="Cards__container__cardsContainer__card__number">0</p>
+          <p className="Cards__container__cardsContainer__card__label">Foto</p>
         </div>
       </div>
     </div>

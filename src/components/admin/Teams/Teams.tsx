@@ -47,16 +47,19 @@ const Teams = () => {
 
   const uploadImage = async (base64EncondedImage, name) => {
     try {
-      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
-        method: "POST",
-        body: JSON.stringify({ data: base64EncondedImage, name: fileName }),
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/uploads",
+        {
+          method: "POST",
+          body: JSON.stringify({ data: base64EncondedImage, name: fileName }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then(() => createTeam())
         .then(() => window.location.reload());
     } catch (error) {
@@ -68,7 +71,7 @@ const Teams = () => {
     searchedTeamId = teams.filter((game: any) => game._id === teamId);
     if (searchedTeamId.length === 0) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams/add",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/add",
         {
           method: "POST",
           body: JSON.stringify({
@@ -100,7 +103,7 @@ const Teams = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",

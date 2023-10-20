@@ -4,7 +4,7 @@ export default async function useTableMapper(typology: string) {
   const [fill, setFill] = useState([{}]);
   // useEffect(()=>{
   //   const getFiller = async (typology: string) => {
-  //       const response = await fetch("https://soccer-league12.herokuapp.com/" + typology, {
+  //       const response = await fetch("https://soccer-league12-42ba9ac5d9ae.herokuapp.com/" + typology, {
   //         method: "GET",
   //         mode: "cors",
   //         cache: "no-cache",
@@ -22,6 +22,6 @@ export default async function useTableMapper(typology: string) {
   //   getFiller(typology)
   // },[])
 
-// console.log(fill)
-  return {fill};
+  // console.log(fill)
+  return { fill };
 }

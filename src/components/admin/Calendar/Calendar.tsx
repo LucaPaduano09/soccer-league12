@@ -56,7 +56,7 @@ const Calendar = () => {
   useEffect(() => {
     const getCalendar = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar",
         {
           method: "GET",
           mode: "cors",
@@ -78,7 +78,7 @@ const Calendar = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -99,7 +99,7 @@ const Calendar = () => {
   useEffect(() => {
     const getGames = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games",
         {
           method: "GET",
           mode: "cors",
@@ -122,7 +122,7 @@ const Calendar = () => {
   const handleCreateDay = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/calendar/add",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar/add",
       {
         method: "POST",
         body: JSON.stringify({ giornata: dayNumber, partite: null }),
@@ -184,7 +184,7 @@ const Calendar = () => {
       let giornataToFind = add[0]._id;
       if (add[0].partite === null) {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/calendar-first/" +
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar-first/" +
             giornataToFind,
           {
             method: "POST",
@@ -207,7 +207,8 @@ const Calendar = () => {
       }
       if (add[0].partite.length !== null) {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/calendar/" + giornataToFind,
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar/" +
+            giornataToFind,
           {
             method: "POST",
             body: JSON.stringify({ partite: gameToAddId }),
@@ -236,7 +237,7 @@ const Calendar = () => {
     let giornataToFind = remove[0]._id;
     if (remove[0].partite.length === 1) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar-remove-first/" +
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar-remove-first/" +
           giornataToFind,
         {
           method: "POST",
@@ -259,7 +260,7 @@ const Calendar = () => {
     }
     if (remove[0].partite.length > 1) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar-remove/" +
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar-remove/" +
           giornataToFind,
         {
           method: "POST",
@@ -292,8 +293,8 @@ const Calendar = () => {
     if (filteredGame[0] !== null && filteredGame[0] !== undefined) {
       return (
         <>
-          <p >{filteredGame[0].date}</p>
-          <p >{filteredGame[0].time}</p>
+          <p>{filteredGame[0].date}</p>
+          <p>{filteredGame[0].time}</p>
         </>
       );
     }
@@ -316,7 +317,7 @@ const Calendar = () => {
       );
       if (searchedDay?.length > 0) {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/calendar-remove-day",
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar-remove-day",
           {
             method: "DELETE",
             mode: "cors",

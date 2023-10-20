@@ -15,7 +15,7 @@ const SinglePublicSquadra = () => {
   useEffect(() => {
     const getTeam = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -39,7 +39,7 @@ const SinglePublicSquadra = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -65,7 +65,7 @@ const SinglePublicSquadra = () => {
       if (squadra !== null && squadra !== undefined) {
         let filteredPlayers = players.filter(
           (player: Player) => player.teamId === squadra._id
-        )as [Player];
+        ) as [Player];
         setTeamPlayers(filteredPlayers);
       }
     }
@@ -75,80 +75,72 @@ const SinglePublicSquadra = () => {
     <div className="SinglePublicSquadra__container">
       <div className="SinglePublicSquadra__container__topBanner">
         <Image public_id={squadra?.logo} cloudName="dhadbk8ko" />
-        {
-          squadra !== null &&
+        {squadra !== null &&
           squadra !== undefined &&
           squadra?.final === true && (
             <div className="SinglePublicSquadra__container__topBanner__switcher">
-              <button className={"SinglePublicSquadra__container__topBanner__switcher" + (fase === "girone" ? "__active" : "__noActive")} onClick={() => setFase("girone")}>Fase Gironi</button>
-              <button className={"SinglePublicSquadra__container__topBanner__switcher" + (fase === "finale" ? "__active" : "__noActive")} onClick={() => setFase("finale")}>Fase Finale</button>
+              <button
+                className={
+                  "SinglePublicSquadra__container__topBanner__switcher" +
+                  (fase === "girone" ? "__active" : "__noActive")
+                }
+                onClick={() => setFase("girone")}
+              >
+                Fase Gironi
+              </button>
+              <button
+                className={
+                  "SinglePublicSquadra__container__topBanner__switcher" +
+                  (fase === "finale" ? "__active" : "__noActive")
+                }
+                onClick={() => setFase("finale")}
+              >
+                Fase Finale
+              </button>
             </div>
-          )
-        }
+          )}
         <div className="SinglePublicSquadra__container__topBanner__info">
           <p>{squadra?.name}</p>
-          {
-            fase === "girone" && (
-              <>
-                <p>
-                  <p>
-                  PUNTI:
-                  </p>
-                  <p>{squadra?.points}</p>
-                </p>
-                <p>
-                <p>
-                  VITTORIE:
-                </p>
-                  <p>{squadra?.vittorie}</p>
-                </p>
-                <p>
-                  <p>
-                  PAREGGI:
-                  </p>
-                  <p>{squadra?.pareggi}</p>
-                </p>
-                <p>
-                  <p>
-                  SCONFITTE:
-                  </p>
-                  <p>{squadra?.sconfitte}</p>
-                </p>
-              </>
-
-            )
-          }
-          {
-            fase === "finale" && (
-              <>
-                <p>
-                  <p>
-                  PUNTI:
-                  </p>
-                  <p>{squadra?.points_final}</p>
-                </p>
-                <p>
-                <p>
-                  VITTORIE:
-                </p>
-                  <p>{squadra?.vittorie_final}</p>
-                </p>
-                <p>
-                  <p>
-                  PAREGGI:
-                  </p>
-                  <p>{squadra?.pareggi_final}</p>
-                </p>
-                <p>
-                  <p>
-                  SCONFITTE:
-                  </p>
-                  <p>{squadra?.sconfitte_final}</p>
-                </p>
-              </>
-
-            )
-          }
+          {fase === "girone" && (
+            <>
+              <p>
+                <p>PUNTI:</p>
+                <p>{squadra?.points}</p>
+              </p>
+              <p>
+                <p>VITTORIE:</p>
+                <p>{squadra?.vittorie}</p>
+              </p>
+              <p>
+                <p>PAREGGI:</p>
+                <p>{squadra?.pareggi}</p>
+              </p>
+              <p>
+                <p>SCONFITTE:</p>
+                <p>{squadra?.sconfitte}</p>
+              </p>
+            </>
+          )}
+          {fase === "finale" && (
+            <>
+              <p>
+                <p>PUNTI:</p>
+                <p>{squadra?.points_final}</p>
+              </p>
+              <p>
+                <p>VITTORIE:</p>
+                <p>{squadra?.vittorie_final}</p>
+              </p>
+              <p>
+                <p>PAREGGI:</p>
+                <p>{squadra?.pareggi_final}</p>
+              </p>
+              <p>
+                <p>SCONFITTE:</p>
+                <p>{squadra?.sconfitte_final}</p>
+              </p>
+            </>
+          )}
         </div>
       </div>
       <div className="SinglePublicSquadra__container__middleBanner">
@@ -162,8 +154,7 @@ const SinglePublicSquadra = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              fase === "girone" &&
+            {fase === "girone" &&
               teamPlayes !== null &&
               teamPlayes !== undefined &&
               teamPlayes?.length > 0 &&
@@ -174,11 +165,9 @@ const SinglePublicSquadra = () => {
                   <th>{tp.scores}</th>
                   <th>{tp.capitain === false ? "-" : "si"}</th>
                 </tr>
-              ))
-            }
+              ))}
 
-            {
-              fase === "finale" &&
+            {fase === "finale" &&
               teamPlayes !== null &&
               teamPlayes !== undefined &&
               teamPlayes?.length > 0 &&
@@ -189,9 +178,7 @@ const SinglePublicSquadra = () => {
                   <th>{tp.scores_final}</th>
                   <th>{tp.capitain === false ? "-" : "si"}</th>
                 </tr>
-              ))
-            }
-              
+              ))}
           </tbody>
         </table>
       </div>

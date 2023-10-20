@@ -31,7 +31,7 @@ const PublicFoto = () => {
   useEffect(() => {
     const getFoto = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/foto",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/foto",
         {
           method: "GET",
           mode: "cors",

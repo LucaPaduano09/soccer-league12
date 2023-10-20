@@ -9,7 +9,7 @@ const PublicSquadre = () => {
   useEffect(() => {
     const getSquadre = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -32,11 +32,9 @@ const PublicSquadre = () => {
 
   return (
     <div className="PublicSquadre__container">
-      {
-        squadre !== undefined && squadre?.length <= 1 && (
-          <p>Stiamo caricando le squadre . . .</p>
-        )
-      }
+      {squadre !== undefined && squadre?.length <= 1 && (
+        <p>Stiamo caricando le squadre . . .</p>
+      )}
       <table>
         <thead>
           <tr>

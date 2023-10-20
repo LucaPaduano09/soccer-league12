@@ -50,7 +50,7 @@ const Calendar = () => {
   useEffect(() => {
     const getCalendar = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar",
         {
           method: "GET",
           mode: "cors",
@@ -72,7 +72,7 @@ const Calendar = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -93,7 +93,7 @@ const Calendar = () => {
   useEffect(() => {
     const getGames = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games",
         {
           method: "GET",
           mode: "cors",
@@ -116,7 +116,7 @@ const Calendar = () => {
   const handleCreateDay = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/calendar/add",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar/add",
       {
         method: "POST",
         body: JSON.stringify({ giornata: dayNumber, partite: null }),
@@ -179,9 +179,10 @@ const Calendar = () => {
       (c: any) => c.giornata === selectedDayGames[0].giornata
     );
     let giornataToFind = add[0]._id;
-    if(add[0].partite === null){
+    if (add[0].partite === null) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar-first/" + giornataToFind,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar-first/" +
+          giornataToFind,
         {
           method: "POST",
           body: JSON.stringify({ partite: [gameToAddId] }),
@@ -201,9 +202,10 @@ const Calendar = () => {
       }
       window.location.reload();
     }
-    if(add[0].partite.length !== null){
+    if (add[0].partite.length !== null) {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar/" + giornataToFind,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar/" +
+          giornataToFind,
         {
           method: "POST",
           body: JSON.stringify({ partite: gameToAddId }),
@@ -229,45 +231,47 @@ const Calendar = () => {
       (c: any) => c.giornata === (selectedDayGames[0] as any).giornata
     );
     let giornataToFind = remove[0]._id;
-      if(remove[0].partite.length === 1){
-        const response = await fetch(
-          "https://soccer-league12.herokuapp.com/calendar-remove-first/" + giornataToFind,
-          {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        );
-        if (!response.ok) {
-          window.alert("Something went wrong removing game...");
+    if (remove[0].partite.length === 1) {
+      const response = await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar-remove-first/" +
+          giornataToFind,
+        {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
         }
-        // window.location.reload();
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong removing game...");
       }
-      if(remove[0].partite.length > 1){
-        const response = await fetch(
-          "https://soccer-league12.herokuapp.com/calendar-remove/" + giornataToFind,
-          {
-            method: "POST",
-            body: JSON.stringify({partite: gameToRemoveId}),
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        );
-        if (!response.ok) {
-          window.alert("Something went wrong removing game...");
+      // window.location.reload();
+    }
+    if (remove[0].partite.length > 1) {
+      const response = await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar-remove/" +
+          giornataToFind,
+        {
+          method: "POST",
+          body: JSON.stringify({ partite: gameToRemoveId }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
         }
-        // window.location.reload();
+      );
+      if (!response.ok) {
+        window.alert("Something went wrong removing game...");
       }
+      // window.location.reload();
+    }
   };
   const getResult = (partita: any) => {
     const filteredGame: any = games.filter((game: any) => game._id === partita);
@@ -468,34 +472,36 @@ const Calendar = () => {
                 c.partite.map(
                   (partita: any, index) =>
                     games.filter((gameM: any) => gameM._id === partita) && (
-
                       <>
-                      <Link to={"/admin/calendario/partita/" + partita}style={{textDecoration:"none", color: "black"}}>
-                        <div
-                          key={partita._id}
-                          className="Calendar__container__middleBanner__gameContainer"
+                        <Link
+                          to={"/admin/calendario/partita/" + partita}
+                          style={{ textDecoration: "none", color: "black" }}
                         >
-                          <div className="Calendar__container__middleBanner__gameContainer__firstTeam">
-                            <div className="Calendar__container__middleBanner__gameContainer__firstTeam__logo">
-                              {filterTeams(filterGames(partita))}
+                          <div
+                            key={partita._id}
+                            className="Calendar__container__middleBanner__gameContainer"
+                          >
+                            <div className="Calendar__container__middleBanner__gameContainer__firstTeam">
+                              <div className="Calendar__container__middleBanner__gameContainer__firstTeam__logo">
+                                {filterTeams(filterGames(partita))}
+                              </div>
+                              <div className="Calendar__container__middleBanner__gameContainer__firstTeam__name">
+                                {getTeamName(filterGames(partita))}
+                              </div>
                             </div>
-                            <div className="Calendar__container__middleBanner__gameContainer__firstTeam__name">
-                              {getTeamName(filterGames(partita))}
+                            <div className="Calendar__container__middleBanner__gameContainer__result">
+                              {getResult(partita)}
+                            </div>
+                            <div className="Calendar__container__middleBanner__gameContainer__secondTeam">
+                              <div className="Calendar__container__middleBanner__gameContainer__secondTeam__name">
+                                {getTeamName(filterGames2(partita))}
+                              </div>
+                              <div className="Calendar__container__middleBanner__gameContainer__secondTeam__logo">
+                                {filterTeams(filterGames2(partita))}
+                              </div>
                             </div>
                           </div>
-                          <div className="Calendar__container__middleBanner__gameContainer__result">
-                            {getResult(partita)}
-                          </div>
-                          <div className="Calendar__container__middleBanner__gameContainer__secondTeam">
-                            <div className="Calendar__container__middleBanner__gameContainer__secondTeam__name">
-                              {getTeamName(filterGames2(partita))}
-                            </div>
-                            <div className="Calendar__container__middleBanner__gameContainer__secondTeam__logo">
-                              {filterTeams(filterGames2(partita))}
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
+                        </Link>
                         <div className="Calendar__container__middleBanner__separator" />
                       </>
                     )

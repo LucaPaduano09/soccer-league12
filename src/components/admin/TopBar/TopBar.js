@@ -7,8 +7,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./TopBar.scss";
 
 const TopBar = () => {
-  const showModal = useSelector(state => state.addModal.adminFotoModal)
-  const showMenu = useSelector(state => state.showMenu);
+  const showModal = useSelector((state) => state.addModal.adminFotoModal);
+  const showMenu = useSelector((state) => state.showMenu);
   const [adminProfileImage, setAdminProfileImage] = useState("");
   const [fileName, setFileName] = useState();
   const [previewSource, setPreviewSource] = useState();
@@ -22,14 +22,14 @@ const TopBar = () => {
 
   const handleShowModal = () => {
     console.log(showModal);
-      dispatch(disableMenu())
-      dispatch(openAdminFotoModal());
-      console.log(showModal);
+    dispatch(disableMenu());
+    dispatch(openAdminFotoModal());
+    console.log(showModal);
   };
-  
+
   const handleShowMenu = () => {
     dispatch(enableMenu());
-  }
+  };
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -49,29 +49,32 @@ const TopBar = () => {
     e.preventDefault();
     console.log("submitting...");
     if (!previewSource) {
-      console.log("no preview source")
+      console.log("no preview source");
       return;
     }
     uploadImage(previewSource, name);
     handleShowModal(false);
     dispatch(closeAdminFotoModal());
-    window.location.reload()
+    window.location.reload();
   };
 
   const uploadImage = async (base64EncondedImage, name) => {
     try {
-      await fetch("https://soccer-league12.herokuapp.com/api/uploads", {
-        method: "POST",
-        body: JSON.stringify({ data: base64EncondedImage, name: name }),
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      await fetch(
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/uploads",
+        {
+          method: "POST",
+          body: JSON.stringify({ data: base64EncondedImage, name: name }),
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then(() => updateProfileImage(name))
-        .then(() => setShowAlert({ state: true, status: "success" }))
+        .then(() => setShowAlert({ state: true, status: "success" }));
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +82,7 @@ const TopBar = () => {
 
   const updateProfileImage = async (name) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/admin/6308a7c2a21a1eea547ba271",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/admin/6308a7c2a21a1eea547ba271",
       {
         body: JSON.stringify({ name: "admin1", profile_image: name }),
         method: "POST",
@@ -109,7 +112,7 @@ const TopBar = () => {
   useEffect(() => {
     const getAdminFoto = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/admin/6308a7c2a21a1eea547ba271",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/admin/6308a7c2a21a1eea547ba271",
         {
           method: "GET",
           mode: "cors",
@@ -152,7 +155,9 @@ const TopBar = () => {
         </div>
       )}
       <div className="TopBar__container__profileContainer">
-        <p className="TopBar__container__profileContainer__label">Ciao, Admin</p>
+        <p className="TopBar__container__profileContainer__label">
+          Ciao, Admin
+        </p>
         {showMenu.showMenu === true && (
           <div className="TopBar__container__profileContainer__label__dropMenu">
             <p onClick={() => handleShowModal(true)}>

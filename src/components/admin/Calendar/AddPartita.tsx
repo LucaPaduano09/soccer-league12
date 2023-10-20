@@ -18,10 +18,16 @@ const AddPartita = () => {
 
   const handleUpdateDay = async () => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/calendar/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar/" + id,
       {
         method: "POST",
-        body: JSON.stringify({giornata: calendarDay.giornata, partite: calendarDay.partite === null ? partitaId: calendarDay.partite.push(partitaId) }),
+        body: JSON.stringify({
+          giornata: calendarDay.giornata,
+          partite:
+            calendarDay.partite === null
+              ? partitaId
+              : calendarDay.partite.push(partitaId),
+        }),
         mode: "cors",
         cache: "no-cache",
         headers: {
@@ -29,14 +35,14 @@ const AddPartita = () => {
         },
       }
     );
-    if(!response.ok){
-        window.alert("Something went wrong updating calendar...")
+    if (!response.ok) {
+      window.alert("Something went wrong updating calendar...");
     }
   };
 
   const handleSubmitCreateGame = async () => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games/add",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games/add",
       {
         method: "POST",
         body: JSON.stringify({
@@ -63,7 +69,7 @@ const AddPartita = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -85,7 +91,7 @@ const AddPartita = () => {
   useEffect(() => {
     const getGameDay = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -107,7 +113,7 @@ const AddPartita = () => {
   useEffect(() => {
     const handleGetDay = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/calendar/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/calendar/" + id,
         {
           method: "GET",
           mode: "cors",

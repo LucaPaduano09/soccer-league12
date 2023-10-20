@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../admin/Calendar/SingleMatch.scss";
 import { Image } from "cloudinary-react";
 
-
 const SingleMatch = () => {
   const urlQueryString = window.location.pathname;
   const id = urlQueryString.replace("/partita-final/", "");
@@ -18,7 +17,7 @@ const SingleMatch = () => {
   useEffect(() => {
     const getPartita = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -40,7 +39,7 @@ const SingleMatch = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -64,7 +63,7 @@ const SingleMatch = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -109,7 +108,8 @@ const SingleMatch = () => {
     if (partita !== null && partita !== undefined) {
       const getTeam1 = async () => {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/teams/" + partita.team1,
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" +
+            partita.team1,
           {
             method: "GET",
             mode: "cors",
@@ -133,7 +133,8 @@ const SingleMatch = () => {
     if (partita !== null && partita !== undefined) {
       const getTeam2 = async () => {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/teams/" + partita.team2,
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" +
+            partita.team2,
           {
             method: "GET",
             mode: "cors",
@@ -154,58 +155,81 @@ const SingleMatch = () => {
   }, [partita]);
 
   const getMarcatore = (marcatore) => {
-    if(players !== undefined && players !== null && players?.length > 0){
-    if(partita){
-        let fp = players.filter((player:any) => player._id === marcatore);
-        console.log(fp)
-        if(fp !== null && fp !== undefined && fp.length > 0){
-          if(team1){
-            if(fp[0].teamId === team1._id){
+    if (players !== undefined && players !== null && players?.length > 0) {
+      if (partita) {
+        let fp = players.filter((player: any) => player._id === marcatore);
+        console.log(fp);
+        if (fp !== null && fp !== undefined && fp.length > 0) {
+          if (team1) {
+            if (fp[0].teamId === team1._id) {
               return (
-              <div style={{display: "flex", alignItems: "center",justifyContent: "flex-start"}}>
-              <img src="/images/ball.png" alt="ball"  style={{width: "30px",height:"30px"}}/>
-                <p style={{width: "150px", marginLeft:"5px", fontSize: "15px"}}>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
-              </div>
-              )
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <img
+                    src="/images/ball.png"
+                    alt="ball"
+                    style={{ width: "30px", height: "30px" }}
+                  />
+                  <p
+                    style={{
+                      width: "150px",
+                      marginLeft: "5px",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {(fp[0] as any).first_name + " " + (fp[0] as any).last_name}
+                  </p>
+                </div>
+              );
             }
           }
         }
       }
     }
-  }
+  };
   const getMarcatore2 = (marcatore) => {
-    if(players !== undefined && players !== null && players?.length > 0){
-    if(partita){
-        let fp = players.filter((player:any) => player._id === marcatore);
-        console.log(fp)
-        if(fp !== null && fp !== undefined && fp.length > 0){
-          if(team2){
-            if(fp[0].teamId === team2._id){
+    if (players !== undefined && players !== null && players?.length > 0) {
+      if (partita) {
+        let fp = players.filter((player: any) => player._id === marcatore);
+        console.log(fp);
+        if (fp !== null && fp !== undefined && fp.length > 0) {
+          if (team2) {
+            if (fp[0].teamId === team2._id) {
               return (
-              <>
-                <p>{(fp[0] as any).first_name + " " + (fp[0] as any).last_name}</p>
-              </>
-              )
+                <>
+                  <p>
+                    {(fp[0] as any).first_name + " " + (fp[0] as any).last_name}
+                  </p>
+                </>
+              );
             }
           }
         }
       }
     }
-  }
+  };
   const handleSlider = () => {
-    if(goalActive){
+    if (goalActive) {
       setGoalActive(false);
       setAmmonizioniActive(true);
     }
-    if(ammonizioniActive){
+    if (ammonizioniActive) {
       setAmmonizioniActive(false);
       setGoalActive(true);
     }
-  }
+  };
 
   return (
     <div className="SingleMatch__container">
-      <div className="SingleMatch__container__middleBanner" style={{marginTop: "80px"}}>
+      <div
+        className="SingleMatch__container__middleBanner"
+        style={{ marginTop: "80px" }}
+      >
         <div className="SingleMatch__container__middleBanner__team1">
           <Image
             public_id={team1 !== null && team1 !== undefined && team1.logo}
@@ -231,24 +255,36 @@ const SingleMatch = () => {
         </div>
       </div>
       <div className="SingleMatch__container__slider">
-        <button className={"SingleMatch__container__slider" + (goalActive ? "__active" : "__noActive")} onClick={() => handleSlider()}>Goal</button>
-        <button className={"SingleMatch__container__slider" + (ammonizioniActive ? "__active" : "__noActive")} onClick={() => handleSlider()}>Ammonizioni</button>
+        <button
+          className={
+            "SingleMatch__container__slider" +
+            (goalActive ? "__active" : "__noActive")
+          }
+          onClick={() => handleSlider()}
+        >
+          Goal
+        </button>
+        <button
+          className={
+            "SingleMatch__container__slider" +
+            (ammonizioniActive ? "__active" : "__noActive")
+          }
+          onClick={() => handleSlider()}
+        >
+          Ammonizioni
+        </button>
       </div>
       <div className="SingleMatch__container__midlowerBanner">
         <div className="SingleMatch__container__midlowerBanner__team1">
-          {
-            partita !== null && partita !== undefined && partita.marcatori?.map((marc: any) => (
-              getMarcatore(marc)
-            ))
-          }
+          {partita !== null &&
+            partita !== undefined &&
+            partita.marcatori?.map((marc: any) => getMarcatore(marc))}
         </div>
         <div className="SingleMatch__container__midlowerBanner__separator" />
         <div className="SingleMatch__container__midlowerBanner__team2">
-        {
-            partita !== null && partita !== undefined && partita.marcatori?.map((marc: any) => (
-              getMarcatore2(marc)
-            ))
-          }
+          {partita !== null &&
+            partita !== undefined &&
+            partita.marcatori?.map((marc: any) => getMarcatore2(marc))}
         </div>
       </div>
     </div>

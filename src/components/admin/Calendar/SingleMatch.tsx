@@ -15,7 +15,7 @@ import {
   openUpdateGameStatusModal,
   closeUpdateGameStatusModal,
 } from "../../../redux/modals";
-import {Player} from "../../../types/Player"
+import { Player } from "../../../types/Player";
 
 const SingleMatch = () => {
   const urlQueryString = window.location.pathname;
@@ -52,7 +52,7 @@ const SingleMatch = () => {
   useEffect(() => {
     const getPartita = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -74,7 +74,7 @@ const SingleMatch = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -98,7 +98,7 @@ const SingleMatch = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -143,7 +143,8 @@ const SingleMatch = () => {
     if (partita !== null && partita !== undefined) {
       const getTeam1 = async () => {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/teams/" + partita.team1,
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" +
+            partita.team1,
           {
             method: "GET",
             mode: "cors",
@@ -167,7 +168,8 @@ const SingleMatch = () => {
     if (partita !== null && partita !== undefined) {
       const getTeam2 = async () => {
         const response = await fetch(
-          "https://soccer-league12.herokuapp.com/teams/" + partita.team2,
+          "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams/" +
+            partita.team2,
           {
             method: "GET",
             mode: "cors",
@@ -190,7 +192,8 @@ const SingleMatch = () => {
   const handleUpdateResult = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-result/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-result/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ result: resultTeam1 + " - " + resultTeam2 }),
@@ -211,7 +214,8 @@ const SingleMatch = () => {
   const handleUpdateDate = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-date/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-date/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ date: newDate }),
@@ -233,7 +237,8 @@ const SingleMatch = () => {
   const handleUpdateTime = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-time/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-time/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ time: newTime }),
@@ -253,12 +258,12 @@ const SingleMatch = () => {
     }
   };
   const handleUpdatePlayerScorer = async () => {
-    let id = marcatore
+    let id = marcatore;
     const response2 = await fetch(
-      "https://soccer-league12.herokuapp.com/players-goal/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-goal/" + id,
       {
         method: "POST",
-        body: JSON.stringify({scores: 1}),
+        body: JSON.stringify({ scores: 1 }),
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
@@ -267,17 +272,18 @@ const SingleMatch = () => {
         },
       }
     );
-    if(!response2.ok){
+    if (!response2.ok) {
       window.alert("Something went wrong updating player...");
     } else {
       dispatch(closeUpdateScorerModal());
-      window.location.reload()
+      window.location.reload();
     }
-  }
+  };
   const handleUpdateScorer = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/games-update-marcatori/" + id,
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-marcatori/" +
+        id,
       {
         method: "POST",
         body: JSON.stringify({ marcatori: marcatore }),
@@ -288,39 +294,41 @@ const SingleMatch = () => {
           "Content-Type": "application/json",
         },
       }
-    ).then(()=> handleUpdatePlayerScorer())
+    ).then(() => handleUpdatePlayerScorer());
   };
   const handleUpdateGameStatus = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://soccer-league12.herokuapp.com/games-update-status/' + id,{
-      method: "POST",
-      body: JSON.stringify({status: newStatus}),
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers:{
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games-update-status/" +
+        id,
+      {
+        method: "POST",
+        body: JSON.stringify({ status: newStatus }),
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
-      window.alert("something went wrong updating game status")
+    );
+    if (!response.ok) {
+      window.alert("something went wrong updating game status");
     } else {
-      window.alert("Stato partita cambiato")
+      window.alert("Stato partita cambiato");
       dispatch(closeUpdateGameStatusModal());
-      window.location.reload()
+      window.location.reload();
     }
-  }
+  };
   const getMarcatore = (marcatore) => {
-    if(players?.length > 0){
+    if (players?.length > 0) {
       let fp = players?.filter((player: any) => player?._id === marcatore);
-      if(fp.length > 0){
-        console.log('trovato')
-        return (
-          fp[0]
-          )
+      if (fp.length > 0) {
+        console.log("trovato");
+        return fp[0];
       }
     }
-  }
+  };
   // const getCorrectTeam = (marcatore) => {
   //   if(teams?.length > 0 && players?.length > 0) {
   //     // console.log(teams)
@@ -332,26 +340,20 @@ const SingleMatch = () => {
   //   }
   // }
   const getCorrectTeam = (giocatore) => {
-    if(giocatore?.teamId === team1?._id){
-      return(
-        <p>{giocatore?.first_name + " " + giocatore?.last_name}</p>
-      )
+    if (giocatore?.teamId === team1?._id) {
+      return <p>{giocatore?.first_name + " " + giocatore?.last_name}</p>;
+    } else {
+      return null;
     }
-    else {
-      return null
-    }
-  }
+  };
 
   const getCorrectTeam2 = (giocatore) => {
-    if(giocatore.teamId === team2._id){
-      return(
-        <p>{giocatore.first_name + " " + giocatore.last_name}</p>
-      )
+    if (giocatore.teamId === team2._id) {
+      return <p>{giocatore.first_name + " " + giocatore.last_name}</p>;
+    } else {
+      return null;
     }
-    else {
-      return null
-    }
-  }
+  };
 
   return (
     <div className="SingleMatch__container">
@@ -434,7 +436,10 @@ const SingleMatch = () => {
             <h2>Aggiorna Marcatori</h2>
             <div>
               <select onChange={(e) => setMarcatore(e.target.value)}>
-                <option disabled selected> - </option>
+                <option disabled selected>
+                  {" "}
+                  -{" "}
+                </option>
                 {filteredPlayers !== null &&
                   filteredPlayers !== undefined &&
                   filteredPlayers.length > 0 &&
@@ -463,7 +468,10 @@ const SingleMatch = () => {
             <h2>Aggiorna Stato</h2>
             <div>
               <select onChange={(e) => setNewStatus(e.target.value)}>
-                <option disabled selected> - </option>
+                <option disabled selected>
+                  {" "}
+                  -{" "}
+                </option>
                 <option value="da giocare">da giocare</option>
                 <option value="live">live</option>
                 <option value="conclusa">conclusa</option>
@@ -517,15 +525,13 @@ const SingleMatch = () => {
       } */}
       <div className="SingleMatch__container__midlowerBanner">
         <div className="SingleMatch__container__midlowerBanner__team1">
-          {
-            partita !== null &&
-            partita !== undefined && 
+          {partita !== null &&
+            partita !== undefined &&
             partita.marcatori !== null &&
             partita.marcatori !== undefined &&
             partita.marcatori.map((marc: any) => {
-              getCorrectTeam(getMarcatore(marc))
-            })
-          }
+              getCorrectTeam(getMarcatore(marc));
+            })}
         </div>
         <div className="SingleMatch__container__midlowerBanner__separator" />
         <div className="SingleMatch__container__midlowerBanner__team2"></div>

@@ -33,7 +33,7 @@ const Foto = () => {
   };
   const handleCreateFoto = async () => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/foto/add",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/foto/add",
       {
         method: "POST",
         body: JSON.stringify({ name: "fotoUploads/" + fileName }),
@@ -54,7 +54,7 @@ const Foto = () => {
   };
   const uploadImage = async (base64EncondedImage, filename) => {
     const response = await fetch(
-      "https://soccer-league12.herokuapp.com/api/uploads",
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/api/uploads",
       {
         method: "POST",
         mode: "cors",
@@ -78,27 +78,30 @@ const Foto = () => {
     }
   };
   const handleRemoveFoto = async (id) => {
-    const response = await fetch('https://soccer-league12.herokuapp.com/foto/' + id,{
-      method: "DELETE",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type" : "application/json"
+    const response = await fetch(
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/foto/" + id,
+      {
+        method: "DELETE",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
-    if(!response.ok){
+    );
+    if (!response.ok) {
       window.alert("something went wrong deleting foto...");
     } else {
       window.alert("foto cancellata con successo");
       window.location.reload();
     }
-  }
+  };
 
   useEffect(() => {
     const getFoto = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/foto",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/foto",
         {
           method: "GET",
           mode: "cors",
@@ -125,7 +128,12 @@ const Foto = () => {
         <>
           <div className="Foto__container__overlay" />
           <div className="Foto__container__modal">
-            <button className="Foto__container__modal__close" onClick={() => dispatch(closeAddFotoModal())}><p>X</p></button>
+            <button
+              className="Foto__container__modal__close"
+              onClick={() => dispatch(closeAddFotoModal())}
+            >
+              <p>X</p>
+            </button>
             <h2>Aggiungi una foto</h2>
             {previewSource && (
               <img
@@ -154,11 +162,14 @@ const Foto = () => {
       <div className="Foto__container__topBanner">
         <Link to="/admin/dashboard">indietro</Link>
         <h3>Elenco Foto</h3>
-        {
-          fotos?.length > 0 && fotos?.length < 3 && (
-            <button className="Foto__container__topBanner__addFoto"onClick={() => dispatch(openAddFotoModal())}><p>+</p></button>
-          )
-        }
+        {fotos?.length > 0 && fotos?.length < 3 && (
+          <button
+            className="Foto__container__topBanner__addFoto"
+            onClick={() => dispatch(openAddFotoModal())}
+          >
+            <p>+</p>
+          </button>
+        )}
       </div>
       <div className="Foto__container__middleBanner">
         {fotos.length === 0 && (
@@ -178,7 +189,10 @@ const Foto = () => {
                 fotos !== undefined &&
                 fotos.map((foto: any) => (
                   <div className="Foto__container__middleBanner__fotosContainer__singleFoto">
-                    <button className="Foto__container__middleBanner__fotosContainer__singleFoto__delete" onClick={() => handleRemoveFoto(foto._id)}>
+                    <button
+                      className="Foto__container__middleBanner__fotosContainer__singleFoto__delete"
+                      onClick={() => handleRemoveFoto(foto._id)}
+                    >
                       <p>-</p>
                     </button>
                     <Image public_id={foto.name} cloudName="dhadbk8ko" />

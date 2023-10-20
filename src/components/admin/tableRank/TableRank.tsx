@@ -15,7 +15,7 @@ const TableRank = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -34,7 +34,7 @@ const TableRank = () => {
     };
     const getFiller = async (typology: string) => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/" + typology,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/" + typology,
         {
           method: "GET",
           mode: "cors",

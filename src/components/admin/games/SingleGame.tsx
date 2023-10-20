@@ -11,7 +11,7 @@ const SingleGame = () => {
   useEffect(() => {
     const getGame = async (id: any) => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/games/" + id,
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/games/" + id,
         {
           method: "GET",
           mode: "cors",
@@ -35,7 +35,7 @@ const SingleGame = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://soccer-league12.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -93,14 +93,14 @@ const SingleGame = () => {
                             game.date.replace("2022", "22")}
                         </td>
                       </tr>
-                     <tr>
+                      <tr>
                         <td>Ora: </td>
                         <td>{game.time}</td>
-                     </tr>
-                     <tr>
+                      </tr>
+                      <tr>
                         <td>Stato: </td>
                         <td>{game.status}</td>
-                     </tr>
+                      </tr>
                     </>
                   )
               )}
