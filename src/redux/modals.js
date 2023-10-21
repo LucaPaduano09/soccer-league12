@@ -42,8 +42,15 @@ export const ModalSlice = createSlice({
     addGoalFattiFinal: false,
     addGoalSubitiFinal: false,
     updateTeamPointsFinalModal: false,
+    updatePlayerGoalModalFinal: false,
   },
   reducers: {
+    openUpdatePlayerGoalModalFinal: (state) => {
+      state.updatePlayerGoalModalFinal = true;
+    },
+    closeUpdatePlayerGoalModalFinal: (state) => {
+      state.updatePlayerGoalModalFinal = false;
+    },
     openAdminFotoModal: (state) => {
       state.adminFotoModal = true;
     },
@@ -361,5 +368,7 @@ export const {
   closeAddGoalSubitiFinal,
   openUpdateTeamPointsFinalModal,
   closeUpdateTeamPointsFinalModal,
+  openUpdatePlayerGoalModalFinal,
+  closeUpdatePlayerGoalModalFinal,
 } = ModalSlice.actions;
 export default ModalSlice.reducer;

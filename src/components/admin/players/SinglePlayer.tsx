@@ -14,6 +14,8 @@ import {
   closeUpdatePlayerGoalModal,
   openUpdatePlayerLogoModal,
   closeUpdatePlayerLogoModal,
+  closeUpdatePlayerGoalModalFinal,
+  openUpdatePlayerGoalModalFinal,
 } from "../../../redux/modals";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
@@ -41,6 +43,9 @@ const SinglePlayer = () => {
   const updatePlayerGoalModal = useSelector(
     (state: any) => state.addModal.updatePlayerGoalModal
   );
+  const updatePlayerGoalModalFinal = useSelector(
+    (state: any) => state.addModal.updatePlayerGoalModalFinal
+  );
   const updatePlayerLogoModal = useSelector(
     (state: any) => state.addModal.updatePlayerLogoModal
   );
@@ -48,6 +53,7 @@ const SinglePlayer = () => {
   const [newName, setNewName] = useState("");
   const [newLastName, setNewLastName] = useState("");
   const [goalToAdd, setGoalToAdd] = useState(0);
+  const [goalToAddFinal, setGoalToAddFinal] = useState(0);
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -157,6 +163,28 @@ const SinglePlayer = () => {
         method: "POST",
         mode: "cors",
         body: JSON.stringify({ scores: goalToAdd }),
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      window.alert("Something went wrong updating lastname...");
+    } else {
+      dispatch(closeUpdatePlayerGoalModal());
+      history.push("/admin/giocatori");
+    }
+  };
+  const handleUpdatePlayerGoalFinal = async (e) => {
+    const response = await fetch(
+      "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players-goal-final/" +
+        id,
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ scores: goalToAddFinal }),
         cache: "no-cache",
         credentials: "same-origin",
         headers: {
@@ -329,6 +357,29 @@ const SinglePlayer = () => {
           </div>
         </>
       )}
+      {updatePlayerGoalModalFinal && (
+        <>
+          <div className="SinglePlayer__container__overlay" />
+          <div className="SinglePlayer__container__deletePlayerModal">
+            <button
+              className="SinglePlayer__container__deletePlayerModal__close"
+              onClick={() => dispatch(closeUpdatePlayerGoalModalFinal())}
+            >
+              {" "}
+              X{" "}
+            </button>
+            <h2>Goal</h2>
+            <p>Inserisci i goal da aggiungere</p>
+            <input
+              type="number"
+              onChange={(e) => setGoalToAddFinal(e.target.valueAsNumber)}
+            />
+            <button onClick={(e) => handleUpdatePlayerGoalFinal(e)}>
+              Modifica
+            </button>
+          </div>
+        </>
+      )}
       {updatePlayerLogoModal && (
         <>
           <div className="SinglePlayer__container__overlay" />
@@ -407,6 +458,9 @@ const SinglePlayer = () => {
         </button>
         <button onClick={() => dispatch(openUpdatePlayerGoalModal())}>
           Modifica Goal
+        </button>
+        <button onClick={() => dispatch(openUpdatePlayerGoalModalFinal())}>
+          Modifica Goal Final
         </button>
         <input type="file" onChange={(e) => handleFileInputChange(e)} />
         <button onClick={() => dispatch(openDeletePlayerModal())}>
