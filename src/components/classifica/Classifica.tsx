@@ -66,7 +66,7 @@ const Classifica = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://befootballstar.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -88,7 +88,7 @@ const Classifica = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://befootballstar.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
@@ -209,7 +209,11 @@ const Classifica = () => {
                         <p>{team.name}</p>
                       </td>
                       <td>
-                        {girone !== "Finale" ? team.points : team.points_final}
+                        {girone !== "Finale"
+                          ? team.points
+                          : team.points_final
+                          ? team.points_final
+                          : 0}
                       </td>
                       <td>
                         {team.goal_fatti_final !== null &&
@@ -290,7 +294,7 @@ const Classifica = () => {
                         />
                         <p>{team.name}</p>
                       </td>
-                      <td>{team.points_final}</td>
+                      <td>{team.points_final ? team.points_final : 0}</td>
                       <td>{team.vittorie_final ? team.vittorie_final : 0}</td>
                       <td>{team.pareggi_final ? team.pareggi_final : 0}</td>
                       <td>{team.sconfitte_final ? team.sconfitte_final : 0}</td>

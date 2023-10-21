@@ -31,7 +31,7 @@ const ClassificaMarcatori = () => {
   useEffect(() => {
     const getTeams = async () => {
       const response = await fetch(
-        "https://befootballstar.herokuapp.com/teams",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/teams",
         {
           method: "GET",
           mode: "cors",
@@ -53,7 +53,7 @@ const ClassificaMarcatori = () => {
   useEffect(() => {
     const getPlayers = async () => {
       const response = await fetch(
-        "https://befootballstar.herokuapp.com/players",
+        "https://soccer-league12-42ba9ac5d9ae.herokuapp.com/players",
         {
           method: "GET",
           mode: "cors",
